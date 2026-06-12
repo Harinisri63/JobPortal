@@ -1,0 +1,22 @@
+TABLE_NAME                                                                                                                      
+--------------------------------------------------------------------------------------------------------------------------------
+JobSkills                                                                                                                       
+CandidateSkills                                                                                                                 
+Applications                                                                                                                    
+Education                                                                                                                       
+WorkExperience                                                                                                                  
+Projects                                                                                                                        
+SavedJobs                                                                                                                       
+Certificates                                                                                                                    
+Feedback                                                                                                                        
+Interviews                                                                                                                      
+Users                                                                                                                           
+Notifications                                                                                                                   
+JobSeekerProfiles                                                                                                               
+Resumes                                                                                                                         
+Complaints                                                                                                                      
+Skills                                                                                                                          
+CompanyProfiles                                                                                                                 
+JobListings                                                                                                                     
+
+(18 rows affected)
