@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Content Management - ProPath Admin</title>
+  <link rel="shortcut icon" href="../assets/Image/propath_small_icon.png" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #0A4BD2; --primary-dark: #0840b8;
+      --bg: #F1F5FF; --border: #E2E8F0;
+      --text-main: #1E293B; --text-muted: #64748B;
+      --sw: 200px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text-main); display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width: var(--sw); background: var(--primary); display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; padding: 14px 10px; overflow: hidden; }
+    .s-logo  { background: #fff; border-radius: 9px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-shrink: 0; text-decoration: none; }
+    .s-logo span { font-weight: 800; color: var(--primary); font-size: 0.82rem; }
+    .s-logo img  { width: 22px; height: 22px; }
+    .s-nav { flex: 1; overflow-y: auto; overflow-x: hidden; }
+    .s-nav::-webkit-scrollbar { width: 3px; }
+    .s-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
+    .s-nav ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+    .s-nav li a { display: block; text-align: center; padding: 8px 10px; color: var(--primary); background: #fff; text-decoration: none; font-weight: 600; font-size: 0.7rem; border-radius: 7px; transition: background 0.2s; }
+    .s-nav li a:hover, .s-nav li a.active { background: #C7D7FF; }
+    .s-footer { flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+    .s-footer a { display: block; text-align: center; padding: 8px 10px; color: var(--primary); background: #fff; text-decoration: none; font-weight: 600; font-size: 0.7rem; border-radius: 7px; }
+
+    /* ── MAIN ── */
+    .main { margin-left: var(--sw); flex: 1; display: flex; flex-direction: column; }
+
+    /* ── TOP BAR ── */
+    .topbar { background: var(--primary); display: flex; align-items: center; justify-content: space-between; padding: 10px 24px; position: sticky; top: 0; z-index: 50; }
+    .topbar .ttl { font-size: 0.9rem; font-weight: 700; color: #fff; }
+    .topbar .srch { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 30px; padding: 5px 16px; flex: 0 0 300px; }
+    .topbar .srch input { background: none; border: none; outline: none; color: #fff; font-size: 0.75rem; width: 100%; font-family: 'Poppins', sans-serif; }
+    .topbar .srch input::placeholder { color: rgba(255,255,255,0.7); }
+    .topbar .acts { display: flex; align-items: center; gap: 12px; color: #fff; }
+    .admin-badge { background: #fff; color: var(--primary); font-weight: 700; font-size: 0.7rem; padding: 5px 14px; border-radius: 20px; }
+
+    /* ── BODY ── */
+    .body-wrap { padding: 20px 22px; display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
+    .left-col { display: flex; flex-direction: column; gap: 20px; }
+
+    /* ── METRICS ── */
+    .metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .metric-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+    .metric-card .lbl { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+    .metric-card .val { font-size: 1.3rem; font-weight: 800; color: var(--text-main); }
+    .metric-card .sub { font-size: 0.65rem; font-weight: 600; margin-top: 4px; }
+    .trend-up { color: #22C55E; }
+    .trend-down { color: #EF4444; }
+
+    /* ── TABS ── */
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 10px; }
+    .tab-btn {
+      background: none; border: none; border-bottom: 2px solid transparent;
+      padding: 8px 12px; margin-bottom: -2px;
+      font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--primary); }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ── FILTERS ── */
+    .filter-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+    .fil-search { display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 8px; padding: 5px 12px; background: #fff; flex: 1; min-width: 150px; }
+    .fil-search input { border: none; outline: none; font-size: 0.7rem; font-family: 'Poppins', sans-serif; width: 100%; }
+    .fil-group { display: flex; flex-direction: column; gap: 2px; }
+    .fil-group label { font-size: 0.55rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 1px; }
+    .fil-sel { border: 1px solid var(--border); border-radius: 7px; padding: 5px 8px; font-size: 0.7rem; font-family: 'Poppins', sans-serif; background: #fff; outline: none; cursor: pointer; }
+    .btn-filter-action { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 5px 12px; font-size: 0.7rem; font-weight: 600; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: 'Poppins', sans-serif; }
+    .btn-reset-action { background: var(--primary); border: none; border-radius: 7px; padding: 5px 12px; font-size: 0.7rem; font-weight: 600; color: #fff; cursor: pointer; font-family: 'Poppins', sans-serif; }
+
+    /* ── CARD & TABLE ── */
+    .card { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .card-hdr { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .card-title { font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
+    
+    .cms-table { width: 100%; border-collapse: collapse; }
+    .cms-table thead th { padding: 10px 14px; font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-align: left; border-bottom: 1px solid var(--border); text-transform: uppercase; }
+    .cms-table tbody td { padding: 10px 14px; font-size: 0.73rem; color: var(--text-main); border-bottom: 1px solid #F1F5FF; vertical-align: middle; }
+    .cms-table tbody tr:hover { background: #F8FAFC; }
+    .cms-table tbody tr:last-child td { border-bottom: none; }
+    .cms-title-cell { font-weight: 600; color: var(--text-main); }
+    
+    .status-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.62rem; font-weight: 700; }
+    .status-published { background: #DCFCE7; color: #15803D; }
+    .status-pending   { background: #FEF3C7; color: #D97706; }
+    .status-draft     { background: #F1F5FF; color: #6366F1; }
+    .status-scheduled { background: #E0F2FE; color: #0369A1; }
+
+    .action-icons { display: flex; gap: 8px; }
+    .action-icons button { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.75rem; }
+    .action-icons button:hover { color: var(--primary); }
+
+    /* Pagination */
+    .pg-row { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 12px 0; border-top: 1px solid var(--border); }
+    .pg-row button { background: none; border: none; cursor: pointer; font-size: 0.7rem; font-weight: 600; color: var(--text-muted); padding: 4px 8px; }
+    .pg-row button.pg-active { background: var(--primary); color: #fff; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 5px; padding: 0; }
+
+    /* Permissions and Stats Split Cards */
+    .split-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .perm-table { width: 100%; border-collapse: collapse; }
+    .perm-table th { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; padding: 8px 10px; border-bottom: 1.5px solid var(--border); text-align: left; }
+    .perm-table td { font-size: 0.72rem; padding: 8px 10px; border-bottom: 1px solid #F1F5FF; }
+    .perm-check { color: #22C55E; font-size: 0.85rem; }
+
+    .stat-list { display: flex; flex-direction: column; gap: 12px; }
+    .stat-item { display: flex; align-items: center; gap: 12px; }
+    .stat-icon { width: 34px; height: 34px; border-radius: 8px; background: #F1F5FF; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 0.95rem; }
+    .stat-details { flex: 1; }
+    .stat-name { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
+    .stat-val  { font-size: 0.78rem; font-weight: 700; color: var(--text-main); }
+    .stat-change { font-size: 0.65rem; font-weight: 600; text-align: right; }
+
+    .two-cols-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .chart-box { height: 180px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.72rem; }
+
+    /* Recent Content Activity */
+    .activity-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .activity-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; }
+    .activity-txt { color: var(--text-main); }
+    .activity-time { font-size: 0.65rem; color: var(--text-muted); }
+
+    /* Portal Wide Admin Controls & Backup & Recovery */
+    .footer-grids { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 16px; margin-top: 20px; }
+    .grid-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .gc-hdr { font-size: 0.78rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.02em; }
+    .btn-grid-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .btn-ga { background: #fff; border: 1.5px solid var(--border); border-radius: 8px; padding: 8px; font-size: 0.7rem; font-weight: 600; color: var(--text-main); cursor: pointer; text-align: center; }
+    .btn-ga:hover { border-color: var(--primary); color: var(--primary); }
+
+    .backup-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F1F5FF; padding: 8px 0; }
+    .backup-item:last-child { border-bottom: none; }
+    .backup-lbl { font-size: 0.72rem; font-weight: 600; color: var(--text-main); }
+    .backup-lbl span { font-size: 0.62rem; color: var(--text-muted); display: block; font-weight: 400; }
+    .btn-bk-action { background: var(--primary); border: none; border-radius: 6px; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; color: #fff; cursor: pointer; }
+    .btn-bk-outline { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; color: var(--text-main); cursor: pointer; }
+
+    .help-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+    .help-item i { color: var(--primary); font-size: 0.9rem; }
+    .help-title-link { font-size: 0.72rem; font-weight: 600; color: var(--text-main); text-decoration: none; }
+    .help-title-link span { font-size: 0.62rem; color: var(--text-muted); display: block; font-weight: 400; }
+
+    /* ── RIGHT COLUMN: SIDE EDITOR PANEL ── */
+    .editor-panel { background: #fff; border: 1px solid var(--border); border-radius: 10px; position: sticky; top: 20px; }
+    .ep-hdr { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .ep-title { font-size: 0.85rem; font-weight: 800; color: var(--text-main); }
+    .ep-close { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 1rem; }
+    .ep-tabs { display: flex; border-bottom: 1px solid var(--border); background: #F8FAFC; }
+    .ep-tab-btn { flex: 1; background: none; border: none; padding: 10px; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; }
+    .ep-tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    
+    .ep-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; max-height: calc(100vh - 180px); overflow-y: auto; }
+    .ep-body::-webkit-scrollbar { width: 3px; }
+    .ep-body::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 2px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-size: 0.7rem; font-weight: 700; color: var(--text-main); }
+    .form-group label span { color: #EF4444; }
+    .form-input {
+      border: 1.5px solid var(--border); border-radius: 8px; padding: 8px 12px;
+      font-size: 0.75rem; font-family: 'Poppins', sans-serif; color: var(--text-main);
+      outline: none; background: #fff;
+    }
+    .form-input:focus { border-color: var(--primary); }
+    
+    .img-upload-box {
+      border: 1.5px dashed var(--border); border-radius: 8px; padding: 14px; text-align: center;
+      background: #F8FAFC; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .img-upload-box i { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 6px; }
+    .img-upload-box p { font-size: 0.68rem; color: var(--text-main); margin-bottom: 4px; }
+    .img-upload-box span { font-size: 0.58rem; color: var(--text-muted); }
+    .btn-upload { background: #E2E8F0; border: none; border-radius: 6px; padding: 4px 10px; font-size: 0.65rem; font-weight: 600; color: var(--text-main); margin-top: 6px; }
+
+    .rich-editor { border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .re-toolbar { background: #F8FAFC; border-bottom: 1px solid var(--border); padding: 5px 8px; display: flex; gap: 8px; }
+    .re-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.7rem; font-weight: 700; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+    .re-btn:hover { color: var(--text-main); }
+    .re-content { min-height: 80px; padding: 10px; font-size: 0.75rem; outline: none; background: #fff; }
+
+    .ep-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: center; }
+    .btn-pub { background: var(--primary); color: #fff; border: none; border-radius: 7px; padding: 7px 18px; font-size: 0.72rem; font-weight: 700; cursor: pointer; }
+    .btn-pub:hover { background: var(--primary-dark); }
+    .btn-draft { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 7px 14px; font-size: 0.72rem; font-weight: 600; color: var(--text-main); cursor: pointer; }
+    .btn-draft:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-can { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 7px 14px; font-size: 0.72rem; font-weight: 600; color: var(--text-main); cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <a class="s-logo" href="../features/User/admin.html">
+    <img src="../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+    <ul>
+      <li><a href="../features/User/admin.html">Dashboard</a></li>
+      <li><a href="../features/usermanagement/usermanagement.html">User Management</a></li>
+      <li><a href="../features/jobmanagement/jobmanagement.html">Job Management</a></li>
+      <li><a href="../features/applications/applications.html">Applications</a></li>
+      <li><a href="../features/contentmanagement/contentmanagement.html" class="active">Content Management</a></li>
+      <li><a href="#">Interviews</a></li>
+      <li><a href="#">Reports &amp; Analytics</a></li>
+      <li><a href="#">Complaints</a></li>
+      <li><a href="../features/notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+      <li><a href="#">Backup &amp; Recovery</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="#">Help Center</a>
+    <a href="../features/index.html">Logout</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl">Content Management</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search"/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body-wrap">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+
+      <!-- Top Row Subtitle / Banner -->
+      <div style="background: linear-gradient(135deg, var(--primary), #3B82F6); border-radius: 12px; padding: 16px 20px; color: #fff; margin-bottom: 5px;">
+        <div style="font-size: 0.95rem; font-weight: 800; margin-bottom: 2px;">Content Management</div>
+        <div style="font-size: 0.72rem; opacity: 0.85;">Manage all portal content, articles, guide, FAQ and settings with full control.</div>
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="lbl">Total Content</div>
+          <div class="val">240</div>
+          <div class="sub trend-up">+12.5% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Published</div>
+          <div class="val">182</div>
+          <div class="sub trend-up">+8.3% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Drafts</div>
+          <div class="val">38</div>
+          <div class="sub trend-down">-4.1% vs last 30 days</div>
+        </div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="lbl">Pending Review</div>
+          <div class="val">16</div>
+          <div class="sub trend-up">+15.8% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Scheduled</div>
+          <div class="val">22</div>
+          <div class="sub trend-up">+9.2% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Trash</div>
+          <div class="val">8</div>
+          <div class="sub trend-down">-33.3% vs last 30 days</div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this, '')">All Content</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Article')">Articles/Blog</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Guide')">Job Guides</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Case Study')">Case Studies</button>
+        <button class="tab-btn" onclick="switchTab(this, 'FAQ')">FAQs</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Media')">Media</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Announcement')">Announcement</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Page')">Pages</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Settings')">Settings</button>
+      </div>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="fil-search">
+          <i class="fa-solid fa-magnifying-glass" style="color:var(--text-muted);"></i>
+          <input type="text" id="cms-search" placeholder="Search content by Title/type..." oninput="applyFilters()"/>
+        </div>
+        <div class="fil-group">
+          <label>Content Type</label>
+          <select class="fil-sel" id="fil-type" onchange="applyFilters()">
+            <option value="">All Types</option>
+            <option>Article</option><option>Guide</option><option>Case Study</option><option>FAQ</option>
+          </select>
+        </div>
+        <div class="fil-group">
+          <label>Category</label>
+          <select class="fil-sel" id="fil-category" onchange="applyFilters()">
+            <option value="">All Category</option>
+            <option>Career Tips</option><option>Skills</option><option>Job Search</option><option>Insights</option><option>Interview Preparation</option>
+          </select>
+        </div>
+        <div class="fil-group">
+          <label>Status</label>
+          <select class="fil-sel" id="fil-status" onchange="applyFilters()">
+            <option value="">All Status</option>
+            <option>Published</option><option>Pending Review</option><option>Draft</option><option>Scheduled</option>
+          </select>
+        </div>
+        <div class="fil-group">
+          <label>Author</label>
+          <select class="fil-sel" id="fil-author" onchange="applyFilters()">
+            <option value="">All Authors</option>
+            <option>Admin</option><option>HR Team</option><option>Tech Lead</option>
+          </select>
+        </div>
+        <button class="btn-filter-action" onclick="applyFilters()"><i class="fa-solid fa-sliders"></i> Filters</button>
+        <button class="btn-reset-action" onclick="resetFilters()">Reset Filter</button>
+      </div>
+
+      <!-- CMS LIST TABLE CARD -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">All Content Overview</div>
+          <button class="btn-create" onclick="clearEditor()"><i class="fa-solid fa-plus"></i> Create Article</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="cms-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Updated On</th>
+                <th>Views</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cms-tbody"></tbody>
+          </table>
+        </div>
+        <div class="pg-row">
+          <button>← Previous</button>
+          <button class="pg-active">1</button>
+          <button>2</button>
+          <button>3</button>
+          <span class="pg-dots">…</span>
+          <button>67</button>
+          <button>68</button>
+          <button>Next →</button>
+        </div>
+      </div>
+
+      <!-- PERMISSIONS & STATS SPLIT CARDS -->
+      <div class="split-row">
+        <!-- Content Management Permissions -->
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Content Management permissions</div>
+          </div>
+          <div style="padding:14px 18px;">
+            <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:12px;">Control what admin can do across the portal.</div>
+            <table class="perm-table">
+              <thead>
+                <tr>
+                  <th>Permission</th>
+                  <th>Admin</th>
+                  <th>Viewer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Create Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                </tr>
+                <tr>
+                  <td>Edit Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                </tr>
+                <tr>
+                  <td>Delete Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Publish/ Unpublish</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Schedule Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Manage Categories</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Site setting access</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>View Reports</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Content Statistics -->
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Content Statistics (Last 30 Days)</div>
+            <a href="#" style="font-size:0.72rem;font-weight:700;color:var(--primary);text-decoration:none;">View Report</a>
+          </div>
+          <div style="padding:14px 18px;">
+            <div class="stat-list">
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-regular fa-eye"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Total Views</div>
+                  <div class="stat-val">26,440</div>
+                </div>
+                <div class="stat-change trend-up">+18.6%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Total Users Engaged</div>
+                  <div class="stat-val">12,980</div>
+                </div>
+                <div class="stat-change trend-up">+14.2%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-regular fa-clock"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Avg. Read Time</div>
+                  <div class="stat-val">04:36 mins</div>
+                </div>
+                <div class="stat-change trend-up">+6.8%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Bounce Rate</div>
+                  <div class="stat-val">28.4%</div>
+                </div>
+                <div class="stat-change trend-down">-4.3%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHARTS SPLIT CARD PLACEHOLDERS -->
+      <div class="two-cols-charts">
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Content by Status</div></div>
+          <div class="chart-box" id="status-chart-placeholder">
+            <!-- conics chart placeholder -->
+            <div style="width:110px;height:110px;border-radius:50%;background:conic-gradient(var(--primary) 70%, #FEB900 70% 88%, #6366F1 88%);"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Content by Type</div></div>
+          <div class="chart-box" id="type-chart-placeholder">
+            <div style="width:110px;height:110px;border-radius:50%;background:conic-gradient(#10B981 40%, #065F46 40% 75%, #0EA5E9 75%);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT CONTENT ACTIVITY -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">Recent Content Activity</div>
+        </div>
+        <div style="padding:16px 18px;">
+          <ul class="activity-list">
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "How to Prepare for a Technical Interview" updated and republished.</span>
+              <span class="activity-time">12 May 2025  10:30 AM</span>
+            </li>
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "Job search Strategies for Freshers" submitted for review.</span>
+              <span class="activity-time">07 May 2025  09:15 AM</span>
+            </li>
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "Top 10 in - demand IT industry" draft created.</span>
+              <span class="activity-time">10 May 2025  04:45 PM</span>
+            </li>
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "Salary trends in IT industry" draft created.</span>
+              <span class="activity-time">06 May 2025  11:20 AM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN (EDITOR SIDE PANEL) -->
+    <div class="editor-panel">
+      <div class="ep-hdr">
+        <div class="ep-title" id="editor-action-title">Create / Edit CMS Article or Post</div>
+        <button class="ep-close" onclick="clearEditor()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="ep-tabs">
+        <button class="ep-tab-btn active">Basic Info</button>
+        <button class="ep-tab-btn">SEO &amp; Settings</button>
+      </div>
+      <div class="ep-body">
+        <input type="hidden" id="edit-id" value=""/>
+        <div class="form-group">
+          <label>Content Title <span>*</span></label>
+          <input type="text" class="form-input" id="cms-title" placeholder="e.g. How to prepare for a technical interview"/>
+        </div>
+        <div class="form-group">
+          <label>Content Type <span>*</span></label>
+          <select class="form-input" id="cms-type">
+            <option value="" disabled selected>Select Content Type</option>
+            <option>Article</option>
+            <option>Guide</option>
+            <option>Case Study</option>
+            <option>FAQ</option>
+            <option>Announcement</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Category <span>*</span></label>
+          <select class="form-input" id="cms-category">
+            <option value="" disabled selected>Select Category</option>
+            <option>Career Tips</option>
+            <option>Skills</option>
+            <option>Job Search</option>
+            <option>Insights</option>
+            <option>Interview Preparation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Author <span>*</span></label>
+          <select class="form-input" id="cms-author">
+            <option value="" disabled selected>Select author</option>
+            <option>Admin</option>
+            <option>HR Team</option>
+            <option>Tech Lead</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status <span>*</span></label>
+          <select class="form-input" id="cms-status">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Pending Review</option>
+            <option>Scheduled</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Featured Image</label>
+          <div class="img-upload-box">
+            <i class="fa-regular fa-image"></i>
+            <p>Drag &amp; Drop Image here</p>
+            <span>or</span>
+            <button class="btn-upload">Upload Image</button>
+            <span style="margin-top:6px;font-size:0.55rem;">Recommended size : 1200 x 630 px</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-input" id="cms-desc" placeholder="Enter short description here.."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Content Body <span>*</span></label>
+          <div class="rich-editor">
+            <div class="re-toolbar">
+              <button class="re-btn"><b>B</b></button>
+              <button class="re-btn"><i>I</i></button>
+              <button class="re-btn"><u>U</u></button>
+              <button class="re-btn"><i class="fa-solid fa-heading"></i></button>
+              <button style="margin-left:auto;" class="re-btn"><i class="fa-solid fa-list-ul"></i></button>
+              <button class="re-btn"><i class="fa-solid fa-link"></i></button>
+              <button class="re-btn"><i class="fa-solid fa-image"></i></button>
+            </div>
+            <div class="re-content" contenteditable="true" id="cms-body-content">Write your content here...</div>
+          </div>
+        </div>
+      </div>
+      <div class="ep-footer">
+        <button class="btn-pub" onclick="saveContent()">Publish Now</button>
+        <button class="btn-draft" onclick="saveContent(true)">Save as Draft</button>
+        <button class="btn-can" onclick="clearEditor()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER GRID SECTION -->
+  <div class="footer-grids" style="padding: 0 22px 20px;">
+    <!-- Portal Wide Admin Controls -->
+    <div class="grid-card">
+      <div class="gc-hdr">Portal Wide Admin Controls</div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-bottom:12px;">Global actions to manage entire portal content and structure</div>
+      <div class="btn-grid-actions">
+        <button class="btn-ga">Bulk Upload</button>
+        <button class="btn-ga">Bulk Delete</button>
+        <button class="btn-ga">Export Content</button>
+      </div>
+      <div class="btn-grid-actions" style="grid-template-columns: 1.2fr 1fr;">
+        <button class="btn-ga">Import Content</button>
+        <button class="btn-ga"><i class="fa-regular fa-trash-can me-1"></i> Recycle Bin</button>
+      </div>
+    </div>
+
+    <!-- Backup & Recovery -->
+    <div class="grid-card">
+      <div class="gc-hdr">Backup &amp; Recovery</div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-bottom:12px;">Protect your content and portal data.</div>
+      <div class="backup-item">
+        <div class="backup-lbl">Create Back UP<span>Full Portal Backup</span></div>
+        <button class="btn-bk-action">Backup Now</button>
+      </div>
+      <div class="backup-item">
+        <div class="backup-lbl">Schedule Backup<span>Automate regular backups</span></div>
+        <button class="btn-bk-outline">Configure</button>
+      </div>
+      <div class="backup-item">
+        <div class="backup-lbl">Restore Portal<span>Restore from previous backups</span></div>
+        <button class="btn-bk-outline">Restore</button>
+      </div>
+    </div>
+
+    <!-- Help center Quick Access -->
+    <div class="grid-card">
+      <div class="gc-hdr">Help center Quick Access</div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-bottom:12px;">Manage help Articles &amp; support resources.</div>
+      <div class="help-item">
+        <i class="fa-regular fa-file-lines"></i>
+        <a href="#" class="help-title-link">Manage Help Articles<span>Create &amp; Manage help content</span></a>
+      </div>
+      <div class="help-item">
+        <i class="fa-regular fa-comments"></i>
+        <a href="#" class="help-title-link">Manage FAQs<span>Update frequently asked questions</span></a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-msg" id="toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #15803D; color: #fff; padding: 10px 24px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; z-index: 1100; box-shadow: 0 6px 20px rgba(0,0,0,0.15); display: none;"></div>
+
+<script>
+  // ── DATA MODEL ──
+  let articles = [
+    { id: 1, title: 'How to prepare for a technical interview', type: 'Article', category: 'Career Tips', status: 'Published', date: '12 May 2025', views: '2,450', author: 'Admin', desc: 'A comprehensive guide on cracking coding tests and design rounds.', body: 'Start preparing early. Build project portfolios...' },
+    { id: 2, title: 'Top 10 In-Demand skills in 2025', type: 'Article', category: 'Skills', status: 'Published', date: '10 May 2025', views: '1,990', author: 'Tech Lead', desc: 'An insight into what companies look for.', body: 'AI/ML engineering, advanced DevOps pipelines...' },
+    { id: 3, title: 'Resume Building Guide', type: 'Guide', category: 'Job Search', status: 'Published', date: '09 May 2025', views: '3,210', author: 'HR Team', desc: 'Crafting the ultimate standard ATS friendly resume.', body: 'Always list quantifiable contributions...' },
+    { id: 4, title: 'Job search Strategies for freshers', type: 'Article', category: 'Career Tips', status: 'Pending Review', date: '08 May 2025', views: '980', author: 'HR Team', desc: 'Leveraging portals, references, and platforms.', body: 'Optimize profiles, connect with key hiring managers...' },
+    { id: 5, title: 'Salary Trends in IT Industry', type: 'Case Study', category: 'Insights', status: 'Draft', date: '06 May 2025', views: '-', author: 'Admin', desc: 'A compensation analysis across different tech hubs.', body: 'Remote roles show salary convergence...' },
+    { id: 6, title: 'Interview Questions - Frontend Developer', type: 'Article', category: 'Interview Preparation', status: 'Scheduled', date: '15 May 2025', views: '-', author: 'Tech Lead', desc: 'Common React, JS, and HTML5 questions.', body: 'Cover closures, hooks, Virtual DOM...' },
+  ];
+
+  let selectedTabFilter = '';
+
+  // ── RENDER FUNCTION ──
+  function getStatusClass(s) {
+    if (s === 'Published') return 'status-published';
+    if (s === 'Pending Review') return 'status-pending';
+    if (s === 'Scheduled') return 'status-scheduled';
+    return 'status-draft';
+  }
+
+  function renderTable(data) {
+    const tbody = document.getElementById('cms-tbody');
+    if (!data.length) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);">No contents found matching filters.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = data.map(a => `
+      <tr onclick="loadArticleToEditor(${a.id})">
+        <td class="cms-title-cell">${a.title}</td>
+        <td>${a.type}</td>
+        <td>${a.category}</td>
+        <td><span class="status-badge ${getStatusClass(a.status)}">${a.status}</span></td>
+        <td style="white-space:nowrap;">${a.date}</td>
+        <td>${a.views}</td>
+        <td>
+          <div class="action-icons" onclick="event.stopPropagation()">
+            <button title="View" onclick="viewArticle(${a.id})"><i class="fa-regular fa-eye"></i></button>
+            <button title="Edit" onclick="loadArticleToEditor(${a.id})"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button title="Delete" onclick="deleteArticle(${a.id})"><i class="fa-regular fa-trash-can"></i></button>
+            <button title="More"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ── LOAD / EDIT ──
+  function loadArticleToEditor(id) {
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+
+    document.getElementById('editor-action-title').textContent = 'Edit CMS Article or Post';
+    document.getElementById('edit-id').value = a.id;
+    document.getElementById('cms-title').value = a.title;
+    document.getElementById('cms-type').value = a.type;
+    document.getElementById('cms-category').value = a.category;
+    document.getElementById('cms-author').value = a.author;
+    document.getElementById('cms-status').value = a.status;
+    document.getElementById('cms-desc').value = a.desc;
+    document.getElementById('cms-body-content').innerText = a.body;
+  }
+
+  function clearEditor() {
+    document.getElementById('editor-action-title').textContent = 'Create CMS Article or Post';
+    document.getElementById('edit-id').value = '';
+    document.getElementById('cms-title').value = '';
+    document.getElementById('cms-type').selectedIndex = 0;
+    document.getElementById('cms-category').selectedIndex = 0;
+    document.getElementById('cms-author').selectedIndex = 0;
+    document.getElementById('cms-status').selectedIndex = 0;
+    document.getElementById('cms-desc').value = '';
+    document.getElementById('cms-body-content').innerText = 'Write your content here...';
+  }
+
+  // ── SAVE ──
+  function saveContent(isDraft = false) {
+    const editId = document.getElementById('edit-id').value;
+    const title = document.getElementById('cms-title').value.trim();
+    const type = document.getElementById('cms-type').value;
+    const category = document.getElementById('cms-category').value;
+    const author = document.getElementById('cms-author').value;
+    const status = isDraft ? 'Draft' : document.getElementById('cms-status').value;
+    const desc = document.getElementById('cms-desc').value.trim();
+    const body = document.getElementById('cms-body-content').innerText.trim();
+
+    if (!title || !type || !category || !author || !body) {
+      showToast('Please fill out all required fields marked with *', '#EF4444');
+      return;
+    }
+
+    if (editId) {
+      // Update existing
+      const a = articles.find(x => x.id == editId);
+      if (a) {
+        a.title = title;
+        a.type = type;
+        a.category = category;
+        a.author = author;
+        a.status = status;
+        a.desc = desc;
+        a.body = body;
+        a.date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        showToast('Article updated successfully!', '#15803D');
+      }
+    } else {
+      // Create new
+      const newId = articles.length ? Math.max(...articles.map(x => x.id)) + 1 : 1;
+      articles.unshift({
+        id: newId,
+        title: title,
+        type: type,
+        category: category,
+        status: status,
+        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        views: '0',
+        author: author,
+        desc: desc,
+        body: body
+      });
+      showToast('New article created successfully!', '#15803D');
+    }
+
+    renderTable(articles);
+    clearEditor();
+  }
+
+  // ── DELETE ──
+  function deleteArticle(id) {
+    if (confirm('Are you sure you want to delete this article?')) {
+      articles = articles.filter(x => x.id !== id);
+      renderTable(articles);
+      showToast('Article deleted successfully!', '#EF4444');
+    }
+  }
+
+  // ── VIEW ──
+  function viewArticle(id) {
+    const a = articles.find(x => x.id === id);
+    if (a) {
+      alert(`Title: ${a.title}\nCategory: ${a.category}\nAuthor: ${a.author}\nDescription: ${a.desc}\nBody: ${a.body}`);
+    }
+  }
+
+  // ── FILTERS & TABS ──
+  function switchTab(btn, filter) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedTabFilter = filter;
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const q = document.getElementById('cms-search').value.toLowerCase();
+    const type = document.getElementById('fil-type').value;
+    const cat = document.getElementById('fil-category').value;
+    const status = document.getElementById('fil-status').value;
+    const author = document.getElementById('fil-author').value;
+
+    const data = articles.filter(a =>
+      (!q || a.title.toLowerCase().includes(q) || a.type.toLowerCase().includes(q)) &&
+      (!type || a.type === type) &&
+      (!cat || a.category === cat) &&
+      (!status || a.status === status) &&
+      (!author || a.author === author) &&
+      (!selectedTabFilter || a.type === selectedTabFilter)
+    );
+    renderTable(data);
+  }
+
+  function resetFilters() {
+    document.getElementById('cms-search').value = '';
+    document.getElementById('fil-type').selectedIndex = 0;
+    document.getElementById('fil-category').selectedIndex = 0;
+    document.getElementById('fil-status').selectedIndex = 0;
+    document.getElementById('fil-author').selectedIndex = 0;
+    selectedTabFilter = '';
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.tab-btn').classList.add('active');
+    renderTable(articles);
+  }
+
+  function showToast(msg, bg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.style.background = bg;
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 3000);
+  }
+
+  // ── INITIALIZE ──
+  renderTable(articles);
+</script>
+</body>
+</html>

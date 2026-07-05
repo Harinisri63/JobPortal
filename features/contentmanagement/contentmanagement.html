@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Content Management - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="contentmanagement.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <a class="s-logo" href="../admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+    <ul>
+      <li><a href="../User/admin.html">Dashboard</a></li>
+      <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+      <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+      <li><a href="../applications/applications.html">Applications</a></li>
+      <li><a href="../contentmanagement/contentmanagement.html" class="active">Content Management</a></li>
+      <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+      <li><a href="../reports/reports.html">Reports &amp; Analytics</a></li>
+      <li><a href="../complaints/complaints.html">Complaints</a></li>
+      <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+      <li><a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a></li>
+      <li><a href="../settings/admin_settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../admin_helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl">Content Management</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search"/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+            <!-- BODY -->
+  <div class="body-wrap">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+
+      <!-- Top Row Subtitle / Banner -->
+      <div class="d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, var(--primary), #3B82F6); border-radius: 12px; padding: 16px 20px; color: #fff; margin-bottom: 5px;">
+        <div>
+          <div style="font-size: 0.95rem; font-weight: 800; margin-bottom: 2px;">Content Management</div>
+          <div style="font-size: 0.72rem; opacity: 0.85;">Manage all portal content, articles, guide, FAQ and settings with full control.</div>
+        </div>
+        <button class="btn btn-light btn-sm fw-bold" onclick="document.querySelectorAll('.tabs button')[8].click();" style="color: var(--primary); border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 0.8rem;">
+          <i class="fa-solid fa-pen-to-square me-1"></i> Edit Landing Page
+        </button>
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="lbl">Total Content</div>
+          <div class="val">240</div>
+          <div class="sub trend-up">+12.5% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Published</div>
+          <div class="val">182</div>
+          <div class="sub trend-up">+8.3% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Drafts</div>
+          <div class="val">38</div>
+          <div class="sub trend-down">-4.1% vs last 30 days</div>
+        </div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="lbl">Pending Review</div>
+          <div class="val">16</div>
+          <div class="sub trend-up">+15.8% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Scheduled</div>
+          <div class="val">22</div>
+          <div class="sub trend-up">+9.2% vs last 30 days</div>
+        </div>
+        <div class="metric-card">
+          <div class="lbl">Trash</div>
+          <div class="val">8</div>
+          <div class="sub trend-down">-33.3% vs last 30 days</div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this, '')">All Content</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Article')">Articles/Blog</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Guide')">Job Guides</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Case Study')">Case Studies</button>
+        <button class="tab-btn" onclick="switchTab(this, 'FAQ')">FAQs</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Media')">Media</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Announcement')">Announcement</button>
+        <button class="tab-btn" onclick="switchTab(this, 'Page')">Pages</button>
+        <button class="tab-btn" onclick="switchTab(this, 'LandingPages')">Landing Page</button>
+<button class="tab-btn" onclick="switchTab(this, 'Settings')">Settings</button>
+      </div>
+
+      <div id="cms-main-view">
+<!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="fil-search">
+          <i class="fa-solid fa-magnifying-glass" style="color:var(--text-muted);"></i>
+          <input type="text" id="cms-search" placeholder="Search content by Title/type..." oninput="applyFilters()"/>
+        </div>
+        <div class="fil-group">
+          <label>Content Type</label>
+          <select class="fil-sel" id="fil-type" onchange="applyFilters()">
+            <option value="">All Types</option>
+            <option>Article</option><option>Guide</option><option>Case Study</option><option>FAQ</option>
+          </select>
+        </div>
+        <div class="fil-group">
+          <label>Category</label>
+          <select class="fil-sel" id="fil-category" onchange="applyFilters()">
+            <option value="">All Category</option>
+            <option>Career Tips</option><option>Skills</option><option>Job Search</option><option>Insights</option><option>Interview Preparation</option>
+          </select>
+        </div>
+        <div class="fil-group">
+          <label>Status</label>
+          <select class="fil-sel" id="fil-status" onchange="applyFilters()">
+            <option value="">All Status</option>
+            <option>Published</option><option>Pending Review</option><option>Draft</option><option>Scheduled</option>
+          </select>
+        </div>
+        <div class="fil-group">
+          <label>Author</label>
+          <select class="fil-sel" id="fil-author" onchange="applyFilters()">
+            <option value="">All Authors</option>
+            <option>Admin</option><option>HR Team</option><option>Tech Lead</option>
+          </select>
+        </div>
+        <button class="btn-filter-action" onclick="applyFilters()"><i class="fa-solid fa-sliders"></i> Filters</button>
+        <button class="btn-reset-action" onclick="resetFilters()">Reset Filter</button>
+      </div>
+
+      <!-- CMS LIST TABLE CARD -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">All Content Overview</div>
+          <button class="btn-create" onclick="openCreateEditor()"><i class="fa-solid fa-plus"></i> Create Article</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="cms-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Updated On</th>
+                <th>Views</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cms-tbody"></tbody>
+          </table>
+        </div>
+        <div class="pg-row" id="pagination-container"></div>
+      </div>
+
+      <!-- PERMISSIONS & STATS SPLIT CARDS -->
+      <div class="split-row">
+        <!-- Content Management Permissions -->
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Content Management permissions</div>
+          </div>
+          <div style="padding:14px 18px;">
+            <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:12px;">Control what admin can do across the portal.</div>
+            <table class="perm-table">
+              <thead>
+                <tr>
+                  <th>Permission</th>
+                  <th>Admin</th>
+                  <th>Viewer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Create Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                </tr>
+                <tr>
+                  <td>Edit Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                </tr>
+                <tr>
+                  <td>Delete Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Publish/ Unpublish</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Schedule Content</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Manage Categories</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Site setting access</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>View Reports</td>
+                  <td><i class="fa-solid fa-circle-check perm-check"></i></td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Content Statistics -->
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">Content Statistics (Last 30 Days)</div>
+            <a href="#" style="font-size:0.72rem;font-weight:700;color:var(--primary);text-decoration:none;">View Report</a>
+          </div>
+          <div style="padding:14px 18px;">
+            <div class="stat-list">
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-regular fa-eye"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Total Views</div>
+                  <div class="stat-val">26,440</div>
+                </div>
+                <div class="stat-change trend-up">+18.6%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Total Users Engaged</div>
+                  <div class="stat-val">12,980</div>
+                </div>
+                <div class="stat-change trend-up">+14.2%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-regular fa-clock"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Avg. Read Time</div>
+                  <div class="stat-val">04:36 mins</div>
+                </div>
+                <div class="stat-change trend-up">+6.8%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                <div class="stat-details">
+                  <div class="stat-name">Bounce Rate</div>
+                  <div class="stat-val">28.4%</div>
+                </div>
+                <div class="stat-change trend-down">-4.3%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHARTS SPLIT CARD PLACEHOLDERS -->
+      <div class="two-cols-charts">
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Content by Status</div></div>
+          <div class="chart-box" id="status-chart-placeholder">
+            <!-- conics chart placeholder -->
+            <div style="width:110px;height:110px;border-radius:50%;background:conic-gradient(var(--primary) 70%, #FEB900 70% 88%, #6366F1 88%);"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Content by Type</div></div>
+          <div class="chart-box" id="type-chart-placeholder">
+            <div style="width:110px;height:110px;border-radius:50%;background:conic-gradient(#10B981 40%, #065F46 40% 75%, #0EA5E9 75%);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT CONTENT ACTIVITY -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">Recent Content Activity</div>
+        </div>
+        <div style="padding:16px 18px;">
+          <ul class="activity-list" id="recent-activity-list">
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "How to Prepare for a Technical Interview" updated and republished.</span>
+              <span class="activity-time">12 May 2025  10:30 AM</span>
+            </li>
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "Job search Strategies for Freshers" submitted for review.</span>
+              <span class="activity-time">07 May 2025  09:15 AM</span>
+            </li>
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "Top 10 in - demand IT industry" draft created.</span>
+              <span class="activity-time">10 May 2025  04:45 PM</span>
+            </li>
+            <li class="activity-item">
+              <span class="activity-txt">&bull; "Salary trends in IT industry" draft created.</span>
+              <span class="activity-time">06 May 2025  11:20 AM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+
+
+<!-- LANDING PAGES VIEW -->
+<div id="landing-pages-view" style="display:none; padding-top: 20px; padding-bottom: 40px; padding-left: 20px; padding-right: 20px;">
+  <div class="card" style="margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div class="card-hdr">
+      <div class="card-title">Manage Landing Page Sections</div>
+      <div>
+        <button class="btn-ga" onclick="previewLandingPageContent()" style="margin-right: 10px;"><i class="fa-solid fa-eye"></i> Preview</button>
+        <button class="btn-create" onclick="saveLandingPageContent()"><i class="fa-solid fa-floppy-disk"></i> Publish Changes</button>
+      </div>
+    </div>
+    <div style="padding: 20px;">
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+        Edit the content for various sections of the landing page below. Basic HTML tags (like &lt;br&gt;, &lt;b&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;) are supported.
+      </p>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-weight: 600; display: block; margin-bottom: 8px;">About Us</label>
+        <textarea id="lp-about" style="width: 100%; height: 100px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-weight: 600; display: block; margin-bottom: 8px;">Contact</label>
+        <textarea id="lp-contact" style="width: 100%; height: 100px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-weight: 600; display: block; margin-bottom: 8px;">Careers</label>
+        <textarea id="lp-careers" style="width: 100%; height: 100px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-weight: 600; display: block; margin-bottom: 8px;">Resources</label>
+        <textarea id="lp-resources" style="width: 100%; height: 100px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-weight: 600; display: block; margin-bottom: 8px;">How We Hire</label>
+        <textarea id="lp-how-we-hire" style="width: 100%; height: 150px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-weight: 600; display: block; margin-bottom: 8px;">Why Join Synergech</label>
+        <textarea id="lp-why-join" style="width: 100%; height: 150px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDITOR MODAL -->
+    <div class="editor-backdrop" id="editor-backdrop" onclick="if(event.target===this) clearEditor()"></div>
+    <div class="editor-panel" id="editor-panel">
+      <div class="ep-hdr">
+        <div style="display:flex; align-items:center; gap: 12px;">
+          <div class="ep-title" id="editor-action-title">Create / Edit CMS Article or Post</div>
+          <span id="editor-badge" style="display:none; font-size: 0.65rem; padding: 4px 8px; border-radius: 6px; font-weight: 700;"></span>
+        </div>
+        <button class="ep-close" onclick="clearEditor()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="ep-tabs">
+        <button class="ep-tab-btn active">Basic Info</button>
+        <button class="ep-tab-btn">SEO &amp; Settings</button>
+      </div>
+      <div class="ep-body">
+        <input type="hidden" id="edit-id" value=""/>
+        <div class="form-group">
+          <label>Content Title <span>*</span></label>
+          <input type="text" class="form-input" id="cms-title" placeholder="e.g. How to prepare for a technical interview"/>
+        </div>
+        <div class="form-group">
+          <label>Content Type <span>*</span></label>
+          <select class="form-input" id="cms-type">
+            <option value="" disabled selected>Select Content Type</option>
+            <option>Article</option>
+            <option>Guide</option>
+            <option>Case Study</option>
+            <option>FAQ</option>
+            <option>Announcement</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Category <span>*</span></label>
+          <select class="form-input" id="cms-category">
+            <option value="" disabled selected>Select Category</option>
+            <option>Career Tips</option>
+            <option>Skills</option>
+            <option>Job Search</option>
+            <option>Insights</option>
+            <option>Interview Preparation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Author <span>*</span></label>
+          <select class="form-input" id="cms-author">
+            <option value="" disabled selected>Select author</option>
+            <option>Admin</option>
+            <option>HR Team</option>
+            <option>Tech Lead</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status <span>*</span></label>
+          <select class="form-input" id="cms-status">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Pending Review</option>
+            <option>Scheduled</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Featured Image</label>
+          <div class="img-upload-box">
+            <i class="fa-regular fa-image"></i>
+            <p>Drag &amp; Drop Image here</p>
+            <span>or</span>
+            <button class="btn-upload">Upload Image</button>
+            <span style="margin-top:6px;font-size:0.55rem;">Recommended size : 1200 x 630 px</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-input" id="cms-desc" placeholder="Enter short description here.."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Content Body <span>*</span></label>
+          <div class="rich-editor">
+            <div class="re-toolbar">
+              <button class="re-btn"><b>B</b></button>
+              <button class="re-btn"><i>I</i></button>
+              <button class="re-btn"><u>U</u></button>
+              <button class="re-btn"><i class="fa-solid fa-heading"></i></button>
+              <button style="margin-left:auto;" class="re-btn"><i class="fa-solid fa-list-ul"></i></button>
+              <button class="re-btn"><i class="fa-solid fa-link"></i></button>
+              <button class="re-btn"><i class="fa-solid fa-image"></i></button>
+            </div>
+            <div class="re-content" contenteditable="true" id="cms-body-content">Write your content here...</div>
+          </div>
+        </div>
+      </div>
+      <div class="ep-footer">
+        <button class="btn-pub" onclick="saveContent()">Publish Now</button>
+        <button class="btn-draft" onclick="saveContent(true)">Save as Draft</button>
+        <button class="btn-can" onclick="clearEditor()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER GRID SECTION -->
+  <div class="footer-grids" style="padding: 0 22px 20px;">
+    <!-- Portal Wide Admin Controls -->
+    <div class="grid-card">
+      <div class="gc-hdr">Portal Wide Admin Controls</div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-bottom:12px;">Global actions to manage entire portal content and structure</div>
+      <div class="btn-grid-actions">
+        <button class="btn-ga" onclick="handleBulkUpload()">Bulk Upload</button>
+        <button class="btn-ga" onclick="handleBulkDelete()">Bulk Delete</button>
+        <button class="btn-ga" onclick="handleExportContent()">Export Content</button>
+      </div>
+      <div class="btn-grid-actions" style="grid-template-columns: 1fr;">
+        <button class="btn-ga" onclick="handleRecycleBin()"><i class="fa-regular fa-trash-can me-1"></i> Recycle Bin</button>
+      </div>
+    </div>
+
+    <!-- Backup & Recovery -->
+    <div class="grid-card">
+      <div class="gc-hdr">Backup &amp; Recovery</div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-bottom:12px;">Protect your content and portal data.</div>
+      <div class="backup-item">
+        <div class="backup-lbl">Create Back UP<span>Full Portal Backup</span></div>
+        <button class="btn-bk-action" onclick="handleBackupNow()">Backup Now</button>
+      </div>
+      <div class="backup-item">
+        <div class="backup-lbl">Schedule Backup<span>Automate regular backups</span></div>
+        <button class="btn-bk-outline" onclick="handleConfigureBackup()">Configure</button>
+      </div>
+      <div class="backup-item">
+        <div class="backup-lbl">Restore Portal<span>Restore from previous backups</span></div>
+        <button class="btn-bk-outline" onclick="handleRestoreBackup()">Restore</button>
+      </div>
+    </div>
+
+    <!-- Help center Quick Access -->
+    <div class="grid-card">
+      <div class="gc-hdr">Help center Quick Access</div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-bottom:12px;">Manage help Articles &amp; support resources.</div>
+      <div class="help-item">
+        <i class="fa-regular fa-file-lines"></i>
+        <a href="javascript:void(0)" class="help-title-link" onclick="openHelpModal('articles')">Manage Help Articles<span>Create &amp; Manage help content</span></a>
+      </div>
+      <div class="help-item">
+        <i class="fa-regular fa-comments"></i>
+        <a href="javascript:void(0)" class="help-title-link" onclick="openHelpModal('faqs')">Manage FAQs<span>Update frequently asked questions</span></a>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<!-- ══ EXPORT CONTENT MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="export-modal-backdrop" onclick="handleExportBackdropClick(event)">
+  <div class="cand-modal" id="export-modal" style="max-width: 520px; border-radius: 20px; padding: 24px 30px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+    
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;">Select Export Format</h4>
+      <button onclick="closeExportModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Body -->
+    <div>
+      <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 20px; line-height: 1.5; text-align: left;">
+        Select the list you want to export:
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;">
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="export-type" id="exp-cand" value="candidate" checked style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0;"/>
+          <i class="fa-solid fa-users" style="color: #0A4BD2; font-size: 1.2rem;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Candidate List</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="export-type" id="exp-job" value="job" style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0;"/>
+          <i class="fa-solid fa-briefcase" style="color: #0A4BD2; font-size: 1.2rem;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Job List</span>
+        </label>
+      </div>
+
+      <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 20px; line-height: 1.5; text-align: left;">
+        Choose your preferred file type format to download:
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;">
+        <!-- PDF Document -->
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; width: 100%; box-sizing: border-box; transition: all 0.2s; text-align: left;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="export-format" id="fmt-pdf" value="pdf" checked style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0; cursor: pointer;"/>
+          <i class="fa-regular fa-file-pdf" style="color: #EF4444; font-size: 1.2rem; margin-left: 4px;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">PDF Document (.pdf)</span>
+        </label>
+
+        <!-- Word Document -->
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; width: 100%; box-sizing: border-box; transition: all 0.2s; text-align: left;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="export-format" id="fmt-docx" value="docx" style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0; cursor: pointer;"/>
+          <i class="fa-regular fa-file-word" style="color: #3B82F6; font-size: 1.2rem; margin-left: 4px;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Word Document (.docx)</span>
+        </label>
+
+        <!-- Excel Spreadsheet -->
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; width: 100%; box-sizing: border-box; transition: all 0.2s; text-align: left;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="export-format" id="fmt-excel" value="excel" style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0; cursor: pointer;"/>
+          <i class="fa-regular fa-file-excel" style="color: #10B981; font-size: 1.2rem; margin-left: 4px;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Excel Spreadsheet (.xlsx)</span>
+        </label>
+      </div>
+
+      <!-- Footer Actions -->
+      <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center;">
+        <button onclick="closeExportModal()" style="background:#64748B; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:background 0.2s;" onmouseover="this.style.background='#475569'" onmouseout="this.style.background='#64748B'">Cancel</button>
+        <button onclick="processExport()" style="background:#0A4BD2; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:background 0.2s;" onmouseover="this.style.background='#0840b8'" onmouseout="this.style.background='#0A4BD2'">Download</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BULK UPLOAD MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="bulk-upload-backdrop" onclick="handleBulkUploadBackdropClick(event)">
+  <div class="cand-modal" id="bulk-upload-modal" style="max-width: 520px; border-radius: 20px; padding: 24px 30px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;">Bulk Upload</h4>
+      <button onclick="closeBulkUploadModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div>
+      <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 20px;">Select the list you want to upload data for:</p>
+      
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 20px;">
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="upload-type" id="up-cand" value="candidate" checked style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0;" onchange="updateTemplateLink()"/>
+          <i class="fa-solid fa-users" style="color: #0A4BD2; font-size: 1.2rem;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Candidate List</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="upload-type" id="up-job" value="job" style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0;" onchange="updateTemplateLink()"/>
+          <i class="fa-solid fa-briefcase" style="color: #0A4BD2; font-size: 1.2rem;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Job List</span>
+        </label>
+      </div>
+
+      <div style="margin-bottom: 28px;">
+        <a id="template-link" href="#" onclick="event.preventDefault(); showToast('Downloading template...', '#0A4BD2')" style="font-size: 0.8rem; font-weight: 700; color: #0A4BD2; text-decoration: underline;"><i class="fa-solid fa-download"></i> Download Candidate List Template</a>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center;">
+        <button onclick="closeBulkUploadModal()" style="background:#64748B; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Cancel</button>
+        <button onclick="triggerBulkUploadFile()" style="background:#0A4BD2; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Select Folder / File</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BULK DELETE MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="bulk-delete-backdrop" onclick="handleBulkDeleteBackdropClick(event)">
+  <div class="cand-modal" id="bulk-delete-modal" style="max-width: 520px; border-radius: 20px; padding: 24px 30px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #EF4444; margin: 0;">Bulk Delete</h4>
+      <button onclick="closeBulkDeleteModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div>
+      <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 20px;">Select the list you want to bulk delete from:</p>
+      
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;">
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#EF4444'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="delete-type" id="del-cand" value="candidate" checked style="width: 18px; height: 18px; accent-color: #EF4444; margin: 0;"/>
+          <i class="fa-solid fa-users" style="color: #EF4444; font-size: 1.2rem;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Candidate List</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#EF4444'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="delete-type" id="del-job" value="job" style="width: 18px; height: 18px; accent-color: #EF4444; margin: 0;"/>
+          <i class="fa-solid fa-briefcase" style="color: #EF4444; font-size: 1.2rem;"></i>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Job List</span>
+        </label>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center;">
+        <button onclick="closeBulkDeleteModal()" style="background:#64748B; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Cancel</button>
+        <button onclick="processBulkDelete()" style="background:#EF4444; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Delete Selected</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RECYCLE BIN MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="recycle-bin-backdrop" onclick="handleRecycleBinBackdropClick(event)">
+  <div class="cand-modal" id="recycle-bin-modal" style="width: 700px; max-width: 90vw; border-radius: 20px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; flex-direction: column;">
+    
+    <!-- Header -->
+    <div style="padding: 24px 30px; border-bottom: 1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;"><i class="fa-solid fa-trash-can" style="color:#EF4444; margin-right:8px;"></i> Recycle Bin</h4>
+      <button onclick="closeRecycleBinModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 24px 30px; overflow-y: auto; flex: 1; max-height: 60vh;">
+      <table class="cms-table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Deleted On</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="recycle-bin-tbody">
+          <!-- dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BACKUP NOW MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="backup-now-backdrop" onclick="handleBackupNowBackdropClick(event)">
+  <div class="cand-modal" id="backup-now-modal" style="max-width: 520px; border-radius: 20px; padding: 24px 30px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;">Backup Now</h4>
+      <button onclick="closeBackupNowModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div>
+      <div style="display:flex; gap:16px; margin-bottom:20px;">
+        <div style="flex:1;">
+          <label style="font-size:0.75rem; font-weight:700; color:#475569; display:block; margin-bottom:6px;">From Date *</label>
+          <input type="date" id="backup-from-date" class="cms-input" style="width:100%; box-sizing:border-box; border:1px solid #E2E8F0; padding:10px 14px; border-radius:8px;">
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:0.75rem; font-weight:700; color:#475569; display:block; margin-bottom:6px;">To Date *</label>
+          <input type="date" id="backup-to-date" class="cms-input" style="width:100%; box-sizing:border-box; border:1px solid #E2E8F0; padding:10px 14px; border-radius:8px;">
+        </div>
+      </div>
+      <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 12px;">Select data to backup:</p>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;">
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="bk-data" value="full" checked style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Full Portal Backup</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="bk-data" value="candidate" style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Candidate List Data</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="bk-data" value="job" style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Job List Data</span>
+        </label>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center;">
+        <button onclick="closeBackupNowModal()" style="background:#64748B; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Cancel</button>
+        <button onclick="processBackupNow()" style="background:#0A4BD2; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Start Backup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONFIGURE BACKUP MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="configure-backup-backdrop" onclick="handleConfigureBackupBackdropClick(event)">
+  <div class="cand-modal" id="configure-backup-modal" style="max-width: 520px; border-radius: 20px; padding: 24px 30px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;">Configure Schedule Backup</h4>
+      <button onclick="closeConfigureBackupModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div>
+      <div style="margin-bottom:20px;">
+        <label style="font-size:0.75rem; font-weight:700; color:#475569; display:block; margin-bottom:6px;">Backup Frequency</label>
+        <select class="cms-select" id="backup-frequency" style="width:100%; box-sizing:border-box; border:1px solid #E2E8F0; padding:10px 14px; border-radius:8px;">
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+      <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 12px;">Select data to backup on schedule:</p>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;">
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="cfg-bk-data" value="full" checked style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Full Portal Backup</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="cfg-bk-data" value="candidate" style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Candidate List Data</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="cfg-bk-data" value="job" style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Job List Data</span>
+        </label>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center;">
+        <button onclick="closeConfigureBackupModal()" style="background:#64748B; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Cancel</button>
+        <button onclick="processConfigureBackup()" style="background:#0A4BD2; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESTORE MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="restore-backdrop" onclick="handleRestoreBackdropClick(event)">
+  <div class="cand-modal" id="restore-modal" style="max-width: 520px; border-radius: 20px; padding: 24px 30px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;">Restore Portal Data</h4>
+      <button onclick="closeRestoreModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div>
+      <div style="margin-bottom:20px;">
+        <label style="font-size:0.75rem; font-weight:700; color:#475569; display:block; margin-bottom:6px;">Select Backup File</label>
+        <select class="cms-select" id="restore-file" style="width:100%; box-sizing:border-box; border:1px solid #E2E8F0; padding:10px 14px; border-radius:8px;">
+          <option value="bk-2025-05-12">bk-2025-05-12_full.zip</option>
+          <option value="bk-2025-05-05">bk-2025-05-05_full.zip</option>
+          <option value="bk-2025-04-28">bk-2025-04-28_candidates.zip</option>
+        </select>
+      </div>
+      <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 12px;">Select data to restore:</p>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;">
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="res-data" value="full" checked style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Full Portal Restore</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="res-data" value="candidate" style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Candidate List Data</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 10px; cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+          <input type="radio" name="res-data" value="job" style="width: 16px; height: 16px; accent-color: #0A4BD2; margin: 0;"/>
+          <span style="font-size: 0.88rem; font-weight: 600; color: #1E293B;">Job List Data</span>
+        </label>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center;">
+        <button onclick="closeRestoreModal()" style="background:#64748B; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Cancel</button>
+        <button onclick="processRestore()" style="background:#0A4BD2; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer;">Start Restore</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VIEW ARTICLE MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="view-article-backdrop" onclick="handleViewArticleBackdropClick(event)">
+  <div class="cand-modal" id="view-article-modal" style="width: 700px; max-width: 90vw; border-radius: 20px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; flex-direction: column;">
+    
+    <!-- Header -->
+    <div style="padding: 24px 30px; border-bottom: 1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
+      <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;"><i class="fa-solid fa-file-lines" style="color:#0A4BD2; margin-right:8px;"></i> Article Details</h4>
+      <button onclick="closeViewArticleModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 24px 30px; overflow-y: auto; flex: 1; max-height: 60vh;">
+      <h2 id="view-title" style="font-size: 1.4rem; font-weight: 800; color: #0F172A; margin: 0 0 10px 0;"></h2>
+      
+      <div style="display:flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; background: #F1F5F9; color: #475569; border-radius: 6px;" id="view-type"></span>
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; background: #F1F5F9; color: #475569; border-radius: 6px;" id="view-category"></span>
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; background: #F1F5F9; color: #475569; border-radius: 6px;"><i class="fa-solid fa-user me-1"></i> <span id="view-author"></span></span>
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; border-radius: 6px;" id="view-status"></span>
+      </div>
+
+      <div style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 8px;">Description</div>
+      <p id="view-desc" style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin: 0 0 20px 0;"></p>
+
+      <div style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 8px;">Body Content</div>
+      <div id="view-body" style="font-size: 0.8rem; color: #475569; line-height: 1.6; background: #F8FAFC; padding: 16px; border-radius: 10px; border: 1px solid #E2E8F0;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HELP MODAL ══════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="help-modal-backdrop" onclick="handleHelpBackdropClick(event)">
+  <div class="cand-modal" id="help-modal" style="width: 600px; max-width: 90vw; border-radius: 16px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; flex-direction: column;">
+    
+    <!-- Header -->
+    <div style="padding: 20px 24px; border-bottom: 1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
+      <h4 style="font-size: 1.15rem; font-weight: 700; color: #0F172A; margin: 0;" id="help-modal-title"><i class="fa-solid fa-circle-info" style="color:#0A4BD2; margin-right:8px;"></i> Help Guide</h4>
+      <button onclick="closeHelpModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 24px; overflow-y: auto; max-height: 60vh;">
+      <div id="help-modal-body" style="font-size: 0.85rem; color: #475569; line-height: 1.6;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-msg" id="toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #15803D; color: #fff; padding: 10px 24px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; z-index: 1100; box-shadow: 0 6px 20px rgba(0,0,0,0.15); display: none;"></div>
+
+<!-- SYSTEM TASK PROGRESS WIDGET -->
+<div id="task-progress-widget" style="position: fixed; bottom: 30px; right: 30px; width: 320px; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); padding: 16px; border: 1px solid #E2E8F0; z-index: 1200; display: none; flex-direction: column; gap: 8px;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <span id="task-progress-title" style="font-size: 0.8rem; font-weight: 700; color: #1E293B;">Backup in progress...</span>
+    <span id="task-progress-percent" style="font-size: 0.75rem; font-weight: 700; color: #0A4BD2;">0%</span>
+  </div>
+  <div style="width: 100%; height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden;">
+    <div id="task-progress-bar" style="height: 100%; width: 0%; background: #0A4BD2; border-radius: 3px; transition: width 0.3s ease;"></div>
+  </div>
+  <div id="task-progress-desc" style="font-size: 0.7rem; color: #64748B;">Preparing data...</div>
+</div>
+
+<script src="contentmanagement.js"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+</body>
+</html>
+

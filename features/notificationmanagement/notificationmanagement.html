@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notification Management - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="notificationmanagement.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<div class="sidebar">
+  <a class="s-logo" href="../User/admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+      <ul>
+          <li><a href="../User/admin.html">Dashboard</a></li>
+          <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+          <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+          <li><a href="../applications/applications.html">Applications</a></li>
+          <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+          <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+          <li><a href="../reports/reports.html">Reports &amp; Analytics</a></li>
+          <li><a href="../complaints/complaints.html">Complaints</a></li>
+          <li><a href="javascript:void(0);" class="active">Notification Management</a></li>
+          <li><a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a></li>
+          <li><a href="../settings/admin_settings.html">Settings</a></li>
+        </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl">Notification Management</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search"/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+
+    <!-- METRICS -->
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="lbl">Total Notifications</div>
+        <div class="val" id="metric-total">1760</div>
+        <div class="sub sub-green">+12.4% vs last 30 days</div>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Sent Notifications</div>
+        <div class="val" id="metric-sent">42</div>
+        <div class="sub sub-green">+8.1% vs last 30 days</div>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Delivered</div>
+        <div class="val" id="metric-delivered">1390</div>
+        <div class="sub sub-green">+10.3% vs last 30 days</div>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Failed Delivered</div>
+        <div class="val" id="metric-failed">8</div>
+        <div class="sub sub-red">-2.1% vs last 30 days</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this, '')">All Notifications</button>
+      <button class="tab-btn" onclick="switchTab(this, 'Job Alert')">Job Alerts</button>
+      <button class="tab-btn" onclick="switchTab(this, 'Application Update')">Application Updates</button>
+      <button class="tab-btn" onclick="switchTab(this, 'Interview')">Interviews</button>
+      <button class="tab-btn" onclick="switchTab(this, 'Offer')">Offers</button>
+      <button class="tab-btn" onclick="switchTab(this, 'Reminder')">Reminders</button>
+      <button class="tab-btn" onclick="switchTab(this, 'System')">System Notification</button>
+      <button class="tab-btn" onclick="switchTab(this, 'Custom')">Custom Templates</button>
+    </div>
+
+    <!-- FILTER ROW -->
+    <div class="filter-row">
+      <div class="filter-search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="ntf-search" placeholder="Search by notification title, type..." oninput="applyFilters()"/>
+      </div>
+      <div class="filter-group">
+        <label>Status</label>
+        <select class="filter-sel" id="fil-status" onchange="applyFilters()">
+          <option value="">All Status</option>
+          <option>Delivered</option><option>Pending</option><option>Failed</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Type</label>
+        <select class="filter-sel" id="fil-type" onchange="applyFilters()">
+          <option value="">All Type</option>
+          <option>Job Alert</option><option>Application Update</option>
+          <option>Interview</option><option>Offer</option><option>Reminder</option><option>System</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Channel</label>
+        <select class="filter-sel" id="fil-channel" onchange="applyFilters()">
+          <option value="">All channel</option>
+          <option>Email</option><option>SMS</option><option>In-App</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Date Range</label>
+        <input type="date" class="filter-sel" id="fil-date" style="min-width:130px;" onchange="applyFilters()"/>
+      </div>
+      <button class="btn-filter" onclick="applyFilters()"><i class="fa-solid fa-sliders"></i> Filters</button>
+      <button class="btn-reset" onclick="resetFilters()">Reset Filter</button>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-grid">
+
+      <!-- TABLE -->
+      <div class="table-card">
+        <div class="tc-header">
+          <div class="tc-title">Notification Alerts Log Overview</div>
+          <button class="btn-create" onclick="openCreateModal()">
+            <i class="fa-solid fa-plus"></i> Create Notification
+          </button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="ntf-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Alert Title</th>
+                <th>Type</th>
+                <th>Target Type</th>
+                <th>Channel</th>
+                <th>Delivery</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ntf-tbody"></tbody>
+          </table>
+        </div>
+        <div class="pg-row" id="pagination-container"></div>
+      </div>
+
+      <!-- TEMPLATES PANEL -->
+      <div class="templates-panel">
+        <div class="tp-header">Active Notification Template</div>
+        <div class="tp-body" id="tp-body"></div>
+        <div class="tp-footer">
+          <button class="btn-view-templates">View All Template</button>
+        </div>
+      </div>
+
+    </div><!-- /content-grid -->
+
+  </div><!-- /body-wrap -->
+</div><!-- /main -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     CREATE NOTIFICATION ALERT MODAL
+══════════════════════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="create-backdrop" onclick="handleBd(event)">
+  <div class="create-modal">
+    <div class="cm-hdr">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="cm-hdr-title" id="modal-title-label">Create Notification Alert</div>
+        <span id="modal-edit-badge" style="display:none; font-size: 0.65rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: #DCFCE7; color: #166534; white-space: nowrap;">Editable</span>
+      </div>
+      <button class="cm-hdr-close" onclick="closeCreateModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cm-form">
+      <input type="hidden" id="inp-editing-index" value=""/>
+      <div class="form-group">
+        <label>Notification Title <span class="req">*</span></label>
+        <input type="text" class="form-input" id="inp-title" placeholder="e.g. Schedule Change : Technical Interview"/>
+      </div>
+      <div class="form-group">
+        <label>Notification Type <span class="req">*</span></label>
+        <select class="form-input" id="inp-type">
+          <option value="" disabled selected>Job Alert / Application Update / Interview Update</option>
+          <option>Job Alert</option>
+          <option>Application Update</option>
+          <option>Interview</option>
+          <option>Offer</option>
+          <option>Reminder</option>
+          <option>System</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Target Reason Type <span class="req">*</span></label>
+        <select class="form-input" id="inp-target">
+          <option value="" disabled selected>All Candidates / Selected / Specific User</option>
+          <option>All Candidates</option>
+          <option>Selected Candidates</option>
+          <option>Shortlisted Candidates</option>
+          <option>Interview Scheduled</option>
+          <option>Specific User</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message Body <span class="req">*</span></label>
+        <textarea class="form-input" id="inp-message" placeholder="Enter dispatch message alert details text here..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Preferred delivery Method <span class="req">*</span></label>
+        <select class="form-input" id="inp-channel">
+          <option value="" disabled selected>Email / SMS / In - App</option>
+          <option>Email</option>
+          <option>SMS</option>
+          <option>In-App</option>
+          <option>Email, SMS</option>
+          <option>Email, In-App</option>
+          <option>Email, SMS, In-App</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Schedule Date <span class="req">*</span></label>
+          <input type="date" class="form-input" id="inp-date"/>
+        </div>
+        <div class="form-group">
+          <label>Schedule Time <span class="req">*</span></label>
+          <input type="time" class="form-input" id="inp-time"/>
+        </div>
+      </div>
+    </div>
+    <div class="cm-footer">
+      <button class="btn-send" onclick="submitNotification('send')">
+        <i class="fa-solid fa-paper-plane me-1"></i> Send Now
+      </button>
+      <button class="btn-outline-modal" onclick="submitNotification('schedule')">Schedule Alert</button>
+      <button class="btn-outline-modal" onclick="submitNotification('draft')">Save Draft</button>
+      <button class="btn-outline-modal" onclick="closeCreateModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-backdrop" id="view-backdrop" onclick="handleViewBd(event)">
+  <div class="create-modal" style="max-width: 500px;">
+    <div class="cm-hdr">
+      <div class="cm-hdr-title">Notification Details</div>
+      <button class="cm-hdr-close" onclick="closeViewModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cm-form" style="padding: 24px;">
+      <div style="font-size: 1.1rem; font-weight: 700; color: #0F172A; margin-bottom: 12px;" id="view-ntf-title"></div>
+      <div style="display:flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; background: #F1F5F9; color: #475569; border-radius: 6px;" id="view-ntf-type"></span>
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; background: #F1F5F9; color: #475569; border-radius: 6px;" id="view-ntf-target"></span>
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; background: #F1F5F9; color: #475569; border-radius: 6px;" id="view-ntf-channel"></span>
+        <span style="font-size: 0.7rem; font-weight: 600; padding: 4px 10px; border-radius: 6px;" id="view-ntf-status"></span>
+      </div>
+      <div style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 8px;">Date Created</div>
+      <div id="view-ntf-date" style="font-size: 0.8rem; color: #475569; margin-bottom: 20px;"></div>
+    </div>
+    <div class="cm-footer" style="justify-content: flex-end;">
+      <button class="btn-send" id="btn-view-edit">
+        <i class="fa-solid fa-pen-to-square" style="margin-right: 6px;"></i> Edit
+      </button>
+      <button class="btn-outline-modal" onclick="closeViewModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-msg" id="toast"></div>
+
+<script src="notificationmanagement.js"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+</body>
+</html>
+

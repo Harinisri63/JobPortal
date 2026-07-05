@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Management - ProPath Admin</title>
+  <meta name="description" content="Admin Job Management Dashboard - Manage and monitor all job postings across departments." />
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+
+  <link href="jobmanagement.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+ 
+  <aside class="sidebar">
+    <a class="sidebar-logo" href="../User/admin.html">
+      <img src="../../assets/Image/propath_small_icon.png" alt="Logo" />
+      <span>PRO PATH</span>
+    </a>
+
+    <nav class="sidebar-nav">
+      <a href="../User/admin.html">Dashboard</a>
+      <a href="../usermanagement/usermanagement.html">User Management</a>
+      <a href="javascript:void(0);" class="active">Job Management</a>
+      <a href="../applications/applications.html">Applications</a>
+      <a href="../contentmanagement/contentmanagement.html">Content Management</a>
+      <a href="../interviews/admin_interview.html">Interviews</a>
+      <a href="../reports/reports.html">Reports &amp; Analytics</a>
+      <a href="../complaints/complaints.html">Complaints</a>
+      <a href="../notificationmanagement/notificationmanagement.html">Notification Management</a>
+      <a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a>
+      <a href="../settings/admin_settings.html">Settings</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+      <a href="../index.html">Logout</a>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+
+    
+    <header class="top-header">
+      <span class="page-title" id="header-title">Job Management Dashboard</span>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search" />
+        <i class="fa-solid fa-microphone"></i>
+      </div>
+      <div class="header-actions">
+        <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+        <i class="fa-regular fa-bell"></i>
+        <i class="fa-solid fa-gear"></i>
+        <span class="admin-badge">Admin User</span>
+      </div>
+    </header>
+
+    
+    <div class="page-body">
+
+      <div class="view active" id="view-dashboard">
+
+        <div class="info-banner" style="justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div class="banner-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <div>
+              <h6>Manage and monitor all job postings</h6>
+              <p>Create, update, publish, close and manage job openings across all departments.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <a href="../addjobs/addjobs.html" class="btn-add" style="text-decoration: none;"><i class="fa-solid fa-plus"></i> Add New Job</a>
+            
+            <div style="position: relative; display: inline-block;">
+              <button class="btn-export" style="background: #fff; color: var(--text-main); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" onclick="toggleExportMenu()">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i> Export Jobs
+              </button>
+              <div id="export-menu" style="display: none; position: absolute; top: 110%; right: 0; background: #fff; border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 100; min-width: 150px; flex-direction: column; overflow: hidden;">
+                <div style="padding: 10px 16px; font-size: 0.8rem; cursor: pointer; border-bottom: 1px solid var(--border);" onclick="exportJobs('pdf')" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#fff'"><i class="fa-solid fa-file-pdf" style="color: #EF4444; margin-right: 8px;"></i> Export to PDF</div>
+                <div style="padding: 10px 16px; font-size: 0.8rem; cursor: pointer; border-bottom: 1px solid var(--border);" onclick="exportJobs('doc')" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#fff'"><i class="fa-solid fa-file-word" style="color: #2563EB; margin-right: 8px;"></i> Export to DOC</div>
+                <div style="padding: 10px 16px; font-size: 0.8rem; cursor: pointer;" onclick="exportJobs('excel')" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#fff'"><i class="fa-solid fa-file-excel" style="color: #10B981; margin-right: 8px;"></i> Export to Excel</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="m-label">Total Jobs</div>
+            <div class="m-value" id="metric-total">142</div>
+            <div class="m-change">+12.5% vs last 30 days</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-label">Active Jobs</div>
+            <div class="m-value" id="metric-active">94</div>
+            <div class="m-change">+8.3% vs last 30 days</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-label">Closed Jobs</div>
+            <div class="m-value" id="metric-closed">38</div>
+            <div class="m-change">+5.1% vs last 30 days</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-label">Draft Jobs</div>
+            <div class="m-value" id="metric-draft">10</div>
+            <div class="m-change">+2.8% vs last 30 days</div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <div class="filter-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search by title, company, location, departments..." id="dash-search" oninput="filterTable('dash')" />
+            <i class="fa-solid fa-microphone" style="color:var(--text-muted);font-size:0.8rem;"></i>
+          </div>
+          <select class="filter-select" onchange="filterTable('dash')" id="dash-status">
+            <option value="">All Status ▾</option>
+            <option value="Active">Active</option>
+            <option value="Closed">Closed</option>
+            <option value="Draft">Draft</option>
+          </select>
+          <select class="filter-select" onchange="filterTable('dash')" id="dash-dept">
+            <option value="">All Department ▾</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Product">Product</option>
+            <option value="Design">Design</option>
+            <option value="Analytics">Analytics</option>
+            <option value="HR">HR</option>
+          </select>
+          <select class="filter-select" onchange="filterTable('dash')" id="dash-type">
+            <option value="">All Job Type ▾</option>
+            <option value="Full Time">Full Time</option>
+            <option value="Part Time">Part Time</option>
+            <option value="Contract">Contract</option>
+          </select>
+          <button class="btn-filter"><i class="fa-solid fa-sliders"></i> Filter</button>
+          <button class="btn-reset-filter" onclick="resetFilter('dash')"><i class="fa-solid fa-xmark"></i> Reset Filter</button>
+        </div>
+
+        <div class="table-card">
+          <table class="job-table" id="dash-table">
+            <thead>
+              <tr>
+                <th>JOB ID</th>
+                <th>JOB TITLE</th>
+                <th>DEPARTMENT</th>
+                <th>LOCATION</th>
+                <th>TYPE</th>
+                <th>EXPERIENCE</th>
+                <th>APPLICATIONS</th>
+                <th>STATUS</th>
+                <th>POSTED ON</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="dash-tbody"></tbody>
+          </table>
+
+          <div class="pagination-row" id="pagination-container-dash"></div>
+        </div>
+      </div>
+
+      <div class="view" id="view-overview">
+
+        <div class="section-header">
+          <h5>Job Management Overview</h5>
+          <div class="btn-group-right">
+            <a href="#" onclick="openAddJobModal(); return false;" class="btn-add" style="text-decoration:none;">
+              <i class="fa-solid fa-plus"></i> Add JOB
+            </a>
+            <button class="btn-export" onclick="showToast('Jobs exported successfully!')">
+              <i class="fa-solid fa-download"></i> Export Jobs
+            </button>
+          </div>
+        </div>
+
+        <div class="overview-filter">
+          <div class="overview-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search by Job Title, Company, Location, Department, Status, or Type" id="ov-search" oninput="filterTable('ov')" />
+          </div>
+          <button class="btn-filters-pill"><i class="fa-solid fa-sliders"></i> Filters</button>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="m-label">Total Jobs</div>
+            <div class="m-value">142</div>
+            <div class="m-change">+12.5% vs last 30 days</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-label">Active Jobs</div>
+            <div class="m-value">94</div>
+            <div class="m-change">+8.3% vs last 30 days</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-label">Closed Jobs</div>
+            <div class="m-value">38</div>
+            <div class="m-change">+5.1% vs last 30 days</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-label">Draft Jobs</div>
+            <div class="m-value">10</div>
+            <div class="m-change">+2.8% vs last 30 days</div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <table class="job-table" id="ov-table">
+            <thead>
+              <tr>
+                <th>JOB ID</th>
+                <th>JOB TITLE</th>
+                <th>DEPARTMENT</th>
+                <th>LOCATION</th>
+                <th>TYPE</th>
+                <th>EXPERIENCE</th>
+                <th>STATUS</th>
+                <th>POSTED ON</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="ov-tbody"></tbody>
+          </table>
+
+          <div class="pagination-row" id="pagination-container-ov"></div>
+        </div>
+      </div>
+
+      <div class="view" id="view-detail">
+
+        <div class="detail-header-bar">
+          <span class="detail-job-id" id="det-id">JOB-1021</span>
+          <span class="detail-posted" id="det-posted">. Posted on 12 May 2025</span>
+          <span class="badge-status badge-active" id="det-badge">Active</span>
+          <button class="btn-back" onclick="showView('dashboard')">
+            <i class="fa-solid fa-arrow-left"></i> Back to Jobs
+          </button>
+        </div>
+
+        <div class="detail-card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+            <div>
+              <div class="detail-job-title" id="det-title">Senior DevOps Engineer</div>
+              <div class="detail-company">
+                <span><i class="fa-solid fa-building"></i> <span id="det-company">Synergech</span></span>
+                <span><i class="fa-solid fa-layer-group"></i> <span id="det-dept">Engineering</span> Department</span>
+                <span><i class="fa-regular fa-clock"></i> <span id="det-type">Full Time</span></span>
+                <span><i class="fa-solid fa-star"></i> <span id="det-exp">5-8 years</span></span>
+              </div>
+            </div>
+            <div class="detail-salary">
+              <div class="salary-val" id="det-salary">₹18 – 25 LPA</div>
+              <div class="salary-lbl">Estimated Salary</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description card -->
+        <div class="detail-card">
+          <div class="detail-section-title">Job Description</div>
+          <div class="detail-text">
+            We are looking for a skilled Senior Frontend Developer to build responsive, robust web apps.
+          </div>
+
+          <hr class="detail-divider" />
+
+          <div class="detail-section-title">Key Responsibilities</div>
+          <ul class="detail-list">
+            <li>Develop and maintain scalable web applications</li>
+            <li>Collaborate with cross-functional engineering teams</li>
+            <li>Write clean, maintainable, testable, and robust code</li>
+            <li>Perform performance optimization checks</li>
+          </ul>
+        </div>
+
+        <!-- Qualification card -->
+        <div class="detail-card">
+          <div class="detail-section-title" style="margin-bottom:14px;">
+            Application Open for the Following Qualification / Criteria
+          </div>
+          <div class="qualification-grid">
+            <!-- Row 1 headers -->
+            <div class="qual-cell">
+              <div class="qual-label">Qualification</div>
+              <div class="qual-value">Bachelor's in Computer Science</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Experience</div>
+              <div class="qual-value" id="det-qual-exp">5-8 years</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Employment Type</div>
+              <div class="qual-value" id="det-qual-type">Full Time</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Department</div>
+              <div class="qual-value" id="det-qual-dept">Engineering</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Role Level</div>
+              <div class="qual-value">Senior Level</div>
+            </div>
+            <!-- Row 2 -->
+            <div class="qual-cell">
+              <div class="qual-label">Skills Required</div>
+              <div class="qual-value">DevOps, AWS, Docker, Kubernetes</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Industry</div>
+              <div class="qual-value">IT Services</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Job Function</div>
+              <div class="qual-value">DevOps / SRE</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Work Mode</div>
+              <div class="qual-value">Hybrid</div>
+            </div>
+            <div class="qual-cell">
+              <div class="qual-label">Application Deadline</div>
+              <div class="qual-value" id="det-qual-deadline">25 May 2025</div>
+            </div>
+            <!-- Row 3 -->
+            <div class="qual-cell last-row" style="border-right:1px solid var(--border);">
+              <div class="qual-label">Notice Period</div>
+              <div class="qual-value">15 Days or Less</div>
+            </div>
+            <div class="qual-cell last-row">
+              <div class="qual-label">Openings</div>
+              <div class="qual-value">2 Positions</div>
+            </div>
+            <div class="qual-cell last-row">
+              <div class="qual-label">Posted By</div>
+              <div class="qual-value">Admin User</div>
+            </div>
+            <div class="qual-cell last-row" style="border-right:none;">
+              <div class="qual-label">Posted On</div>
+              <div class="qual-value" id="det-qual-posted">12 May 2025</div>
+            </div>
+            <div class="qual-cell last-row" style="border-right:none;"></div>
+          </div>
+        </div>
+
+        <!-- Detail Footer -->
+        <div class="detail-footer">
+          <div class="footer-meta">
+            <div>
+              <div class="fm-label">Created by</div>
+              <div class="fm-val">Admin User</div>
+            </div>
+            <div>
+              <div class="fm-label">Last Updated</div>
+              <div class="fm-val">12 May 2025, 10:30 AM</div>
+            </div>
+            <div>
+              <div class="fm-label">Job ID</div>
+              <div class="fm-val" id="det-footer-id">JOB-1021</div>
+            </div>
+          </div>
+          <div class="footer-actions">
+            <button class="btn-edit-job" onclick="showToast('Edit mode coming soon!')">Edit Job</button>
+            <button class="btn-view-apps" onclick="showToast('Viewing applications...')">View Applications</button>
+            <button class="btn-more"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /page-body -->
+  </div><!-- /main-wrap -->
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       ADD JOB MODAL
+  ═══════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="addJobModal">
+    <div class="modal-box addjob-modal-box" style="width: 1000px; max-width: 90%; max-height: 90vh; display: flex; flex-direction: column;">
+      
+      <!-- Header -->
+      <div style="background:#0A4BD2; padding:16px 24px; display:flex; justify-content:space-between; align-items:center; flex-shrink: 0;">
+        <h5 class="modal-title fw-bold" style="color:#fff; margin:0; font-size:1.05rem;">Add New Job</h5>
+        <button class="modal-close" onclick="closeAddJobModal()" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="addjob-grid" style="flex: 1; overflow: hidden;">
+        
+        <!-- LEFT FORM PANEL -->
+        <div class="addjob-form-panel" style="max-height: calc(90vh - 150px);">
+          <div class="addjob-form-panel-header">Job Information</div>
+          <div class="addjob-form-body">
+            
+            <!-- 1. Job Information -->
+            <div class="addjob-section">
+              <div class="addjob-section-label"><span class="addjob-section-num">1</span> Job Information</div>
+              <div class="addjob-field-row">
+                <div class="addjob-field-group">
+                  <label>Job Title <span class="req">*</span></label>
+                  <input type="text" id="new-title" placeholder="Enter Job title" oninput="updatePreviewJobManagement()" />
+                </div>
+                <div class="addjob-field-group">
+                  <label>Job Category <span class="req">*</span></label>
+                  <select id="f-category" onchange="updatePreviewJobManagement()">
+                    <option value="">Select category</option>
+                    <option>Engineering</option>
+                    <option>Product</option>
+                    <option>Design</option>
+                    <option>Analytics</option>
+                    <option>HR</option>
+                    <option>Marketing</option>
+                    <option>Finance</option>
+                    <option>Operations</option>
+                  </select>
+                </div>
+              </div>
+              <div class="addjob-field-row">
+                <div class="addjob-field-group">
+                  <label>Department *</label>
+                  <select id="new-dept" onchange="updatePreviewJobManagement()">
+                    <option value="">Select department</option>
+                    <option>Engineering</option>
+                    <option>Product</option>
+                    <option>Design</option>
+                    <option>Analytics</option>
+                    <option>HR</option>
+                  </select>
+                </div>
+                <div class="addjob-field-group">
+                  <label>Employment Type <span class="req">*</span></label>
+                  <select id="new-type" onchange="updatePreviewJobManagement()">
+                    <option value="Full Time">Full Time</option>
+                    <option>Part Time</option>
+                    <option>Contract</option>
+                    <option>Internship</option>
+                    <option>Freelance</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Job Details -->
+            <div class="addjob-section">
+              <div class="addjob-section-label"><span class="addjob-section-num">2</span> Job Details</div>
+              <div class="addjob-field-row">
+                <div class="addjob-field-group">
+                  <label>Location <span class="req">*</span></label>
+                  <input type="text" id="new-loc" placeholder="Enter Job Location" oninput="updatePreviewJobManagement()" />
+                </div>
+                <div class="addjob-field-group">
+                  <label>Work Mode <span class="req">*</span></label>
+                  <select id="f-workmode" onchange="updatePreviewJobManagement()">
+                    <option value="">Select Work Mode</option>
+                    <option>On-site</option>
+                    <option>Remote</option>
+                    <option>Hybrid</option>
+                  </select>
+                </div>
+              </div>
+              <div class="addjob-field-row">
+                <div class="addjob-field-group">
+                  <label>Experience Required <span class="req">*</span></label>
+                  <input type="text" id="new-exp" placeholder="e.g. 3-5 years" oninput="updatePreviewJobManagement()" />
+                </div>
+                <div class="addjob-field-group">
+                  <label>Salary Range *</label>
+                  <input type="text" id="new-salary" placeholder="e.g. ₹12 – 18 LPA" oninput="updatePreviewJobManagement()" />
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Required Skills -->
+            <div class="addjob-section">
+              <div class="addjob-section-label"><span class="addjob-section-num">3</span> Required Skills &amp; Qualifications</div>
+              <div class="addjob-field-row">
+                <div class="addjob-field-group">
+                  <label>Primary Skills <span class="req">*</span></label>
+                  <input type="text" id="f-skills" placeholder="Enter skills (e.g. React, SQL)" oninput="updatePreviewJobManagement()" />
+                  <span class="addjob-field-note">Separate multiple skills with comma</span>
+                </div>
+                <div class="addjob-field-group">
+                  <label>Status</label>
+                  <select id="new-status">
+                    <option>Active</option>
+                    <option>Draft</option>
+                    <option>Closed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Job Description -->
+            <div class="addjob-section">
+              <div class="addjob-section-label"><span class="addjob-section-num">4</span> Job Description</div>
+              <div class="addjob-field-group">
+                <label>Job Description <span class="req">*</span></label>
+                <div class="addjob-rich-toolbar">
+                  <button type="button" onclick="fmt('bold')" title="Bold"><b>B</b></button>
+                  <button type="button" onclick="fmt('italic')" title="Italic"><i>I</i></button>
+                  <button type="button" onclick="fmt('underline')" title="Underline"><u>U</u></button>
+                  <button type="button" onclick="fmt('insertUnorderedList')" title="Bullet list">H</button>
+                </div>
+                <textarea placeholder="Describe the role and responsibilities..." id="new-desc" class="addjob-rich-textarea" style="border-radius: 0 0 7px 7px; min-height: 120px;" oninput="updatePreviewJobManagement()"></textarea>
+              </div>
+            </div>
+
+            <!-- 7. Additional Information -->
+            <div class="addjob-section">
+              <div class="addjob-section-label"><span class="addjob-section-num">5</span> Additional Information</div>
+              <div class="addjob-field-row single">
+                <div class="addjob-field-group">
+                  <label>Application Deadline <span class="req">*</span></label>
+                  <input type="date" id="new-deadline" onchange="updatePreviewJobManagement()" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL -->
+        <div class="addjob-preview-panel" style="max-height: calc(90vh - 150px);">
+          <div class="addjob-preview-header">
+            <span>Job Preview</span>
+            <i class="fa-solid fa-eye text-muted"></i>
+          </div>
+          <div class="addjob-preview-body" id="preview-body-jm">
+            <div class="addjob-preview-empty" id="preview-empty-jm">
+              <i class="fa-regular fa-file-lines text-muted" style="font-size:2.2rem; margin-bottom:8px; display:block;"></i>
+              <p style="font-size:0.75rem; line-height:1.4;">Provide Job title and location to view details preview card live.</p>
+            </div>
+            <div id="preview-content-jm" style="display:none;">
+              <div class="addjob-preview-job-title" id="p-title-jm">Senior React Developer</div>
+              <div style="font-size:0.75rem; color:#0A4BD2; font-weight:700; margin-bottom:10px;">Synergech</div>
+              <div class="addjob-preview-tags" id="p-tags-jm"></div>
+              <div class="addjob-preview-meta">
+                <div><i class="fa-solid fa-briefcase"></i> <span id="p-exp-jm">3-5 years</span></div>
+                <div><i class="fa-solid fa-indian-rupee-sign"></i> <span id="p-salary-jm">₹ 12-18 LPA</span></div>
+                <div><i class="fa-solid fa-location-dot"></i> <span id="p-location-jm">Remote (India)</span></div>
+                <div><i class="fa-regular fa-clock"></i> <span id="p-emptype-jm">Full Time</span></div>
+              </div>
+              <div class="addjob-preview-divider"></div>
+              <div style="font-size:0.72rem; font-weight:700; margin-bottom:6px; color:#1E293B;">Job Summary:</div>
+              <div style="font-size:0.7rem; color:#64748B; line-height:1.5;" id="p-desc-jm"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="addjob-action-bar" style="flex-shrink: 0;">
+        <button type="button" class="addjob-btn-draft" onclick="closeAddJobModal()">Save Draft</button>
+        <button type="button" class="addjob-btn-save-close" onclick="closeAddJobModal()">Save &amp; Close</button>
+        <button type="button" class="addjob-btn-publish" onclick="addNewJob()">Publish Job</button>
+        <button type="button" class="addjob-btn-cancel" onclick="closeAddJobModal()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       EDIT JOB MODAL (Matches user reference mockup style)
+  ═══════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="editJobModal">
+    <div class="modal-box" style="width: 500px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+        <h5 class="modal-title" style="margin:0;font-weight:700;font-size:1.1rem;color:#1E293B;">Edit Job Details</h5>
+        <button class="modal-close" onclick="closeEditJobModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <input type="hidden" id="edit-job-id" />
+      <div class="form-group" style="margin-bottom: 14px;">
+        <label style="font-weight:600;font-size:0.78rem;color:#475569;margin-bottom:6px;">Job Title *</label>
+        <input type="text" id="edit-title" style="width:100%;height:38px;border:1px solid #cbd5e1;border-radius:6px;padding:8px 12px;font-size:0.85rem;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 14px;">
+        <label style="font-weight:600;font-size:0.78rem;color:#475569;margin-bottom:6px;">Department *</label>
+        <select id="edit-dept" style="width:100%;height:38px;border:1px solid #cbd5e1;border-radius:6px;padding:8px 12px;font-size:0.85rem;background:#fff;appearance:auto;">
+          <option>Engineering</option>
+          <option>Product</option>
+          <option>Design</option>
+          <option>Analytics</option>
+          <option>HR</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom: 14px;">
+        <label style="font-weight:600;font-size:0.78rem;color:#475569;margin-bottom:6px;">Location *</label>
+        <input type="text" id="edit-loc" style="width:100%;height:38px;border:1px solid #cbd5e1;border-radius:6px;padding:8px 12px;font-size:0.85rem;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 14px;">
+        <label style="font-weight:600;font-size:0.78rem;color:#475569;margin-bottom:6px;">Job Type *</label>
+        <select id="edit-type" style="width:100%;height:38px;border:1px solid #cbd5e1;border-radius:6px;padding:8px 12px;font-size:0.85rem;background:#fff;appearance:auto;">
+          <option>Full Time</option>
+          <option>Part Time</option>
+          <option>Contract</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom: 14px;">
+        <label style="font-weight:600;font-size:0.78rem;color:#475569;margin-bottom:6px;">Experience Required</label>
+        <input type="text" id="edit-exp" style="width:100%;height:38px;border:1px solid #cbd5e1;border-radius:6px;padding:8px 12px;font-size:0.85rem;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 14px;">
+        <label style="font-weight:600;font-size:0.78rem;color:#475569;margin-bottom:6px;">Status</label>
+        <select id="edit-status" style="width:100%;height:38px;border:1px solid #cbd5e1;border-radius:6px;padding:8px 12px;font-size:0.85rem;background:#fff;appearance:auto;">
+          <option>Active</option>
+          <option>Closed</option>
+          <option>Draft</option>
+        </select>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:15px;border-top:1px solid var(--border);">
+        <button class="btn-export" onclick="closeEditJobModal()" style="border-radius:20px;padding:8px 20px;font-weight:600;background:#64748b;color:#fff;border:none;">Cancel</button>
+        <button class="btn-add" onclick="saveJobChanges()" style="border-radius:20px;padding:8px 20px;font-weight:600;background:#0A4BD2;color:#fff;border:none;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       VIEW APPLICATIONS MODAL
+  ═══════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="viewAppsModal">
+    <div class="modal-box" style="width: 580px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+        <h5 class="modal-title" style="margin:0;font-weight:700;font-size:1.1rem;color:#1E293B;" id="apps-modal-title">Applied Applications</h5>
+        <button class="modal-close" onclick="closeAppsModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="apps-list-container" style="display:flex;flex-direction:column;gap:12px;max-height:400px;overflow-y:auto;padding-right:4px;">
+        <!-- Filled dynamically -->
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:18px;padding-top:12px;border-top:1px solid var(--border);">
+        <button class="btn-export" onclick="closeAppsModal()" style="border-radius:20px;padding:8px 20px;font-weight:600;background:#64748b;color:#fff;border:none;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-notif" id="toast"></div>
+
+  <script src="../../assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  
+<script src="jobmanagement.js"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+</body>
+</html>
+

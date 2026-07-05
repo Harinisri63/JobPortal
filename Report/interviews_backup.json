@@ -1,0 +1,16 @@
+{
+  "round_1": {
+    "title": "Technical Interview Round",
+    "company": "Senior Frontend System - XXXX Systems",
+    "date": "02 July 2026",
+    "time": "10:00 AM - 11:00 AM (IST)",
+    "status": "Status: Scheduled"
+  },
+  "round_2": {
+    "title": "HR Fitment Round",
+    "company": "UI/UX Designer - XXXX Systems",
+    "date": "05 July 2026",
+    "time": "02:00 PM - 02:30 PM (IST)",
+    "status": "Status: Scheduled"
+  }
+}

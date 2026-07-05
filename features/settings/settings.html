@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - ProPath</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../../shared/sidenavbar_seeker.css" rel="stylesheet" />  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F8FAFC;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .sidebar-menu li a.active {
+      background-color: #E0E7FF;
+      color: #1D4ED8 !important;
+    }
+
+    .header-search-bar {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 30px;
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-search-bar input {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      outline: none;
+      width: 100%;
+    }
+
+    .header-search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .settings-panel-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748B;
+      margin-bottom: 4px;
+    }
+
+    .info-val {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1E293B;
+    }
+
+    .edit-pill {
+      font-size: 0.7rem;
+      background: #F1F5F9;
+      color: #475569;
+      border-radius: 16px;
+      padding: 2px 10px;
+      cursor: pointer;
+      font-weight: 600;
+      border: none;
+    }
+
+    .progress-bar-custom {
+      height: 6px;
+      background-color: #E2E8F0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .progress-fill-custom {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .tab-nav-btn {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #64748B;
+      background: none;
+      border: none;
+      padding-bottom: 6px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .tab-nav-btn.active {
+      color: #1D4ED8;
+      border-bottom-color: #1D4ED8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div>
+      <div class="sidebar-header">
+        <a class="navbar-brand d-flex align-items-center justify-content-center text-decoration-none" href="../index.html" style="font-weight: 800; color: #1D4ED8;">
+          <img src="../../assets/Image/propath_small_icon.png" alt="Logo" style="width:32px;height:32px;" class="me-2" />
+          <span>PROPATH</span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li><a href="../User/seeker.html">Job Search</a></li>
+        <li><a href="../applications/myapplication.html">My Applications</a></li>
+        <li><a href="../SavedJobs/savedjobs.html">Saved Jobs</a></li>
+        <li><a href="../interviews/interviews.html">Interviews</a></li>
+        <li><a href="settings.html" class="active">Settings</a></li>
+      </ul>
+
+      <div class="sidebar-upgrade-card">
+        <h6>Upgrade Your Profile</h6>
+        <p class="text-muted" style="font-size: 0.65rem; margin-bottom: 12px; line-height: 1.4;">Complete your profile and get better job recommendations.</p>
+        <a href="../candidateprofile/profile.html" class="btn btn-upgrade text-white fw-bold d-block text-center text-decoration-none" style="background-color: #1D4ED8; font-size: 0.7rem; border-radius: 8px; padding: 6px 12px;">Generate Profile</a>
+        <div class="mt-2 text-muted" style="font-size: 0.65rem;">Resume Score: 80%</div>
+      </div>
+    </div>
+
+    <div class="sidebar-buttons">
+      <a href="../helpcenter/help.html" class="btn-help text-decoration-none mb-2 text-center w-100">Help Center</a>
+      <a href="../index.html" class="logout text-decoration-none text-center w-100">Logout</a>
+    </div>
+  </div>
+
+  <div class="main-content-wrapper">
+    <div class="top-search-header d-flex justify-content-between align-items-center">
+      <div class="fw-semibold text-white">Candidate Settings</div>
+      <div class="header-search-bar d-flex align-items-center col-md-5" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 30px; padding: 6px 20px;">
+        <i class="fa-solid fa-magnifying-glass me-2 text-white"></i>
+        <input type="text" placeholder="Search" class="form-control border-0 bg-transparent p-0 text-white" style="outline: none; box-shadow: none;" />
+        <i class="fa-solid fa-microphone ms-2 text-white"></i>
+      </div>
+      
+      <div class="d-flex align-items-center gap-3">
+        <div class="dropdown notification-dropdown">
+          <div class="position-relative cursor-pointer" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            <i class="fa-regular fa-bell fs-5 text-white"></i>
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" id="notificationDot" style="display: none;">
+              <span class="visually-hidden">New alerts</span>
+            </span>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="notificationDropdown" style="border-radius: 12px; font-size: 0.8rem; min-width: 320px; padding: 0; overflow: hidden; margin-top: 15px;">
+            <li class="bg-primary text-white px-3 py-2 fw-bold d-flex justify-content-between align-items-center">
+              <span>Notifications</span>
+              <span class="badge bg-light text-primary rounded-pill" style="display: none;">0 New</span>
+            </li>
+            <div class="notification-list" style="max-height: 300px; overflow-y: auto;">
+            </div>
+            <li class="p-2 border-top bg-light">
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-sm btn-outline-primary" id="markAllReadBtn" style="font-size: 0.75rem; font-weight: 600;">Mark all as read</button>
+                <button class="btn btn-sm btn-secondary" style="font-size: 0.75rem; font-weight: 600;" onclick="document.querySelector('#notificationDropdown').click()">Close</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="dropdown">
+          <i class="fa-regular fa-user-circle cursor-pointer fs-5 text-white" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <button class="btn btn-light btn-sm fw-semibold rounded-pill px-3 py-1 text-primary ms-2" id="profileBtnName" data-bs-toggle="dropdown" aria-expanded="false" style="color: #1D4ED8 !important;">Harini</button>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="profileDropdown" style="border-radius: 16px; font-size: 0.8rem; min-width: 260px; padding: 15px; margin-top: 10px;">
+            <li class="text-center py-2">
+              <img src="../../assets/Image/profile.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" alt="Profile" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;" class="mb-2" />
+              <div class="fw-bold" id="dropdown-user-name">Harini</div>
+              <div class="text-muted" style="font-size: 0.7rem;" id="dropdown-user-email">harini@gmail.com</div>
+              <span class="badge bg-success-light text-success mt-1" style="font-size: 0.65rem; border: 1px solid #10B981; background: #ECFDF5; border-radius: 4px;">Verified <i class="fa-solid fa-check ms-1"></i></span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item py-2 px-3 fw-bold text-dark rounded d-flex align-items-center gap-2" href="settings.html"><i class="fa-regular fa-user"></i> Manage Profile</a></li>
+            <li><a class="dropdown-item py-2 px-3 fw-bold text-danger rounded d-flex align-items-center gap-2" href="../index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container-fluid p-4">
+      
+      <div class="settings-panel-card d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+          <div style="position: relative; cursor: pointer;" id="avatar-container" title="Click to upload profile photo">
+            <img src="../../assets/Image/profile.png" alt="John Doe" id="overview-user-avatar" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px dashed #1D4ED8; padding: 2px;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" />
+            <div style="position: absolute; bottom: 0; right: 0; background: #1D4ED8; color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; border: 2px solid #fff;"><i class="fa-solid fa-camera"></i></div>
+          </div>
+          <input type="file" id="direct-avatar-input" accept="image/*" class="d-none" />
+          <div>
+            <h5 class="fw-bold mb-0" id="overview-user-name">John Doe</h5>
+            <div class="text-muted small" id="overview-user-email">john.doe@gmail.com</div>
+            <span class="badge bg-success-light text-success mt-1" style="font-size: 0.65rem; border: 1px solid #10B981; background: #ECFDF5; border-radius: 4px;">Verified <i class="fa-solid fa-check ms-1"></i></span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-4">
+          <div style="cursor: pointer;" id="metric-click-strength" title="View details in General Settings">
+            <div class="fw-bold" style="font-size: 0.75rem;">Profile Strength</div>
+            <div class="fw-extrabold" style="font-size: 1.1rem; color: #1D4ED8;" id="pct-val-1">80%</div>
+            <div class="progress-bar-custom" style="width: 100px;"><div class="progress-fill-custom" id="progress-fill-1" style="width: 80%; background-color: #1D4ED8;"></div></div>
+          </div>
+          <div style="cursor: pointer;" id="metric-click-readiness" title="View details in Application Preferences">
+            <div class="fw-bold" style="font-size: 0.75rem;">Application Readiness</div>
+            <div class="fw-extrabold" style="font-size: 1.1rem; color: #2563EB;" id="pct-val-2">70%</div>
+            <div class="progress-bar-custom" style="width: 100px;"><div class="progress-fill-custom" id="progress-fill-2" style="width: 70%; background-color: #2563EB;"></div></div>
+          </div>
+          <div style="cursor: pointer;" id="metric-click-visibility" title="View details in Privacy Settings">
+            <div class="fw-bold" style="font-size: 0.75rem;">Search Visibility</div>
+            <div class="fw-extrabold" style="font-size: 1.1rem; color: #1D4ED8;" id="pct-val-3">50%</div>
+            <div class="progress-bar-custom" style="width: 100px;"><div class="progress-fill-custom" id="progress-fill-3" style="width: 50%; background-color: #1D4ED8;"></div></div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-primary px-3 fw-bold" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Save Changes</button>
+          <button class="btn btn-sm btn-outline-secondary px-3 fw-bold" style="border-radius: 8px;">Reset Changes</button>
+          <button class="btn btn-sm btn-outline-secondary px-3 fw-bold" style="border-radius: 8px;">View Profile</button>
+        </div>
+      </div>
+
+      <div class="d-flex gap-4 border-bottom mb-4 pb-2" style="font-size: 0.85rem;">
+        <button class="tab-nav-btn active">General</button>
+        <button class="tab-nav-btn">Account Security</button>
+        <button class="tab-nav-btn">Notifications</button>
+        <button class="tab-nav-btn">Privacy</button>
+        <button class="tab-nav-btn">Resume preferences</button>
+        <button class="tab-nav-btn">Application preferences</button>
+      </div>
+
+      <div class="row g-4">
+        
+        <div class="col-lg-8">
+          
+          <div id="general-panel" class="settings-tab-content">
+            <div class="settings-panel-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Personal Information</h6>
+                <div class="d-flex gap-2">
+                  <a href="../helpcenter/help.html#profile-strength-guide" class="btn btn-sm btn-outline-primary px-3 py-1 fw-bold text-decoration-none" id="explore-help-btn" style="border-radius: 8px; font-size: 0.75rem;">Help Center</a>
+                  <button class="edit-pill" id="btn-edit-personal-info">Edit</button>
+                </div>
+              </div>
+              <div class="info-grid">
+                <div class="info-item"><span class="info-label">Full Name <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val">John Doe</span></div>
+                <div class="info-item"><span class="info-label">Date of Birth</span><span class="info-val">15 May 1995</span></div>
+                <div class="info-item"><span class="info-label">Gender <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="settings-gender-val">Male</span></div>
+                <div class="info-item"><span class="info-label">Email Address <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="settings-email-val">john.doe@gmail.com</span></div>
+                <div class="info-item"><span class="info-label">Current Location <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val">Bangalore, India</span></div>
+                <div class="info-item"><span class="info-label">Phone Number <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val">+91 9876543210</span></div>
+                <div class="info-item"><span class="info-label">Preferred Location <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="settings-pref-val">Bangalore, Pune, Remote</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="security-panel" class="settings-tab-content d-none">
+            <div class="settings-panel-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Account Settings</h6>
+                <button class="edit-pill" id="btn-edit-security">Edit</button>
+              </div>
+              <div class="info-grid">
+                <div class="info-item"><span class="info-label">Password <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="security-pwd-val">••••••••</span></div>
+                <div class="info-item"><span class="info-label">Login Alerts <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="security-alerts-val">Enabled</span></div>
+                <div class="info-item"><span class="info-label">Two-Factor Authentication <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="security-tfa-val">Enabled</span></div>
+                <div class="info-item"><span class="info-label">Trusted Devices</span><span class="info-val">3</span></div>
+                <div class="info-item"><span class="info-label">Last password change</span><span class="info-val">12 May 2025</span></div>
+                <div class="info-item"><span class="info-label">Active sessions</span><span class="info-val">2 sessions</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="notifications-panel" class="settings-tab-content d-none">
+            <div class="settings-panel-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Notification Preferences</h6>
+                <div class="d-flex align-items-center gap-2">
+                  <button class="edit-pill" id="btn-edit-notifications">Edit</button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-borderless align-middle mb-0" style="font-size: 0.8rem;">
+                  <thead>
+                    <tr class="text-muted fw-bold border-bottom" style="font-size: 0.75rem;">
+                      <th>Notification Type</th>
+                      <th>Email</th>
+                      <th>SMS</th>
+                      <th>Push</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-bottom">
+                      <td class="fw-bold">Application Updates</td>
+                      <td id="cell-app-email"></td>
+                      <td id="cell-app-sms"><i class="fa-solid fa-check text-muted"></i></td>
+                      <td id="cell-app-push"><i class="fa-solid fa-check text-muted"></i></td>
+                      <td><span class="text-dark fw-bold" id="status-app-val">Enabled</span></td>
+                    </tr>
+                    <tr class="border-bottom">
+                      <td class="fw-bold">Interview Notification</td>
+                      <td id="cell-int-email"><i class="fa-solid fa-check text-muted"></i></td>
+                      <td id="cell-int-sms"></td>
+                      <td id="cell-int-push"><i class="fa-solid fa-check text-muted"></i></td>
+                      <td><span class="text-dark fw-bold" id="status-int-val">Enabled</span></td>
+                    </tr>
+                    <tr class="border-bottom">
+                      <td class="fw-bold">Job Recommendations</td>
+                      <td id="cell-rec-email"><i class="fa-solid fa-check text-muted"></i></td>
+                      <td id="cell-rec-sms"><i class="fa-solid fa-check text-muted"></i></td>
+                      <td id="cell-rec-push"><i class="fa-solid fa-check text-muted"></i></td>
+                      <td><span class="text-dark fw-bold" id="status-rec-val">Enabled</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div id="privacy-panel" class="settings-tab-content d-none">
+            <div class="settings-panel-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Privacy Settings</h6>
+                <div class="d-flex gap-2">
+                  <a href="../helpcenter/help.html#search-visibility-guide" class="btn btn-sm btn-outline-primary px-3 py-1 fw-bold text-decoration-none" id="explore-privacy-help-btn" style="border-radius: 8px; font-size: 0.75rem;">Help Center</a>
+                  <button class="edit-pill" id="btn-edit-privacy">Edit</button>
+                </div>
+              </div>
+              <div class="info-grid">
+                <div class="info-item"><span class="info-label">Profile visibility <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="privacy-profile-val">Public</span></div>
+                <div class="info-item"><span class="info-label">Phone Visibility <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="privacy-phone-val">Only Recruiters</span></div>
+                <div class="info-item"><span class="info-label">Resume visibility <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="privacy-resume-val">Recruiters only</span></div>
+                <div class="info-item"><span class="info-label">Recruiter Access</span><span class="info-val" id="privacy-recruiter-val">Allow</span></div>
+                <div class="info-item"><span class="info-label">Email Visibility</span><span class="info-val" id="privacy-email-val">Only Recruiters</span></div>
+                <div class="info-item"><span class="info-label">Search Engine visibility</span><span class="info-val" id="privacy-se-val">Hidden</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="resume-panel" class="settings-tab-content d-none">
+            <div class="settings-panel-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Resume Preferences</h6>
+                <button class="edit-pill" id="btn-edit-resume">Edit</button>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="info-item mb-2"><span class="info-label">Default Resume <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="resume-default-val">John_Doe_Resume.pdf</span></div>
+                  <div class="info-item mb-2"><span class="info-label">Resume visibility</span><span class="info-val" id="resume-visibility-val">Recruiters only</span></div>
+                  <div class="info-item"><span class="info-label">Resume Download</span><span class="info-val" id="resume-download-val">Allowed for recruiters</span></div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-item mb-2"><span class="info-label">Preferred format <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="resume-format-val">PDF</span></div>
+                  <div class="info-item mb-2"><span class="info-label">Last Updated</span><span class="info-val">12 May 2026</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="application-panel" class="settings-tab-content d-none">
+            <div class="settings-panel-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Job Preferences</h6>
+                <div class="d-flex gap-2">
+                  <a href="../helpcenter/help.html#application-readiness-guide" class="btn btn-sm btn-outline-primary px-3 py-1 fw-bold text-decoration-none" id="explore-app-help-btn" style="border-radius: 8px; font-size: 0.75rem;">Help Center</a>
+                  <button class="edit-pill" id="btn-edit-application">Edit</button>
+                </div>
+              </div>
+              <div class="info-grid">
+                <div class="info-item"><span class="info-label">Preferred role <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="job-role-val">Frontend Developer</span></div>
+                <div class="info-item"><span class="info-label">Expected Salary <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="job-salary-val">12-18 LPA</span></div>
+                <div class="info-item"><span class="info-label">Employment Type <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="job-type-val">Full Time</span></div>
+                <div class="info-item"><span class="info-label">Work Mode <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="job-mode-val">Hybrid</span></div>
+                <div class="info-item"><span class="info-label">Experience Level <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="job-exp-val">3 - 5 Years</span></div>
+                <div class="info-item"><span class="info-label">Preferred Skills <span class="badge bg-primary-light text-primary" style="font-size: 0.55rem; background: #EEF2FF;">Editable</span></span><span class="info-val" id="job-skills-val">React, JS</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Account Activity</h6>
+              <div class="d-flex align-items-center gap-2">
+                <a href="#" class="text-decoration-none text-muted small fw-bold" style="font-size: 0.75rem;">View All <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                <button class="btn p-0 border-0 bg-transparent text-muted"><i class="fa-solid fa-ellipsis-h"></i></button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-borderless align-middle mb-0" style="font-size: 0.8rem;">
+                <thead>
+                  <tr class="text-muted fw-bold border-bottom" style="font-size: 0.75rem;">
+                    <th>Activity</th>
+                    <th>Details</th>
+                    <th>Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody id="activity-table-body">
+                  <tr class="border-bottom">
+                    <td class="fw-bold">Profile Updated</td>
+                    <td>Updated Personal Information</td>
+                    <td>12 May 2026, 10:30 AM</td>
+                  </tr>
+                  <tr class="border-bottom">
+                    <td class="fw-bold">Password Changed</td>
+                    <td>Password was changed successfully</td>
+                    <td>11 May 2025, 09:15 AM</td>
+                  </tr>
+                  <tr class="border-bottom">
+                    <td class="fw-bold">Resume Uploaded</td>
+                    <td>John_Doe_Resume.pdf Uploaded</td>
+                    <td>10 May 2025, 09:30 AM</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="seeker-pagination mt-4" id="activity-pagination-container"></div>
+          </div>
+
+          <div class="settings-panel-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Connected Account</h6>
+              <button class="edit-pill">Edit</button>
+            </div>
+            <div class="row text-center py-2">
+              <div class="col-4">
+                <div class="fw-bold small text-muted">LinkedIn</div>
+                <div class="text-dark small fw-bold">Connected</div>
+              </div>
+              <div class="col-4 border-start border-end">
+                <div class="fw-bold small text-muted">GitHub</div>
+                <div class="text-dark small fw-bold">Connected</div>
+              </div>
+              <div class="col-4">
+                <div class="fw-bold small text-muted">Google</div>
+                <div class="text-dark small fw-bold">Connected</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">Danger Zone</h6>
+            </div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div>
+                <div class="fw-bold small text-danger">Delete Account</div>
+                <div class="text-muted" style="font-size: 0.75rem;">Once you delete your account, there is no going back.</div>
+              </div>
+              <button class="btn btn-sm btn-danger fw-bold px-3" id="btn-delete-account" style="border-radius: 8px;">Delete Account</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4">
+          
+          <div class="settings-panel-card">
+            <h6 class="fw-bold mb-3" style="font-size: 0.85rem;">Quick Actions</h6>
+            <div class="d-flex flex-column gap-2">
+              <button class="btn btn-outline-secondary w-100 text-start py-2 text-dark small fw-semibold" id="quick-change-password" style="border-radius: 8px; font-size: 0.8rem;">Change Password</button>
+              <button class="btn btn-outline-secondary w-100 text-start py-2 text-dark small fw-semibold" onclick="alert('Device Management simulation is active.');" style="border-radius: 8px; font-size: 0.8rem;">Manage Devices</button>
+              <button class="btn btn-outline-secondary w-100 text-start py-2 text-dark small fw-semibold" id="quick-download-data" style="border-radius: 8px; font-size: 0.8rem;">Download My Data</button>
+              <button class="btn btn-danger w-100 py-2 small fw-bold" onclick="if(confirm('Are you sure you want to deactivate your account?')){alert('Account Deactivated Successfully.');}" style="border-radius: 8px; font-size: 0.8rem;">Deactivate Account</button>
+            </div>
+          </div>
+
+          <div class="settings-panel-card">
+            <h6 class="fw-bold mb-2" style="font-size: 0.85rem;">Help Center</h6>
+            <p class="text-muted mb-3" style="font-size: 0.75rem;">Need Help with your account Setting</p>
+            <a href="../helpcenter/help.html" class="btn btn-primary w-100 py-2 fw-semibold text-center text-white text-decoration-none" style="background-color: #1D4ED8; border: none; border-radius: 8px; font-size: 0.8rem; display: block;">Go To Help Center</a>
+          </div>
+
+          <div class="settings-panel-card">
+            <h6 class="fw-bold mb-2" style="font-size: 0.85rem;">Privacy Tip</h6>
+            <p class="text-muted mb-0" style="font-size: 0.75rem; line-height: 1.5;">Keep your profile information updated and review your privacy settings regularly to stay safe.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="editProfileModalLabel">Edit Personal Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; color: #475569;">
+          <form id="editProfileForm">
+            <div class="mb-3">
+              <label for="edit-avatar-input" class="form-label fw-bold">Profile Picture</label>
+              <input type="file" class="form-control" id="edit-avatar-input" accept="image/*" style="border-radius: 8px;">
+            </div>
+            <div class="mb-3">
+              <label for="edit-name-input" class="form-label fw-bold">Full Name</label>
+              <input type="text" class="form-control" id="edit-name-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-gender-input" class="form-label fw-bold">Gender</label>
+              <select class="form-select" id="edit-gender-input" style="border-radius: 8px;">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="edit-email-input" class="form-label fw-bold">Email Address</label>
+              <input type="email" class="form-control" id="edit-email-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-location-input" class="form-label fw-bold">Current Location</label>
+              <input type="text" class="form-control" id="edit-location-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-phone-input" class="form-label fw-bold">Phone Number</label>
+              <input type="text" class="form-control" id="edit-phone-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-pref-input" class="form-label fw-bold">Preferred Location</label>
+              <input type="text" class="form-control" id="edit-pref-input" style="border-radius: 8px;" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm px-4" id="save-modal-profile-btn" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="guideStrengthModal" tabindex="-1" aria-labelledby="guideStrengthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="guideStrengthModalLabel">How to Achieve 100% Profile Strength</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; line-height: 1.6; color: #475569;">
+          <p class="fw-bold text-dark">Follow these clear guide steps to achieve 100% complete Profile Strength:</p>
+          <ul class="ps-3 mb-0" style="line-height: 1.8;">
+            <li><strong>Add Profile Photo (15%):</strong> Click your user image avatar to upload an avatar picture.</li>
+            <li><strong>Provide Full Name (15%):</strong> Set your full name inside the personal edit modal.</li>
+            <li><strong>Choose Gender (15%):</strong> Ensure your gender identity is specified.</li>
+            <li><strong>Location & Contact (30%):</strong> Save your Current Location, Phone Number and Email.</li>
+          </ul>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Got It</button>
+          <a href="../helpcenter/help.html#profile-strength-guide" class="btn btn-primary btn-sm px-4" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Explore More <i class="fa-solid fa-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="guideReadinessModal" tabindex="-1" aria-labelledby="guideReadinessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="guideReadinessModalLabel">How to Improve Application Readiness</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; line-height: 1.6; color: #475569;">
+          <p class="fw-bold text-dark">Complete your Job Preferences to reach a high Application Readiness score:</p>
+          <ul class="ps-3 mb-0" style="line-height: 1.8;">
+            <li><strong>Specify Preferred Role:</strong> Add your targeted job title (e.g. Frontend Developer).</li>
+            <li><strong>Expected Salary & Job Type:</strong> Define expected salary bracket and employment type.</li>
+            <li><strong>Work Mode Preferences:</strong> Select if you seek Remote, Hybrid, or Onsite roles.</li>
+            <li><strong>Skills & Experience:</strong> List experience years and primary technical skill tags.</li>
+          </ul>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Got It</button>
+          <a href="../helpcenter/help.html#application-readiness-guide" class="btn btn-primary btn-sm px-4" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Explore More <i class="fa-solid fa-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="guideVisibilityModal" tabindex="-1" aria-labelledby="guideVisibilityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="guideVisibilityModalLabel">How to Enhance Search Visibility</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; line-height: 1.6; color: #475569;">
+          <p class="fw-bold text-dark">Optimize security and recruiter permissions to maximize Search Visibility:</p>
+          <ul class="ps-3 mb-0" style="line-height: 1.8;">
+            <li><strong>Profile Settings:</strong> Set Profile, Phone, and Resume visibility permissions.</li>
+            <li><strong>Recruiter Access:</strong> Ensure Recruiter Access parameter is enabled.</li>
+            <li><strong>Search Engine Indexing:</strong> Connect linked verified OAuth accounts like GitHub/Google.</li>
+          </ul>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Got It</button>
+          <a href="../helpcenter/help.html#search-visibility-guide" class="btn btn-primary btn-sm px-4" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Explore More <i class="fa-solid fa-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="editNotificationsModal" tabindex="-1" aria-labelledby="editNotificationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="editNotificationsModalLabel">Edit Notification Preferences</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; color: #475569;">
+          <form id="editNotificationsForm">
+            <h6 class="fw-bold text-dark mb-3">Application Updates</h6>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="notify-app-email">
+              <label class="form-check-label" for="notify-app-email">Email Notifications</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="notify-app-sms">
+              <label class="form-check-label" for="notify-app-sms">SMS Notifications</label>
+            </div>
+            <div class="form-check form-switch mb-4">
+              <input class="form-check-input" type="checkbox" id="notify-app-push">
+              <label class="form-check-label" for="notify-app-push">Push Notifications</label>
+            </div>
+
+            <h6 class="fw-bold text-dark mb-3">Interview Notifications</h6>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="notify-int-email">
+              <label class="form-check-label" for="notify-int-email">Email Notifications</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="notify-int-sms">
+              <label class="form-check-label" for="notify-int-sms">SMS Notifications</label>
+            </div>
+            <div class="form-check form-switch mb-4">
+              <input class="form-check-input" type="checkbox" id="notify-int-push">
+              <label class="form-check-label" for="notify-int-push">Push Notifications</label>
+            </div>
+
+            <h6 class="fw-bold text-dark mb-3">Job Recommendations</h6>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="notify-rec-email">
+              <label class="form-check-label" for="notify-rec-email">Email Notifications</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="notify-rec-sms">
+              <label class="form-check-label" for="notify-rec-sms">SMS Notifications</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="notify-rec-push">
+              <label class="form-check-label" for="notify-rec-push">Push Notifications</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm px-4" id="save-modal-notifications-btn" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editSecurityModal" tabindex="-1" aria-labelledby="editSecurityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="editSecurityModalLabel">Edit Account Settings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; color: #475569;">
+          <form id="editSecurityForm">
+            <div class="mb-3">
+              <label for="edit-pwd-input" class="form-label fw-bold">Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="edit-pwd-input" value="••••••••" style="border-top-left-radius: 8px; border-bottom-left-radius: 8px;" required>
+                <button class="btn btn-outline-secondary" type="button" id="btn-toggle-password-vis" style="border-top-right-radius: 8px; border-bottom-right-radius: 8px;">
+                  <i class="fa-solid fa-eye" id="password-toggle-icon"></i>
+                </button>
+              </div>
+            </div>
+            <div class="form-check form-switch mb-3">
+              <input class="form-check-input" type="checkbox" id="edit-alerts-check">
+              <label class="form-check-label fw-bold" for="edit-alerts-check">Login Alerts</label>
+            </div>
+            <div class="form-check form-switch mb-3">
+              <input class="form-check-input" type="checkbox" id="edit-tfa-check">
+              <label class="form-check-label fw-bold" for="edit-tfa-check">Two-Factor Authentication</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm px-4" id="save-modal-security-btn" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editPrivacyModal" tabindex="-1" aria-labelledby="editPrivacyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="editPrivacyModalLabel">Edit Privacy Settings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; color: #475569;">
+          <form id="editPrivacyForm">
+            <div class="mb-3">
+              <label for="edit-privacy-profile-select" class="form-label fw-bold">Profile Visibility</label>
+              <select class="form-select" id="edit-privacy-profile-select" style="border-radius: 8px;">
+                <option value="Public">Public</option>
+                <option value="Private">Private</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="edit-privacy-phone-select" class="form-label fw-bold">Phone Visibility</label>
+              <select class="form-select" id="edit-privacy-phone-select" style="border-radius: 8px;">
+                <option value="Only Recruiters">Only Recruiters</option>
+                <option value="Everyone">Everyone</option>
+                <option value="Private">Private</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="edit-privacy-resume-select" class="form-label fw-bold">Resume Visibility</label>
+              <select class="form-select" id="edit-privacy-resume-select" style="border-radius: 8px;">
+                <option value="Recruiters only">Recruiters only</option>
+                <option value="Public">Public</option>
+                <option value="Private">Private</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm px-4" id="save-modal-privacy-btn" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editResumeModal" tabindex="-1" aria-labelledby="editResumeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="editResumeModalLabel">Edit Resume Preferences</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; color: #475569;">
+          <form id="editResumeForm">
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Upload Resume</label>
+              <div id="resume-upload-zone"
+                style="border: 2px dashed #CBD5E1; border-radius: 16px; padding: 28px 20px; text-align: center; cursor: pointer; background: #F8FAFC; transition: border-color 0.2s, background 0.2s;"
+                onclick="document.getElementById('resume-file-input').click()"
+                ondragover="event.preventDefault(); this.style.borderColor='#1D4ED8'; this.style.background='#EFF6FF';"
+                ondragleave="this.style.borderColor='#CBD5E1'; this.style.background='#F8FAFC';"
+                ondrop="handleResumeDrop(event)">
+                <i class="fa-solid fa-cloud-arrow-up fa-2x mb-2" style="color: #1D4ED8;"></i>
+                <div class="fw-bold text-dark" style="font-size: 0.85rem;">Click or drag & drop your resume here</div>
+                <div class="text-muted mt-1" style="font-size: 0.72rem;">Supported formats: PDF, DOCX, DOC &nbsp;|&nbsp; Max size: 5 MB</div>
+              </div>
+              <input type="file" id="resume-file-input" accept=".pdf,.doc,.docx" class="d-none" onchange="handleResumeFileSelect(event)">
+            </div>
+
+            <div id="resume-file-info" class="mb-3 p-3 rounded-3 d-none" style="background: #EFF6FF; border: 1px solid #BFDBFE;">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="fa-solid fa-file-lines text-primary"></i>
+                  <div>
+                    <div class="fw-bold text-dark" id="resume-file-name" style="font-size: 0.8rem;"></div>
+                    <div class="text-muted" id="resume-file-size" style="font-size: 0.7rem;"></div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearResumeFile()" style="border-radius: 8px; font-size: 0.7rem;">Remove</button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-resume-default-input" class="form-label fw-bold">Resume Label / Name</label>
+              <input type="text" class="form-control" id="edit-resume-default-input" placeholder="e.g. My_Resume_2026" style="border-radius: 8px;">
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-resume-format-select" class="form-label fw-bold">Preferred Format</label>
+              <select class="form-select" id="edit-resume-format-select" style="border-radius: 8px;">
+                <option value="PDF">PDF</option>
+                <option value="DOCX">DOCX</option>
+              </select>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm px-4" id="save-modal-resume-btn" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedResumeFile = null;
+
+    function handleResumeFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) applyResumeFile(file);
+    }
+
+    function handleResumeDrop(event) {
+      event.preventDefault();
+      const zone = document.getElementById('resume-upload-zone');
+      zone.style.borderColor = '#CBD5E1';
+      zone.style.background  = '#F8FAFC';
+      const file = event.dataTransfer.files[0];
+      if (file) applyResumeFile(file);
+    }
+
+    function applyResumeFile(file) {
+      const allowed = ['application/pdf', 'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (!allowed.includes(file.type) && !file.name.match(/\.(pdf|doc|docx)$/i)) {
+        alert('Unsupported file type. Please upload a PDF, DOC, or DOCX file.');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size exceeds 5 MB. Please upload a smaller file.');
+        return;
+      }
+      selectedResumeFile = file;
+      document.getElementById('resume-file-name').textContent = file.name;
+      document.getElementById('resume-file-size').textContent = (file.size / 1024).toFixed(1) + ' KB';
+      document.getElementById('resume-file-info').classList.remove('d-none');
+      const labelInput = document.getElementById('edit-resume-default-input');
+      if (!labelInput.value) labelInput.value = file.name.replace(/\.[^/.]+$/, '');
+    }
+
+    function clearResumeFile() {
+      selectedResumeFile = null;
+      document.getElementById('resume-file-input').value = '';
+      document.getElementById('resume-file-info').classList.add('d-none');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const saveBtn = document.getElementById('save-modal-resume-btn');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+          const label  = document.getElementById('edit-resume-default-input').value.trim();
+          const format = document.getElementById('edit-resume-format-select').value;
+
+          if (selectedResumeFile) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              localStorage.setItem('resume_url',      e.target.result);
+              localStorage.setItem('resume_name',     selectedResumeFile.name);
+              localStorage.setItem('resume_label',    label || selectedResumeFile.name);
+              localStorage.setItem('resume_format',   format);
+              localStorage.setItem('resume_uploaded', 'true');
+              bootstrap.Modal.getInstance(document.getElementById('editResumeModal')).hide();
+              alert('Resume saved successfully!\nYou can now apply for jobs using this resume.');
+            };
+            reader.readAsDataURL(selectedResumeFile);
+          } else if (label) {
+            localStorage.setItem('resume_label',    label);
+            localStorage.setItem('resume_format',   format);
+            bootstrap.Modal.getInstance(document.getElementById('editResumeModal')).hide();
+            alert('Resume preferences saved.');
+          } else {
+            alert('Please upload a resume file or enter a resume label.');
+          }
+        });
+      }
+
+      const editResumeModalEl = document.getElementById('editResumeModal');
+      if (editResumeModalEl) {
+        editResumeModalEl.addEventListener('show.bs.modal', () => {
+          const savedLabel  = localStorage.getItem('resume_label')  || '';
+          const savedFormat = localStorage.getItem('resume_format') || 'PDF';
+          const savedName   = localStorage.getItem('resume_name')   || '';
+          document.getElementById('edit-resume-default-input').value = savedLabel;
+          document.getElementById('edit-resume-format-select').value = savedFormat;
+          if (savedName) {
+            document.getElementById('resume-file-name').textContent = savedName;
+            document.getElementById('resume-file-size').textContent = 'Previously uploaded';
+            document.getElementById('resume-file-info').classList.remove('d-none');
+          }
+        });
+      }
+    });
+  </script>
+
+
+  <div class="modal fade" id="editApplicationModal" tabindex="-1" aria-labelledby="editApplicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="editApplicationModalLabel">Edit Job Preferences</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="font-size: 0.85rem; color: #475569;">
+          <form id="editApplicationForm">
+            <div class="mb-3">
+              <label for="edit-job-role-input" class="form-label fw-bold">Preferred Role</label>
+              <input type="text" class="form-control" id="edit-job-role-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-job-salary-input" class="form-label fw-bold">Expected Salary</label>
+              <input type="text" class="form-control" id="edit-job-salary-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-job-type-input" class="form-label fw-bold">Employment Type</label>
+              <input type="text" class="form-control" id="edit-job-type-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-job-mode-input" class="form-label fw-bold">Work Mode</label>
+              <input type="text" class="form-control" id="edit-job-mode-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-job-exp-input" class="form-label fw-bold">Experience Level</label>
+              <input type="text" class="form-control" id="edit-job-exp-input" style="border-radius: 8px;" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-job-skills-input" class="form-label fw-bold">Preferred Skills</label>
+              <input type="text" class="form-control" id="edit-job-skills-input" style="border-radius: 8px;" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm px-4" id="save-modal-application-btn" style="background-color: #1D4ED8; border: none; border-radius: 8px;">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const valName = document.querySelector('.info-item .info-val');
+      const valGender = document.getElementById('settings-gender-val');
+      const valLocation = document.querySelectorAll('.info-item .info-val')[4];
+      const valPhone = document.querySelectorAll('.info-item .info-val')[5];
+      const valEmail = document.getElementById('settings-email-val');
+      const valPref = document.getElementById('settings-pref-val');
+      const headerNameBtn = document.getElementById('profileBtnName');
+      
+      const savedName = localStorage.getItem('profileName');
+      const savedPhone = localStorage.getItem('profilePhone');
+      const savedLocation = localStorage.getItem('profileLocation');
+      const savedEmail = localStorage.getItem('profileEmail');
+      const savedPref = localStorage.getItem('profilePref');
+      const savedGender = localStorage.getItem('profileGender');
+      
+      if (savedName) {
+        if (valName) valName.textContent = savedName;
+        if (headerNameBtn) headerNameBtn.textContent = savedName;
+        const dropdownHeaderName = document.getElementById('dropdown-user-name');
+        if (dropdownHeaderName) dropdownHeaderName.textContent = savedName;
+        const overviewName = document.getElementById('overview-user-name');
+        if (overviewName) overviewName.textContent = savedName;
+      }
+      if (savedPhone) {
+        if (valPhone) valPhone.textContent = savedPhone;
+      }
+      if (savedLocation) {
+        if (valLocation) valLocation.textContent = savedLocation;
+      }
+      if (savedEmail) {
+        if (valEmail) valEmail.textContent = savedEmail;
+        const dropdownHeaderEmail = document.getElementById('dropdown-user-email');
+        if (dropdownHeaderEmail) dropdownHeaderEmail.textContent = savedEmail;
+        const overviewEmail = document.getElementById('overview-user-email');
+        if (overviewEmail) overviewEmail.textContent = savedEmail;
+      }
+      if (savedPref) {
+        if (valPref) valPref.textContent = savedPref;
+      }
+      if (savedGender) {
+        if (valGender) valGender.textContent = savedGender;
+      }
+      
+      const savedAvatar = localStorage.getItem('profileAvatar');
+      if (savedAvatar) {
+        const overviewAvatar = document.getElementById('overview-user-avatar');
+        if (overviewAvatar) overviewAvatar.src = savedAvatar;
+        
+        const dropdownAvatar = document.querySelector('.dropdown-menu img');
+        if (dropdownAvatar) dropdownAvatar.src = savedAvatar;
+      }
+
+      const avatarContainer = document.getElementById('avatar-container');
+      const directAvatarInput = document.getElementById('direct-avatar-input');
+      if (avatarContainer && directAvatarInput) {
+        avatarContainer.addEventListener('click', () => {
+          directAvatarInput.click();
+        });
+
+        directAvatarInput.addEventListener('change', (event) => {
+          const files = event.target.files;
+          if (files && files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const dataUrl = e.target.result;
+              localStorage.setItem('profileAvatar', dataUrl);
+              
+              const overviewAvatar = document.getElementById('overview-user-avatar');
+              if (overviewAvatar) overviewAvatar.src = dataUrl;
+              
+              const dropdownAvatar = document.querySelector('.dropdown-menu img');
+              if (dropdownAvatar) dropdownAvatar.src = dataUrl;
+
+              if (typeof updateCompletionRange === 'function') {
+                updateCompletionRange();
+              }
+              
+              alert('Profile picture uploaded and synced successfully!');
+            };
+            reader.readAsDataURL(files[0]);
+          }
+        });
+      }
+
+      const editModalEl = document.getElementById('editProfileModal');
+      const bsEditModal = new bootstrap.Modal(editModalEl);
+      const nameInput = document.getElementById('edit-name-input');
+      const genderInput = document.getElementById('edit-gender-input');
+      const emailInput = document.getElementById('edit-email-input');
+      const locationInput = document.getElementById('edit-location-input');
+      const phoneInput = document.getElementById('edit-phone-input');
+      const prefInput = document.getElementById('edit-pref-input');
+
+      const tabButtons = document.querySelectorAll('.tab-nav-btn');
+      const tabPanels = document.querySelectorAll('.settings-tab-content');
+
+      const panelIds = [
+        'general-panel',
+        'security-panel',
+        'notifications-panel',
+        'privacy-panel',
+        'resume-panel',
+        'application-panel'
+      ];
+
+      tabButtons.forEach((btn, idx) => {
+        btn.addEventListener('click', () => {
+          tabButtons.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.add('d-none'));
+
+          btn.classList.add('active');
+          const targetPanel = document.getElementById(panelIds[idx]);
+          if (targetPanel) targetPanel.classList.remove('d-none');
+        });
+      });
+
+      const bsStrengthGuide = new bootstrap.Modal(document.getElementById('guideStrengthModal'));
+      const bsReadinessGuide = new bootstrap.Modal(document.getElementById('guideReadinessModal'));
+      const bsVisibilityGuide = new bootstrap.Modal(document.getElementById('guideVisibilityModal'));
+
+      const metricStrength = document.getElementById('metric-click-strength');
+      const metricReadiness = document.getElementById('metric-click-readiness');
+      const metricVisibility = document.getElementById('metric-click-visibility');
+
+      if (metricStrength) {
+        metricStrength.addEventListener('click', () => {
+          if (tabButtons[0]) tabButtons[0].click(); 
+        });
+      }
+      if (metricReadiness) {
+        metricReadiness.addEventListener('click', () => {
+          if (tabButtons[5]) tabButtons[5].click();
+        });
+      }
+      if (metricVisibility) {
+        metricVisibility.addEventListener('click', () => {
+          if (tabButtons[3]) tabButtons[3].click(); 
+        });
+      }
+
+      const editInfoBtn = document.getElementById('btn-edit-personal-info');
+      if (editInfoBtn) {
+        editInfoBtn.addEventListener('click', () => {
+          nameInput.value = valName ? valName.textContent : 'John Doe';
+          genderInput.value = valGender ? valGender.textContent : 'Male';
+          emailInput.value = valEmail ? valEmail.textContent : 'john.doe@gmail.com';
+          locationInput.value = valLocation ? valLocation.textContent : 'Bangalore, India';
+          phoneInput.value = valPhone ? valPhone.textContent : '+91 9876543210';
+          prefInput.value = valPref ? valPref.textContent : 'Bangalore, Pune, Remote';
+          bsEditModal.show();
+        });
+      }
+
+      const btnEditSecurity = document.getElementById('btn-edit-security');
+      const bsSecurityModal = new bootstrap.Modal(document.getElementById('editSecurityModal'));
+      const inputPwd = document.getElementById('edit-pwd-input');
+      const checkAlerts = document.getElementById('edit-alerts-check');
+      const checkTfa = document.getElementById('edit-tfa-check');
+
+      const valPwd = document.getElementById('security-pwd-val');
+      const valAlerts = document.getElementById('security-alerts-val');
+      const valTfa = document.getElementById('security-tfa-val');
+
+      const btnTogglePwd = document.getElementById('btn-toggle-password-vis');
+      const iconTogglePwd = document.getElementById('password-toggle-icon');
+      if (btnTogglePwd) {
+        btnTogglePwd.addEventListener('click', () => {
+          if (inputPwd.type === 'password') {
+            inputPwd.type = 'text';
+            iconTogglePwd.classList.replace('fa-eye', 'fa-eye-slash');
+          } else {
+            inputPwd.type = 'password';
+            iconTogglePwd.classList.replace('fa-eye-slash', 'fa-eye');
+          }
+        });
+      }
+
+      if (btnEditSecurity) {
+        btnEditSecurity.addEventListener('click', () => {
+          checkAlerts.checked = localStorage.getItem('security_alerts') !== 'Disabled';
+          checkTfa.checked = localStorage.getItem('security_tfa') !== 'Disabled';
+          
+          const savedPwd = localStorage.getItem('security_password') || 'password123';
+          inputPwd.value = savedPwd;
+          
+          inputPwd.type = 'password';
+          if (iconTogglePwd) {
+            iconTogglePwd.className = 'fa-solid fa-eye';
+          }
+          bsSecurityModal.show();
+        });
+      }
+
+      document.getElementById('save-modal-security-btn').addEventListener('click', () => {
+        localStorage.setItem('security_alerts', checkAlerts.checked ? 'Enabled' : 'Disabled');
+        localStorage.setItem('security_tfa', checkTfa.checked ? 'Enabled' : 'Disabled');
+        
+        const newPwdVal = inputPwd.value.trim();
+        let pwdUpdated = false;
+        if (newPwdVal && newPwdVal !== '••••••••') {
+          const oldPwd = localStorage.getItem('security_password') || 'password123';
+          if (newPwdVal !== oldPwd) {
+            localStorage.setItem('security_password', newPwdVal);
+            if (valPwd) valPwd.textContent = '••••••••';
+            pwdUpdated = true;
+          }
+        }
+        
+        if (pwdUpdated) {
+          logActivity('Password Changed', 'Password was changed successfully');
+        } else {
+          logActivity('Security Settings Updated', 'Alerts or 2FA parameters updated');
+        }
+        
+        if (valAlerts) valAlerts.textContent = checkAlerts.checked ? 'Enabled' : 'Disabled';
+        if (valTfa) valTfa.textContent = checkTfa.checked ? 'Enabled' : 'Disabled';
+        bsSecurityModal.hide();
+        alert('Account Settings updated successfully.');
+      });
+
+      if (localStorage.getItem('security_alerts')) {
+        if (valAlerts) valAlerts.textContent = localStorage.getItem('security_alerts');
+      }
+      if (localStorage.getItem('security_tfa')) {
+        if (valTfa) valTfa.textContent = localStorage.getItem('security_tfa');
+      }
+
+      const btnEditPrivacy = document.getElementById('btn-edit-privacy');
+      const bsPrivacyModal = new bootstrap.Modal(document.getElementById('editPrivacyModal'));
+      const selectProfileVis = document.getElementById('edit-privacy-profile-select');
+      const selectPhoneVis = document.getElementById('edit-privacy-phone-select');
+      const selectResumeVis = document.getElementById('edit-privacy-resume-select');
+
+      const valPrivacyProfile = document.getElementById('privacy-profile-val');
+      const valPrivacyPhone = document.getElementById('privacy-phone-val');
+      const valPrivacyResume = document.getElementById('privacy-resume-val');
+
+      if (btnEditPrivacy) {
+        btnEditPrivacy.addEventListener('click', () => {
+          selectProfileVis.value = valPrivacyProfile ? valPrivacyProfile.textContent : 'Public';
+          selectPhoneVis.value = valPrivacyPhone ? valPrivacyPhone.textContent : 'Only Recruiters';
+          selectResumeVis.value = valPrivacyResume ? valPrivacyResume.textContent : 'Recruiters only';
+          bsPrivacyModal.show();
+        });
+      }
+
+      document.getElementById('save-modal-privacy-btn').addEventListener('click', () => {
+        localStorage.setItem('privacy_profile', selectProfileVis.value);
+        localStorage.setItem('privacy_phone', selectPhoneVis.value);
+        localStorage.setItem('privacy_resume', selectResumeVis.value);
+
+        if (valPrivacyProfile) valPrivacyProfile.textContent = selectProfileVis.value;
+        if (valPrivacyPhone) valPrivacyPhone.textContent = selectPhoneVis.value;
+        if (valPrivacyResume) valPrivacyResume.textContent = selectResumeVis.value;
+
+        logActivity('Privacy Preferences Updated', 'Privacy permissions configuration updated');
+
+        bsPrivacyModal.hide();
+        alert('Privacy Settings updated successfully.');
+      });
+
+      if (localStorage.getItem('privacy_profile')) {
+        if (valPrivacyProfile) valPrivacyProfile.textContent = localStorage.getItem('privacy_profile');
+      }
+      if (localStorage.getItem('privacy_phone')) {
+        if (valPrivacyPhone) valPrivacyPhone.textContent = localStorage.getItem('privacy_phone');
+      }
+      if (localStorage.getItem('privacy_resume')) {
+        if (valPrivacyResume) valPrivacyResume.textContent = localStorage.getItem('privacy_resume');
+      }
+
+      const btnEditResume = document.getElementById('btn-edit-resume');
+      const bsResumeModal = new bootstrap.Modal(document.getElementById('editResumeModal'));
+      const inputResumeDefault = document.getElementById('edit-resume-default-input');
+      const selectResumeFormat = document.getElementById('edit-resume-format-select');
+
+      const valResumeDefault = document.getElementById('resume-default-val');
+      const valResumeFormat = document.getElementById('resume-format-val');
+
+      if (btnEditResume) {
+        btnEditResume.addEventListener('click', () => {
+          inputResumeDefault.value = valResumeDefault ? valResumeDefault.textContent : 'John_Doe_Resume.pdf';
+          selectResumeFormat.value = valResumeFormat ? valResumeFormat.textContent : 'PDF';
+          bsResumeModal.show();
+        });
+      }
+
+      document.getElementById('save-modal-resume-btn').addEventListener('click', () => {
+        const oldName = localStorage.getItem('resume_default') || 'John_Doe_Resume.pdf';
+        const newName = inputResumeDefault.value.trim();
+        localStorage.setItem('resume_default', newName);
+        localStorage.setItem('resume_format', selectResumeFormat.value);
+
+        if (valResumeDefault) valResumeDefault.textContent = newName;
+        if (valResumeFormat) valResumeFormat.textContent = selectResumeFormat.value;
+
+        logActivity('Resume Uploaded', newName + ' Uploaded');
+
+        bsResumeModal.hide();
+        alert('Resume Preferences updated successfully.');
+      });
+
+      if (localStorage.getItem('resume_default')) {
+        if (valResumeDefault) valResumeDefault.textContent = localStorage.getItem('resume_default');
+      }
+      if (localStorage.getItem('resume_format')) {
+        if (valResumeFormat) valResumeFormat.textContent = localStorage.getItem('resume_format');
+      }
+
+      const btnEditApplication = document.getElementById('btn-edit-application');
+      const bsApplicationModal = new bootstrap.Modal(document.getElementById('editApplicationModal'));
+      const inputJobRole = document.getElementById('edit-job-role-input');
+      const inputJobSalary = document.getElementById('edit-job-salary-input');
+      const inputJobType = document.getElementById('edit-job-type-input');
+      const inputJobMode = document.getElementById('edit-job-mode-input');
+      const inputJobExp = document.getElementById('edit-job-exp-input');
+      const inputJobSkills = document.getElementById('edit-job-skills-input');
+
+      const valJobRole = document.getElementById('job-role-val');
+      const valJobSalary = document.getElementById('job-salary-val');
+      const valJobType = document.getElementById('job-type-val');
+      const valJobMode = document.getElementById('job-mode-val');
+      const valJobExp = document.getElementById('job-exp-val');
+      const valJobSkills = document.getElementById('job-skills-val');
+
+      if (btnEditApplication) {
+        btnEditApplication.addEventListener('click', () => {
+          inputJobRole.value = valJobRole ? valJobRole.textContent : 'Frontend Developer';
+          inputJobSalary.value = valJobSalary ? valJobSalary.textContent : '12-18 LPA';
+          inputJobType.value = valJobType ? valJobType.textContent : 'Full Time';
+          inputJobMode.value = valJobMode ? valJobMode.textContent : 'Hybrid';
+          inputJobExp.value = valJobExp ? valJobExp.textContent : '3 - 5 Years';
+          inputJobSkills.value = valJobSkills ? valJobSkills.textContent : 'React, JS';
+          bsApplicationModal.show();
+        });
+      }
+
+      document.getElementById('save-modal-application-btn').addEventListener('click', () => {
+        localStorage.setItem('job_role', inputJobRole.value.trim());
+        localStorage.setItem('job_salary', inputJobSalary.value.trim());
+        localStorage.setItem('job_type', inputJobType.value.trim());
+        localStorage.setItem('job_mode', inputJobMode.value.trim());
+        localStorage.setItem('job_exp', inputJobExp.value.trim());
+        localStorage.setItem('job_skills', inputJobSkills.value.trim());
+
+        if (valJobRole) valJobRole.textContent = inputJobRole.value.trim();
+        if (valJobSalary) valJobSalary.textContent = inputJobSalary.value.trim();
+        if (valJobType) valJobType.textContent = inputJobType.value.trim();
+        if (valJobMode) valJobMode.textContent = inputJobMode.value.trim();
+        if (valJobExp) valJobExp.textContent = inputJobExp.value.trim();
+        if (valJobSkills) valJobSkills.textContent = inputJobSkills.value.trim();
+
+        bsApplicationModal.hide();
+        alert('Job Preferences updated successfully.');
+      });
+
+      if (localStorage.getItem('job_role')) {
+        if (valJobRole) valJobRole.textContent = localStorage.getItem('job_role');
+      }
+      if (localStorage.getItem('job_salary')) {
+        if (valJobSalary) valJobSalary.textContent = localStorage.getItem('job_salary');
+      }
+      if (localStorage.getItem('job_type')) {
+        if (valJobType) valJobType.textContent = localStorage.getItem('job_type');
+      }
+      if (localStorage.getItem('job_mode')) {
+        if (valJobMode) valJobMode.textContent = localStorage.getItem('job_mode');
+      }
+      if (localStorage.getItem('job_exp')) {
+        if (valJobExp) valJobExp.textContent = localStorage.getItem('job_exp');
+      }
+      if (localStorage.getItem('job_skills')) {
+        if (valJobSkills) valJobSkills.textContent = localStorage.getItem('job_skills');
+      }
+
+      document.getElementById('save-modal-profile-btn').addEventListener('click', () => {
+        const newName = nameInput.value.trim();
+        const newGender = genderInput.value;
+        const newEmail = emailInput.value.trim();
+        const newPhone = phoneInput.value.trim();
+        const newLoc = locationInput.value.trim();
+        const newPref = prefInput.value.trim();
+
+        if (newName) {
+          localStorage.setItem('profileName', newName);
+          if (valName) valName.textContent = newName;
+          if (headerNameBtn) headerNameBtn.textContent = newName;
+          const dropdownHeaderName = document.getElementById('dropdown-user-name');
+          if (dropdownHeaderName) dropdownHeaderName.textContent = newName;
+          const overviewName = document.getElementById('overview-user-name');
+          if (overviewName) overviewName.textContent = newName;
+        }
+        if (newGender) {
+          localStorage.setItem('profileGender', newGender);
+          if (valGender) valGender.textContent = newGender;
+        }
+        if (newEmail) {
+          localStorage.setItem('profileEmail', newEmail);
+          if (valEmail) valEmail.textContent = newEmail;
+          const dropdownHeaderEmail = document.getElementById('dropdown-user-email');
+          if (dropdownHeaderEmail) dropdownHeaderEmail.textContent = newEmail;
+          const overviewEmail = document.getElementById('overview-user-email');
+          if (overviewEmail) overviewEmail.textContent = newEmail;
+        }
+        if (newPhone) {
+          localStorage.setItem('profilePhone', newPhone);
+          if (valPhone) valPhone.textContent = newPhone;
+        }
+        if (newLoc) {
+          localStorage.setItem('profileLocation', newLoc);
+          if (valLocation) valLocation.textContent = newLoc;
+        }
+        if (newPref) {
+          localStorage.setItem('profilePref', newPref);
+          if (valPref) valPref.textContent = newPref;
+        }
+
+        const avatarInput = document.getElementById('edit-avatar-input');
+        if (avatarInput && avatarInput.files && avatarInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const dataUrl = e.target.result;
+            localStorage.setItem('profileAvatar', dataUrl);
+            
+            const overviewAvatar = document.getElementById('overview-user-avatar');
+            if (overviewAvatar) overviewAvatar.src = dataUrl;
+            
+            const dropdownAvatar = document.querySelector('.dropdown-menu img');
+            if (dropdownAvatar) dropdownAvatar.src = dataUrl;
+          };
+          reader.readAsDataURL(avatarInput.files[0]);
+        }
+
+        updateCompletionRange();
+
+        logActivity('Profile Updated', 'Updated Personal Information');
+
+        bsEditModal.hide();
+        alert('Settings Saved Successfully.');
+      });
+
+      function updateCompletionRange() {
+        let filledCount = 0;
+        const fields = ['profileName', 'profileGender', 'profileEmail', 'profilePhone', 'profileLocation', 'profilePref', 'profileAvatar'];
+        fields.forEach(f => {
+          if (localStorage.getItem(f)) filledCount++;
+        });
+
+        const pct1 = Math.round((filledCount / 7) * 100);
+        const pct2 = Math.round((Math.max(1, filledCount - 1) / 7) * 100);
+        const pct3 = Math.round((Math.max(1, filledCount - 2) / 7) * 100);
+
+        const v1 = document.getElementById('pct-val-1');
+        const v2 = document.getElementById('pct-val-2');
+        const v3 = document.getElementById('pct-val-3');
+        const f1 = document.getElementById('progress-fill-1');
+        const f2 = document.getElementById('progress-fill-2');
+        const f3 = document.getElementById('progress-fill-3');
+
+        if (v1) v1.textContent = pct1 + '%';
+        if (v2) v2.textContent = pct2 + '%';
+        if (v3) v3.textContent = pct3 + '%';
+        if (f1) f1.style.width = pct1 + '%';
+        if (f2) f2.style.width = pct2 + '%';
+        if (f3) f3.style.width = pct3 + '%';
+      }
+
+      updateCompletionRange();
+
+      function logActivity(activityType, details) {
+        const timestamp = new Date().toLocaleString('en-US', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+
+        let activityList = JSON.parse(localStorage.getItem('account_activities')) || [];
+        activityList.unshift({ type: activityType, details: details, time: timestamp });
+        localStorage.setItem('account_activities', JSON.stringify(activityList));
+
+        renderActivities();
+      }
+
+      let activityCurrentPage = 1;
+      const activityItemsPerPage = 5;
+
+      function renderActivities() {
+        const tbody = document.getElementById('activity-table-body');
+        if (!tbody) return;
+
+        let activityList = JSON.parse(localStorage.getItem('account_activities')) || [
+          { type: 'Profile Updated', details: 'Updated Personal Information', time: '12 May 2026, 10:30 AM' },
+          { type: 'Password Changed', details: 'Password was changed successfully', time: '11 May 2025, 09:15 AM' },
+          { type: 'Resume Uploaded', details: 'John_Doe_Resume.pdf Uploaded', time: '10 May 2025, 09:30 AM' }
+        ];
+
+        const totalPages = Math.ceil(activityList.length / activityItemsPerPage);
+        if (activityCurrentPage > totalPages && totalPages > 0) activityCurrentPage = totalPages;
+
+        const startIdx = (activityCurrentPage - 1) * activityItemsPerPage;
+        const pageData = activityList.slice(startIdx, startIdx + activityItemsPerPage);
+
+        let html = '';
+        pageData.forEach(act => {
+          html += `
+            <tr class="border-bottom">
+              <td class="fw-bold">${act.type}</td>
+              <td>${act.details}</td>
+              <td>${act.time}</td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+
+        const container = document.getElementById('activity-pagination-container');
+        if (container) {
+          if (totalPages <= 1) {
+            container.innerHTML = '';
+          } else {
+            let pgHtml = `<a href="javascript:void(0)" onclick="activityGoToPage(${activityCurrentPage - 1})" ${activityCurrentPage === 1 ? 'style="pointer-events:none;opacity:0.5;"' : ''}><i class="fa-solid fa-angle-left"></i> Prev</a>`;
+            for(let i=1; i<=totalPages; i++) {
+              if(i===1 || i===totalPages || (i >= activityCurrentPage - 1 && i <= activityCurrentPage + 1)) {
+                pgHtml += `<a href="javascript:void(0)" class="${i === activityCurrentPage ? 'active' : ''}" onclick="activityGoToPage(${i})">${i}</a>`;
+              } else if (i === activityCurrentPage - 2 || i === activityCurrentPage + 2) {
+                pgHtml += `<span>...</span>`;
+              }
+            }
+            pgHtml += `<a href="javascript:void(0)" onclick="activityGoToPage(${activityCurrentPage + 1})" ${activityCurrentPage === totalPages ? 'style="pointer-events:none;opacity:0.5;"' : ''}>Next <i class="fa-solid fa-angle-right"></i></a>`;
+            container.innerHTML = pgHtml;
+          }
+        }
+      }
+
+      window.activityGoToPage = function(page) {
+        activityCurrentPage = page;
+        renderActivities();
+      };
+
+      renderActivities();
+
+      const btnEditNotify = document.getElementById('btn-edit-notifications');
+      const notifyModalEl = document.getElementById('editNotificationsModal');
+      const bsNotifyModal = new bootstrap.Modal(notifyModalEl);
+
+      const checkAppEmail = document.getElementById('notify-app-email');
+      const checkAppSms = document.getElementById('notify-app-sms');
+      const checkAppPush = document.getElementById('notify-app-push');
+      const checkIntEmail = document.getElementById('notify-int-email');
+      const checkIntSms = document.getElementById('notify-int-sms');
+      const checkIntPush = document.getElementById('notify-int-push');
+      const checkRecEmail = document.getElementById('notify-rec-email');
+      const checkRecSms = document.getElementById('notify-rec-sms');
+      const checkRecPush = document.getElementById('notify-rec-push');
+
+      const showNotifyModal = () => {
+        checkAppEmail.checked = localStorage.getItem('notify_app_email') !== 'false';
+        checkAppSms.checked = localStorage.getItem('notify_app_sms') !== 'false';
+        checkAppPush.checked = localStorage.getItem('notify_app_push') !== 'false';
+        checkIntEmail.checked = localStorage.getItem('notify_int_email') !== 'false';
+        checkIntSms.checked = localStorage.getItem('notify_int_sms') !== 'false';
+        checkIntPush.checked = localStorage.getItem('notify_int_push') !== 'false';
+        checkRecEmail.checked = localStorage.getItem('notify_rec_email') !== 'false';
+        checkRecSms.checked = localStorage.getItem('notify_rec_sms') !== 'false';
+        checkRecPush.checked = localStorage.getItem('notify_rec_push') !== 'false';
+        bsNotifyModal.show();
+      };
+
+      if (btnEditNotify) btnEditNotify.addEventListener('click', showNotifyModal);
+
+      document.getElementById('save-modal-notifications-btn').addEventListener('click', () => {
+        localStorage.setItem('notify_app_email', checkAppEmail.checked);
+        localStorage.setItem('notify_app_sms', checkAppSms.checked);
+        localStorage.setItem('notify_app_push', checkAppPush.checked);
+        localStorage.setItem('notify_int_email', checkIntEmail.checked);
+        localStorage.setItem('notify_int_sms', checkIntSms.checked);
+        localStorage.setItem('notify_int_push', checkIntPush.checked);
+        localStorage.setItem('notify_rec_email', checkRecEmail.checked);
+        localStorage.setItem('notify_rec_sms', checkRecSms.checked);
+        localStorage.setItem('notify_rec_push', checkRecPush.checked);
+
+        const checkIcon = '<i class="fa-solid fa-check text-muted"></i>';
+        document.getElementById('cell-app-email').innerHTML = checkAppEmail.checked ? checkIcon : '';
+        document.getElementById('cell-app-sms').innerHTML = checkAppSms.checked ? checkIcon : '';
+        document.getElementById('cell-app-push').innerHTML = checkAppPush.checked ? checkIcon : '';
+        document.getElementById('cell-int-email').innerHTML = checkIntEmail.checked ? checkIcon : '';
+        document.getElementById('cell-int-sms').innerHTML = checkIntSms.checked ? checkIcon : '';
+        document.getElementById('cell-int-push').innerHTML = checkIntPush.checked ? checkIcon : '';
+        document.getElementById('cell-rec-email').innerHTML = checkRecEmail.checked ? checkIcon : '';
+        document.getElementById('cell-rec-sms').innerHTML = checkRecSms.checked ? checkIcon : '';
+        document.getElementById('cell-rec-push').innerHTML = checkRecPush.checked ? checkIcon : '';
+
+        document.getElementById('status-app-val').textContent = (checkAppEmail.checked || checkAppSms.checked || checkAppPush.checked) ? 'Enabled' : 'Disabled';
+        document.getElementById('status-int-val').textContent = (checkIntEmail.checked || checkIntSms.checked || checkIntPush.checked) ? 'Enabled' : 'Disabled';
+        document.getElementById('status-rec-val').textContent = (checkRecEmail.checked || checkRecSms.checked || checkRecPush.checked) ? 'Enabled' : 'Disabled';
+
+        bsNotifyModal.hide();
+        alert('Notification Preferences updated.');
+      });
+
+      const checkIcon = '<i class="fa-solid fa-check text-muted"></i>';
+      if (localStorage.getItem('notify_app_email') === 'false') document.getElementById('cell-app-email').innerHTML = '';
+      if (localStorage.getItem('notify_app_sms') === 'false') document.getElementById('cell-app-sms').innerHTML = '';
+      if (localStorage.getItem('notify_app_push') === 'false') document.getElementById('cell-app-push').innerHTML = '';
+      if (localStorage.getItem('notify_int_email') === 'false') document.getElementById('cell-int-email').innerHTML = '';
+      if (localStorage.getItem('notify_int_sms') === 'false') document.getElementById('cell-int-sms').innerHTML = '';
+      if (localStorage.getItem('notify_int_push') === 'false') document.getElementById('cell-int-push').innerHTML = '';
+      if (localStorage.getItem('notify_rec_email') === 'false') document.getElementById('cell-rec-email').innerHTML = '';
+      if (localStorage.getItem('notify_rec_sms') === 'false') document.getElementById('cell-rec-sms').innerHTML = '';
+      if (localStorage.getItem('notify_rec_push') === 'false') document.getElementById('cell-rec-push').innerHTML = '';
+
+      document.getElementById('status-app-val').textContent = (localStorage.getItem('notify_app_email') !== 'false' || localStorage.getItem('notify_app_sms') !== 'false' || localStorage.getItem('notify_app_push') !== 'false') ? 'Enabled' : 'Disabled';
+      document.getElementById('status-int-val').textContent = (localStorage.getItem('notify_int_email') !== 'false' || localStorage.getItem('notify_int_sms') !== 'false' || localStorage.getItem('notify_int_push') !== 'false') ? 'Enabled' : 'Disabled';
+      document.getElementById('status-rec-val').textContent = (localStorage.getItem('notify_rec_email') !== 'false' || localStorage.getItem('notify_rec_sms') !== 'false' || localStorage.getItem('notify_rec_push') !== 'false') ? 'Enabled' : 'Disabled';
+
+      const btnQuickChangePwd = document.getElementById('quick-change-password');
+      if (btnQuickChangePwd) {
+        btnQuickChangePwd.addEventListener('click', () => {
+          if (tabButtons[1]) {
+            tabButtons[1].click();
+          }
+          const editSecBtn = document.getElementById('btn-edit-security');
+          if (editSecBtn) editSecBtn.click();
+        });
+      }
+
+      const btnQuickDownloadData = document.getElementById('quick-download-data');
+      if (btnQuickDownloadData) {
+        btnQuickDownloadData.addEventListener('click', () => {
+          const userData = {
+            personal_info: {
+              name: localStorage.getItem('profileName') || 'John Doe',
+              gender: localStorage.getItem('profileGender') || 'Male',
+              email: localStorage.getItem('profileEmail') || 'john.doe@gmail.com',
+              phone: localStorage.getItem('profilePhone') || '+91 9876543210',
+              location: localStorage.getItem('profileLocation') || 'Bangalore, India',
+              preferred_location: localStorage.getItem('profilePref') || 'Bangalore, Pune, Remote'
+            },
+            security: {
+              alerts: localStorage.getItem('security_alerts') || 'Enabled',
+              two_factor: localStorage.getItem('security_tfa') || 'Disabled'
+            },
+            job_preferences: {
+              role: localStorage.getItem('job_role') || 'Frontend Developer',
+              expected_salary: localStorage.getItem('job_salary') || '12-18 LPA',
+              employment_type: localStorage.getItem('job_type') || 'Full Time',
+              work_mode: localStorage.getItem('job_mode') || 'Hybrid',
+              experience_level: localStorage.getItem('job_exp') || '3 - 5 Years',
+              preferred_skills: localStorage.getItem('job_skills') || 'React, JS'
+            },
+            privacy: {
+              profile_visibility: localStorage.getItem('privacy_profile') || 'Public',
+              phone_visibility: localStorage.getItem('privacy_phone') || 'Only Recruiters',
+              resume_visibility: localStorage.getItem('privacy_resume') || 'Recruiters only'
+            },
+            notifications: {
+              applications: {
+                email: localStorage.getItem('notify_app_email') !== 'false',
+                sms: localStorage.getItem('notify_app_sms') !== 'false',
+                push: localStorage.getItem('notify_app_push') !== 'false'
+              },
+              interviews: {
+                email: localStorage.getItem('notify_int_email') !== 'false',
+                sms: localStorage.getItem('notify_int_sms') !== 'false',
+                push: localStorage.getItem('notify_int_push') !== 'false'
+              },
+              recommendations: {
+                email: localStorage.getItem('notify_rec_email') !== 'false',
+                sms: localStorage.getItem('notify_rec_sms') !== 'false',
+                push: localStorage.getItem('notify_rec_push') !== 'false'
+              }
+            }
+          };
+
+          const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userData, null, 2));
+          const dlAnchorElem = document.createElement('a');
+          dlAnchorElem.setAttribute("href",     dataStr     );
+          dlAnchorElem.setAttribute("download", "profile_backup.json");
+          dlAnchorElem.click();
+
+          alert('Your backup package data (profile_backup.json) download has started!');
+        });
+      }
+
+      const saveBtn = document.querySelector('.btn-primary');
+      const resetBtn = document.querySelectorAll('.btn-outline-secondary')[0];
+      const viewProfileBtn = document.querySelectorAll('.btn-outline-secondary')[1];
+
+      if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+          alert('All Profile and settings parameters have been synchronized successfully!');
+        });
+      }
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          localStorage.removeItem('profileName');
+          localStorage.removeItem('profilePhone');
+          localStorage.removeItem('profileLocation');
+          localStorage.removeItem('profileEmail');
+          localStorage.removeItem('profilePref');
+          localStorage.removeItem('profileGender');
+          localStorage.removeItem('notify_app_sms');
+          localStorage.removeItem('notify_app_push');
+          localStorage.removeItem('notify_int_email');
+          localStorage.removeItem('notify_int_push');
+          localStorage.removeItem('notify_rec_email');
+          localStorage.removeItem('notify_rec_sms');
+          localStorage.removeItem('notify_rec_push');
+          location.reload();
+        });
+      }
+      const btnDeleteAccount = document.getElementById('btn-delete-account');
+      if (btnDeleteAccount) {
+        btnDeleteAccount.addEventListener('click', () => {
+          if (confirm('Warning: Once you delete your account, there is no going back. Are you sure you want to proceed with account deletion?')) {
+            alert('Your request for account deletion has been sent successfully.');
+          }
+        });
+      }
+
+      if (viewProfileBtn) {
+        viewProfileBtn.addEventListener('click', () => {
+          window.location.href = '../candidateprofile/profile.html';
+        });
+      }
+    });
+  </script>
+
+  <script>
+    let renderNotifications;
+    document.addEventListener('DOMContentLoaded', function() {
+      const defaultNotifs = [
+        { type:'success', icon:'fa-solid fa-circle-check', title:'Complaint Resolved', desc:'Admin has resolved your recent complaint regarding job application #4092.', time:'2 hours ago', read:false },
+        { type:'primary', icon:'fa-solid fa-user-check', title:'Shortlisted for Interview', desc:'Congratulations! You have been shortlisted for the Software Engineer role.', time:'1 day ago', read:false },
+        { type:'warning', icon:'fa-solid fa-briefcase', title:'New Job Posted', desc:'A new job matching your profile has been posted: Frontend Developer.', time:'2 days ago', read:false }
+      ];
+
+      renderNotifications = function() {
+        const storedNotifs = localStorage.getItem('candidateNotifs');
+        if (!storedNotifs) {
+          localStorage.setItem('candidateNotifs', JSON.stringify(defaultNotifs));
+        }
+        const notifs = JSON.parse(localStorage.getItem('candidateNotifs'));
+        const listContainer = document.querySelector('.notification-list');
+        const badge = document.querySelector('.notification-dropdown .badge');
+        const dot = document.getElementById('notificationDot');
+        
+        let html = '';
+        let unreadCount = 0;
+        
+        notifs.forEach((n, idx) => {
+          if(!n.read) unreadCount++;
+          const bg = n.read ? '#FFFFFF' : '#F8FAFC';
+          const unreadClass = n.read ? '' : 'unread';
+          html += `
+            <li><a class="dropdown-item py-2 px-3 border-bottom d-flex gap-2 align-items-start ${unreadClass}" href="#" style="background: ${bg}; white-space: normal;" data-idx="${idx}">
+              <div class="text-${n.type} mt-1"><i class="${n.icon}"></i></div>
+              <div>
+                <div class="fw-bold text-dark" style="font-size: 0.8rem;">${n.title}</div>
+                <div class="text-muted" style="font-size: 0.75rem;">${n.desc}</div>
+                <div class="text-muted" style="font-size: 0.65rem; margin-top: 4px;">${n.time}</div>
+              </div>
+            </a></li>
+          `;
+        });
+        
+        if (listContainer) listContainer.innerHTML = html;
+        
+        if (badge) {
+          badge.textContent = unreadCount + ' New';
+          badge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+        }
+        if (dot) {
+          dot.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+        }
+      };
+
+      if (document.querySelector('.notification-dropdown')) {
+          renderNotifications();
+      }
+
+      const markAllBtn = document.getElementById('markAllReadBtn');
+      if(markAllBtn) {
+        markAllBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const notifs = JSON.parse(localStorage.getItem('candidateNotifs')) || [];
+          notifs.forEach(n => n.read = true);
+          localStorage.setItem('candidateNotifs', JSON.stringify(notifs));
+          renderNotifications();
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

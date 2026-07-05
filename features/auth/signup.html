@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - ProPath</title>
+  <link rel="shortcut icon" href="../../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link href="auth.css" rel="stylesheet" />
+</head>
+<body class="auth-body">
+
+  <div class="auth-container">
+    <div class="row g-0">
+      <div class="col-lg-5 d-none d-lg-flex">
+        <div class="auth-sidebar w-100">
+          <a href="../index.html" class="brand">
+            <img src="../../assets/Image/propath_small_icon.png" alt="Logo" style="width: 32px; height: 32px; object-fit: contain; filter: brightness(0) invert(1);" />
+            <span>PROPATH</span>
+          </a>
+          <div class="intro-text">
+            <h2>Unlock Your Career Journey</h2>
+            <p>Access hand-picked developer opportunities, connect with mentors, and keep track of your active application metrics.</p>
+          </div>
+          <div class="sidebar-img-wrapper">
+            <img src="../../assets/Image/main.jpeg" alt="Dashboard illustration" />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="auth-form-side h-100">
+          <div class="auth-tabs">
+            <a href="login.html" class="auth-tab">Login</a>
+            <a href="javascript:void(0);" class="auth-tab active">SignUp</a>
+          </div>
+
+          <form action="#" method="POST">
+            <div class="form-group-custom">
+              <label for="fullname">Full Name:</label>
+              <div class="input-wrapper">
+                <input type="text" id="fullname" name="fullname" required placeholder="John Doe" />
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="email">Email:</label>
+              <div class="input-wrapper">
+                <input type="email" id="email" name="email" required placeholder="name@domain.com" />
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="phone">Phone Number:</label>
+              <div class="input-wrapper">
+                <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="password">Password:</label>
+              <div class="input-wrapper">
+                <input type="password" id="password" name="password" required placeholder="••••••••" />
+                <i class="fa-solid fa-eye" id="togglePassword"></i>
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="confirm_password">Confirm Password:</label>
+              <div class="input-wrapper">
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder="••••••••" />
+                <i class="fa-solid fa-eye" id="toggleConfirmPassword"></i>
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="otp">OTP:</label>
+              <div class="input-wrapper">
+                <input type="text" id="otp" name="otp" placeholder="Enter verification code" />
+              </div>
+            </div>
+
+            <div class="d-flex gap-3 mt-5">
+              <button type="submit" class="btn-auth-submit px-5">Register</button>
+              <a href="../index.html" class="btn-auth-cancel px-5">Cancel</a>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="../../assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script src="auth-loader.js"></script>
+  <script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordInput = document.querySelector('#password');
+    togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+    const confirmPasswordInput = document.querySelector('#confirm_password');
+    toggleConfirmPassword.addEventListener('click', function () {
+      const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      confirmPasswordInput.setAttribute('type', type);
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    // Form submission event handler to add new Seeker in Active status
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fullname = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim() || 'Not specified';
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm_password').value;
+
+      if (!fullname || !email || !password) {
+        alert('Please fill in required fields');
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+
+      const defaultCandidates = [
+        { id:'CND-10234', name:'Arav Kumar',   title:'Senior DevOps Engineer', exp:'5-8 years', loc:'Bangalore',  status:'Shortlisted', applied:'12 May 2025', email:'arav.kumar@gmail.com',   phone:'+91 9876548321', resumeScore:85, atsScore:92, skills:['AWS','Docker','Kubernetes'], skills2:['Jenkins','CI/CD','Linux'], currentJob:'DevOps Engineer at Tech Solutions\nJan 2022 – Present (2.5 years)', accountStatus: 'Active' },
+        { id:'CND-10235', name:'Priya Sharma', title:'React Developer',         exp:'3-5 years', loc:'Pune',       status:'Interview',   applied:'11 May 2025', email:'priya.sharma@gmail.com', phone:'+91 9845012345', resumeScore:78, atsScore:85, skills:['React','TypeScript','Redux'], skills2:['Node.js','GraphQL'], currentJob:'Frontend Developer at Infosys\nMar 2021 – Present (3.1 years)', accountStatus: 'Active' },
+        { id:'CND-10236', name:'Rohan Joshi',  title:'Product Manager',         exp:'4-7 years', loc:'Hyderabad',  status:'Applied',     applied:'10 May 2025', email:'rohan.joshi@gmail.com',  phone:'+91 9823456780', resumeScore:72, atsScore:80, skills:['Roadmapping','Agile','Jira'], skills2:['SQL','Analytics'], currentJob:'Associate PM at Wipro\nJun 2020 – Present (4 years)', accountStatus: 'Active' },
+        { id:'CND-10237', name:'Neha Singh',   title:'UI/UX Designer',          exp:'2-4 years', loc:'Delhi',      status:'Shortlisted', applied:'09 May 2025', email:'neha.singh@gmail.com',   phone:'+91 9900112233', resumeScore:88, atsScore:90, skills:['Figma','Adobe XD','Sketch'], skills2:['Prototyping','User Research'], currentJob:'UI Designer at HCL\nApr 2022 – Present (2.1 years)', accountStatus: 'Active' },
+        { id:'CND-10238', name:'Vikram Mehta', title:'Data Analyst',            exp:'2-3 years', loc:'Mumbai',     status:'Applied',     applied:'08 May 2025', email:'vikram.mehta@gmail.com', phone:'+91 9711223344', resumeScore:75, atsScore:82, skills:['Python','SQL','Power BI'], skills2:['Tableau','Excel'], currentJob:'Analyst at Accenture\nJan 2023 – Present (1.4 years)', accountStatus: 'Active' },
+        { id:'CND-10239', name:'Kavya',        title:'Backend Developer',       exp:'3-6 years', loc:'Bangalore',  status:'Interview',   applied:'07 May 2025', email:'kavya.m@gmail.com',      phone:'+91 9655443322', resumeScore:82, atsScore:88, skills:['Java','Spring Boot','MySQL'], skills2:['Redis','Kafka'], currentJob:'Backend Eng at TCS\nSep 2021 – Present (2.7 years)', accountStatus: 'Active' },
+        { id:'CND-10240', name:'Arjun',        title:'Full Stack Developer',    exp:'4-6 years', loc:'Noida',      status:'Applied',     applied:'06 May 2025', email:'arjun.r@gmail.com',      phone:'+91 9876001234', resumeScore:80, atsScore:84, skills:['React','Node.js','MongoDB'], skills2:['AWS','Docker'], currentJob:'MERN Dev at Cognizant\nJul 2020 – Present (3.9 years)', accountStatus: 'Active' },
+        { id:'CND-10241', name:'Simran',       title:'HR Executive',            exp:'1-2 years', loc:'Chandigarh', status:'Shortlisted', applied:'05 May 2025', email:'simran.k@gmail.com',     phone:'+91 9988776655', resumeScore:68, atsScore:72, skills:['Recruitment','HRMS','Onboarding'], skills2:['Payroll'], currentJob:'HR Trainee at Syntel\nAug 2023 – Present (0.8 years)', accountStatus: 'Active' },
+        { id:'CND-10242', name:'Deepak',       title:'QA Engineer',             exp:'2-4 years', loc:'Pune',       status:'Applied',     applied:'04 May 2025', email:'deepak.v@gmail.com',     phone:'+91 9700123456', resumeScore:70, atsScore:76, skills:['Selenium','Manual Testing','JIRA'], skills2:['API Testing','Postman'], currentJob:'QA Analyst at Mphasis\nFeb 2022 – Present (2.3 years)', accountStatus: 'Active' }
+      ];
+
+      const candidates = JSON.parse(localStorage.getItem('candidatesData')) || defaultCandidates;
+
+      const newId = 'CND-' + (10243 + candidates.length);
+      const todayStr = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+
+      const newCandidate = {
+        id: newId,
+        name: fullname,
+        title: 'Job Seeker',
+        exp: 'Fresher',
+        loc: 'Bangalore',
+        status: 'Applied',
+        applied: todayStr,
+        email: email,
+        phone: phone,
+        resumeScore: 75,
+        atsScore: 78,
+        skills: ['HTML', 'CSS', 'JavaScript'],
+        skills2: [],
+        currentJob: 'Fresher',
+        accountStatus: 'Active'
+      };
+
+      candidates.unshift(newCandidate);
+      localStorage.setItem('candidatesData', JSON.stringify(candidates));
+
+      runAuthLoader('login.html', true);
+    });
+  </script>
+</body>
+</html>

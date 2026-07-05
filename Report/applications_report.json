@@ -1,0 +1,26 @@
+[
+  {
+    "id": "APP-1021",
+    "title": "Senior DevOps Eng",
+    "applied_date": "25 Jun 2026",
+    "status": "Under Review"
+  },
+  {
+    "id": "APP-1015",
+    "title": "React Developer",
+    "applied_date": "08 May 2026",
+    "status": "Shortlisted"
+  },
+  {
+    "id": "APP-1006",
+    "title": "Product Manager",
+    "applied_date": "05 May 2025",
+    "status": "Interview Scheduled"
+  },
+  {
+    "id": "APP-1002",
+    "title": "UI/UX Designer",
+    "applied_date": "02 May 2025",
+    "status": "Rejected"
+  }
+]

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Applications - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <link href="applications.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<div class="sidebar">
+  <a class="s-logo" href="../User/admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+      <ul>
+          <li><a href="../User/admin.html">Dashboard</a></li>
+          <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+          <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+          <li><a href="javascript:void(0);" class="active">Applications</a></li>
+          <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+          <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+          <li><a href="../reports/reports.html">Reports &amp; Analytics</a></li>
+          <li><a href="../complaints/complaints.html">Complaints</a></li>
+          <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+          <li><a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a></li>
+          <li><a href="../settings/admin_settings.html">Settings</a></li>
+        </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl" id="page-title">Applications</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search"/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       FRAME 1 — JOB CARDS
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="view active" id="view-jobs">
+    <div class="body-wrap">
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="s-icon" style="background:#EEF2FF;color:#4F46E5;"><i class="fa-solid fa-file-lines"></i></div>
+          <div class="s-val" id="app-metric-total">—</div>
+          <div class="s-lbl">Total Applications</div>
+          <div class="s-sub">+18.2% vs last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#DCFCE7;color:#15803D;"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="s-val" id="app-metric-shortlisted">—</div>
+          <div class="s-lbl">Shortlisted</div>
+          <div class="s-sub">+9.4% vs last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#FEF3C7;color:#D97706;"><i class="fa-solid fa-video"></i></div>
+          <div class="s-val" id="app-metric-interview">—</div>
+          <div class="s-lbl">In Interview</div>
+          <div class="s-sub">+5.1% vs last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#D1FAE5;color:#065F46;"><i class="fa-solid fa-user-check"></i></div>
+          <div class="s-val" id="app-metric-hired">—</div>
+          <div class="s-lbl">Hired</div>
+          <div class="s-sub">+3.1% vs last 30 days</div>
+        </div>
+      </div>
+
+      <!-- Section header -->
+      <div class="section-hdr">
+        <h5>All Job Postings</h5>
+        <div class="search-filter">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="job-search" placeholder="Search jobs..." oninput="filterJobCards()"/>
+          </div>
+          <select class="filter-chip" id="job-status-filter" onchange="filterJobCards()" style="padding:7px 12px;">
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Closed">Closed</option>
+            <option value="Draft">Draft</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Job cards grid -->
+      <div class="jobs-grid" id="jobs-grid"></div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       FRAME 2 — CANDIDATES TABLE
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="view" id="view-candidates">
+    <div class="cands-wrap">
+
+      <!-- Back bar -->
+      <div class="back-bar">
+        <button class="btn-back" onclick="showJobs()">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </button>
+        <span class="breadcrumb-txt">Applications &rsaquo; <b id="current-job-title">—</b></span>
+      </div>
+
+      <!-- Job info banner -->
+      <div class="job-info-banner">
+        <div>
+          <div class="jib-title" id="banner-title">—</div>
+          <div class="jib-meta" id="banner-meta"></div>
+        </div>
+        <div class="jib-count">
+          <div class="cnt" id="banner-count">—</div>
+          <div class="clbl">Total Applicants</div>
+        </div>
+      </div>
+
+      <!-- Table card -->
+      <div class="table-card">
+
+        <!-- Filter row -->
+        <div class="filter-row">
+          <span class="filter-lbl">Status</span>
+          <select class="filter-sel" id="cf-status" onchange="filterCandidates()">
+            <option value="">All</option>
+            <option>Applied</option>
+            <option>Shortlisted</option>
+            <option>Interview</option>
+            <option>Hired</option>
+            <option>Rejected</option>
+          </select>
+          <span class="filter-lbl">Experience</span>
+          <select class="filter-sel" id="cf-exp" onchange="filterCandidates()">
+            <option value="">All</option>
+            <option>0-1 years</option><option>1-2 years</option>
+            <option>2-4 years</option><option>3-5 years</option>
+            <option>5+ years</option>
+          </select>
+          <button class="btn-filter" onclick="filterCandidates()"><i class="fa-solid fa-sliders"></i> Filter</button>
+          <button class="btn-reset" onclick="resetCandFilter()">Reset</button>
+          <div style="margin-left:auto;font-size:0.72rem;color:var(--text-muted);">
+            Showing <b id="cand-count-lbl">0</b> candidates
+          </div>
+        </div>
+
+        <!-- Search row -->
+        <div class="search-row">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--text-main);">All Candidates</div>
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="cand-search" placeholder="Search by name, email, location, skills..." oninput="filterCandidates()"/>
+          </div>
+          <button class="btn-reset" style="margin-left:auto;" onclick="openExportModal()">
+            <i class="fa-solid fa-download me-1"></i> Export
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div style="overflow-x:auto;">
+          <table class="cand-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="chk-all" onchange="toggleAll(this)"/></th>
+                <th>Candidate</th>
+                <th>Experience</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Resume Score</th>
+                <th>Applied On</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="cand-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" id="cand-empty" style="display:none;">
+          <i class="fa-regular fa-folder-open"></i>
+          <p>No candidates found for this job.</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pg-row" id="pagination-container"></div>
+
+      </div><!-- /table-card -->
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     EXPORT FORMAT MODAL
+ ══════════════════════════════════════════════════════════════════════ -->
+<div class="export-backdrop" id="export-backdrop" onclick="handleExpBackdrop(event)">
+  <div class="export-modal" id="export-modal">
+    <div class="exp-header">
+      <div class="exp-title">Select Export Format</div>
+      <button class="exp-close" onclick="closeExportModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="exp-subtitle">Choose your preferred file type format to download the saved candidates list:</div>
+
+    <!-- PDF -->
+    <div class="exp-option selected" id="opt-pdf" onclick="selectFormat('pdf')">
+      <div class="exp-radio"><div class="exp-radio-dot"></div></div>
+      <i class="exp-file-icon fa-solid fa-file-pdf" style="color:#EF4444;"></i>
+      <span class="exp-opt-label">PDF Document (.pdf)</span>
+    </div>
+
+    <!-- Word -->
+    <div class="exp-option" id="opt-docx" onclick="selectFormat('docx')">
+      <div class="exp-radio"><div class="exp-radio-dot"></div></div>
+      <i class="exp-file-icon fa-solid fa-file-word" style="color:#2563EB;"></i>
+      <span class="exp-opt-label">Word Document (.doc)</span>
+    </div>
+
+    <!-- Excel -->
+    <div class="exp-option" id="opt-xlsx" onclick="selectFormat('xlsx')">
+      <div class="exp-radio"><div class="exp-radio-dot"></div></div>
+      <i class="exp-file-icon fa-solid fa-file-excel" style="color:#16A34A;"></i>
+      <span class="exp-opt-label">Excel Spreadsheet (.xlsx)</span>
+    </div>
+
+    <div class="exp-footer">
+      <button class="exp-btn-cancel" onclick="closeExportModal()">Cancel</button>
+      <button class="exp-btn-download" onclick="doDownload()">
+        <i class="fa-solid fa-download"></i> Download
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     CANDIDATE DETAIL MODAL
+ ══════════════════════════════════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="cand-modal-backdrop" onclick="handleBackdropClick(event)">
+  <div class="cand-modal" id="cand-modal">
+    <div class="cm-header">
+      <span class="cm-header-name" id="cm-hdr-name">—</span>
+      <button class="cm-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cm-body" id="cm-body"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW PROFILE MODAL
+ ══════════════════════════════════════════════════════════════════════ -->
+<div class="cand-modal-backdrop" id="profile-modal-backdrop" onclick="handleProfileBackdropClick(event)">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 700px; margin: 1.75rem auto; height: 100vh; display: flex; align-items: center; justify-content: center;" onclick="event.stopPropagation()">
+    <div class="modal-content" style="border-radius: 12px; border: none; background: #F8FAFC; width: 100%;">
+      <div class="modal-header border-0 pb-0 text-center position-relative d-flex justify-content-center">
+        <h2 class="fw-bold m-0 mt-4" style="color: #1E293B;">Profile</h2>
+        <button type="button" class="btn-close position-absolute" onclick="closeProfileModal()" style="right: 1.5rem; top: 1.5rem;" aria-label="Close"></button>
+      </div>
+      <div class="text-center text-muted mb-4 mt-2" style="font-size: 0.95rem;">Personal info and options to manage it in ProPath support service.</div>
+      <div class="modal-body px-5 pb-5 pt-0" id="profile-modal-body">
+        <!-- Content will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="applications.js"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+</body>
+</html>

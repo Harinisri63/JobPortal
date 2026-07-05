@@ -1,0 +1,18 @@
+{
+  "job_1": {
+    "title": "Senior Frontend System",
+    "company": "Synergech"
+  },
+  "job_2": {
+    "title": "UI/UX Designer",
+    "company": "Synergech"
+  },
+  "job_3": {
+    "title": "Data Analyst",
+    "company": "Synergech"
+  },
+  "job_4": {
+    "title": "DevOps Engineer",
+    "company": "Synergech"
+  }
+}

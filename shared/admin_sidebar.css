@@ -1,0 +1,473 @@
+/*
+  admin_sidebar.css
+  Uniform premium sidebar navigation styling for all Admin pages matching the reference design.
+*/
+
+.sidebar, aside.sidebar {
+  width: 230px !important;
+  background-color: #0A4BD2 !important;
+  padding: 18px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 1050 !important;
+  color: #FFFFFF !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Logo container styling */
+.s-logo, .sidebar-logo, .sidebar-header, .sidebar-header a {
+  background: #FFFFFF !important;
+  border-radius: 12px !important;
+  padding: 12px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  margin-bottom: 20px !important;
+  flex-shrink: 0 !important;
+  text-decoration: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.s-logo img, .sidebar-logo img, .sidebar-header img {
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0 !important;
+}
+.s-logo span, .sidebar-logo span, .sidebar-header span {
+  font-weight: 800 !important;
+  color: #0A4BD2 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.5px !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Nav container scroll area */
+.s-nav, .sidebar-nav, .sidebar-scroll-area {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+.s-nav::-webkit-scrollbar, .sidebar-nav::-webkit-scrollbar, .sidebar-scroll-area::-webkit-scrollbar {
+  width: 3px !important;
+}
+.s-nav::-webkit-scrollbar-thumb, .sidebar-nav::-webkit-scrollbar-thumb, .sidebar-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3) !important;
+  border-radius: 2px !important;
+}
+
+/* Nav list mapping */
+.s-nav ul, .sidebar-menu {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+.s-nav li, .sidebar-menu li {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Sidebar Links styling */
+.s-nav li a, .sidebar-menu li a, .sidebar-nav a {
+  display: block !important;
+  text-align: center !important;
+  padding: 11px 12px !important;
+  color: #0A4BD2 !important;
+  background-color: #FFFFFF !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  border-radius: 10px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Active & Hover states */
+.s-nav li a:hover, .sidebar-menu li a:hover, .sidebar-nav a:hover,
+.s-nav li a.active, .sidebar-menu li a.active, .sidebar-nav a.active {
+  background-color: #E2EAFE !important;
+  color: #0A4BD2 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+}
+
+/* Footer / Bottom Actions area */
+.s-footer, .sidebar-buttons, .sidebar-bottom, .sidebar-footer {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding-top: 15px !important;
+  border-top: 1px solid rgba(255,255,255,0.2) !important;
+  margin-top: 15px !important;
+  box-sizing: border-box !important;
+}
+
+/* Footer / Bottom Links */
+.s-footer a, .sidebar-buttons a, .sidebar-bottom a, .sidebar-footer a {
+  display: block !important;
+  text-align: center !important;
+  padding: 11px 12px !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  border-radius: 10px !important;
+  transition: all 0.2s ease !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.s-footer a:hover, .sidebar-buttons a:hover, .sidebar-bottom a:hover, .sidebar-footer a:hover {
+  background-color: rgba(255, 255, 255, 0.28) !important;
+  color: #FFFFFF !important;
+}
+
+/* Ensure the main container margin matches the new width */
+.main, .main-wrap, .main-content-wrapper {
+  margin-left: 230px !important;
+  width: calc(100% - 230px) !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar, aside.sidebar {
+    width: 100% !important;
+    position: relative !important;
+    height: auto !important;
+  }
+  .main, .main-wrap, .main-content-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* Global Dark Mode Support for Admin Pages */
+body.dark-mode {
+  --bg: #121212;
+  --bg-main: #121212;
+  --bg-card: #1E1E1E;
+  --border: #333;
+  --text-main: #E2E8F0;
+  --text-muted: #94A3B8;
+  background-color: #121212 !important;
+  color: #E2E8F0 !important;
+}
+body.dark-mode .top-bar, body.dark-mode header, body.dark-mode .nav-top {
+  background-color: #1E1E1E !important;
+  border-bottom: 1px solid #333 !important;
+  color: #E2E8F0 !important;
+}
+body.dark-mode .s-card, body.dark-mode .card, body.dark-mode .stat-card, body.dark-mode .box, body.dark-mode .panel, body.dark-mode .white-box {
+  background-color: #1E1E1E !important;
+  border-color: #333 !important;
+  color: #E2E8F0 !important;
+}
+body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+  background-color: #2A2A2A !important;
+  color: #E2E8F0 !important;
+  border-color: #444 !important;
+}
+body.dark-mode .table, body.dark-mode table {
+  color: #E2E8F0 !important;
+}
+body.dark-mode th {
+  background-color: #2A2A2A !important;
+  border-color: #333 !important;
+  color: #E2E8F0 !important;
+}
+body.dark-mode td {
+  border-color: #333 !important;
+  color: #E2E8F0 !important;
+}
+body.dark-mode .modal-content, body.dark-mode .modal-box {
+  background-color: #1E1E1E !important;
+  border-color: #333 !important;
+  color: #E2E8F0 !important;
+}
+/* Force text colors for Bootstrap utilities in dark mode */
+body.dark-mode, 
+body.dark-mode p, 
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode span,
+body.dark-mode div,
+body.dark-mode .text-dark, 
+body.dark-mode .text-muted, 
+body.dark-mode .text-black {
+  color: #E2E8F0 !important;
+}
+body.dark-mode .bg-white, body.dark-mode .bg-light {
+  background-color: #1E1E1E !important;
+}
+
+/* ─── ADD JOB MODAL WIZARD LAYOUT ─── */
+.addjob-modal-box {
+  background: #F1F5FF !important;
+  padding: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+.addjob-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  padding: 24px;
+}
+.addjob-form-panel {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.addjob-form-panel-header {
+  background: #0A4BD2;
+  padding: 12px 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+}
+.addjob-form-body {
+  padding: 20px;
+}
+.addjob-section {
+  margin-bottom: 24px;
+}
+.addjob-section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #0A4BD2;
+  display: inline-block;
+}
+.addjob-section-num {
+  background: #0A4BD2;
+  color: #fff;
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+.addjob-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.addjob-field-row.single {
+  grid-template-columns: 1fr;
+}
+.addjob-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.addjob-field-group label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748B;
+  text-align: left;
+}
+.addjob-field-group label .req {
+  color: #EF4444;
+}
+.addjob-field-group input,
+.addjob-field-group select,
+.addjob-field-group textarea {
+  border: 1px solid #E2E8F0;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-family: 'Poppins', sans-serif;
+  color: #1E293B;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #fff;
+}
+.addjob-field-group input:focus,
+.addjob-field-group select:focus,
+.addjob-field-group textarea:focus {
+  border-color: #0A4BD2;
+}
+.addjob-field-group input::placeholder,
+.addjob-field-group textarea::placeholder {
+  color: #adb5c7;
+}
+.addjob-field-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.addjob-field-note {
+  font-size: 0.65rem;
+  color: #64748B;
+  margin-top: 3px;
+  text-align: left;
+}
+.addjob-rich-toolbar {
+  border: 1px solid #E2E8F0;
+  border-bottom: none;
+  border-radius: 7px 7px 0 0;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F8FAFC;
+}
+.addjob-rich-toolbar button {
+  background: none; border: none; cursor: pointer;
+  font-size: 0.82rem; font-weight: 700;
+  color: #64748B;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.15s;
+  font-family: 'Poppins', sans-serif;
+}
+.addjob-rich-toolbar button:hover {
+  background: #E0E7FF; color: #0A4BD2;
+}
+.addjob-rich-toolbar .divider {
+  width: 1px; height: 16px; background: #E2E8F0;
+}
+.addjob-rich-textarea {
+  border-radius: 0 0 7px 7px;
+  border: 1px solid #E2E8F0;
+  border-top: none;
+  min-height: 120px;
+  outline: none;
+  padding: 10px;
+  font-size: 0.78rem;
+  background: #fff;
+  text-align: left;
+}
+
+/* PREVIEW PANEL */
+.addjob-preview-panel {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  height: fit-content;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.addjob-preview-header {
+  padding: 14px 18px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1E293B;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.addjob-preview-body {
+  padding: 18px;
+  min-height: 300px;
+  text-align: left;
+}
+.addjob-preview-empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: #cbd5e1;
+}
+.addjob-preview-empty i {
+  font-size: 2.5rem; margin-bottom: 10px; display: block;
+}
+.addjob-preview-empty p {
+  font-size: 0.75rem;
+}
+.addjob-preview-job-title {
+  font-size: 1rem; font-weight: 700; color: #1E293B; margin-bottom: 4px;
+}
+.addjob-preview-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+.addjob-preview-tag {
+  background: #EEF2FF; color: #0A4BD2;
+  font-size: 0.65rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+}
+.addjob-preview-meta {
+  font-size: 0.72rem; color: #64748B; line-height: 2;
+}
+.addjob-preview-meta i {
+  width: 14px; color: #0A4BD2;
+}
+.addjob-preview-divider {
+  border: none; border-top: 1px solid #E2E8F0; margin: 12px 0;
+}
+
+/* ACTION BAR */
+.addjob-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  background: #F8FAFC;
+  border-top: 1px solid #E2E8F0;
+  justify-content: flex-end;
+}
+.addjob-btn-publish {
+  background: #0A4BD2; color: #fff;
+  border: none; border-radius: 8px;
+  padding: 9px 22px; font-size: 0.78rem;
+  font-weight: 700; cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.2s;
+}
+.addjob-btn-publish:hover { background: #0840b8; }
+.addjob-btn-draft {
+  background: none; border: none;
+  font-size: 0.78rem; font-weight: 600;
+  color: #64748B; cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s;
+}
+.addjob-btn-draft:hover { color: #1E293B; }
+.addjob-btn-save-close {
+  background: none;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
+}
+.addjob-btn-save-close:hover { border-color: #0A4BD2; color: #0A4BD2; }
+.addjob-btn-cancel {
+  background: none; border: none;
+  font-size: 0.78rem; font-weight: 600;
+  color: #EF4444; cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+.addjob-btn-cancel:hover { text-decoration: underline; }
