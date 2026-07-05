@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - ProPath</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #0A4BD2;
+      --secondary-color: #1E293B;
+      --bg-color: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #0A4BD2;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1050;
+      color: #FFFFFF;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      margin-bottom: 20px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .sidebar-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-scroll-area::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar-scroll-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar-scroll-area::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .sidebar-menu li {
+      width: 100%;
+    }
+
+    .sidebar-menu li a {
+      display: block;
+      text-align: center;
+      padding: 9px 12px;
+      color: #0A4BD2;
+      background-color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.78rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .sidebar-menu li a:hover, 
+    .sidebar-menu li a.active {
+      background-color: #E0E7FF;
+      color: #0A4BD2 !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transform: translateY(-1px);
+    }
+
+    .sidebar-buttons {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin-top: 12px;
+    }
+
+    .sidebar-buttons a {
+      display: block;
+      text-align: center;
+      padding: 9px;
+      background-color: rgba(255,255,255,0.15);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.78rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    
+    .sidebar-buttons a:hover {
+      background-color: rgba(255,255,255,0.28);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .main-content-wrapper {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .top-search-header {
+      background: linear-gradient(90deg, #0A4BD2 0%, #3B82F6 100%);
+      padding: 18px 40px;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .header-search-bar {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 30px;
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+      width: 400px;
+    }
+
+    .header-search-bar input {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      outline: none;+
+      width: 100%;
+      font-size: 0.85rem;
+    }
+
+    .header-search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .header-search-bar i {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .dashboard-body-container {
+      padding: 30px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .seeker-stats-row {
+      display: flex;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+      transition: transform 0.2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .metric-card .title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-card .value {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .metric-card .subtitle {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .dashboard-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+      height: 100%;
+    }
+
+    .dashboard-card-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .dashboard-card-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0;
+    }
+
+    .btn-view-all {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .btn-view-all:hover {
+      color: var(--primary-color);
+    }
+
+    .admin-table {
+      font-size: 0.75rem;
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .admin-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 8px;
+    }
+
+    .admin-table td {
+      padding: 12px 8px;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border-color);
+      color: #334155;
+    }
+
+    .badge-status {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
+    .badge-active {
+      background-color: #E2E8F0;
+      color: #475569;
+    }
+
+    .badge-pending {
+      background-color: #FEF3C7;
+      color: #D97706;
+    }
+
+    .badge-reviewing {
+      background-color: #E0F2FE;
+      color: #0284C7;
+    }
+
+    .badge-shortlisted {
+      background-color: #DCFCE7;
+      color: #15803D;
+    }
+
+    .footer-link-row {
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .footer-link-row a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .footer-link-row a:hover {
+      color: var(--primary-color);
+    }
+
+    .notif-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.75rem;
+    }
+
+    .notif-item:last-child {
+      border-bottom: none;
+    }
+
+    .notif-content {
+      color: #334155;
+    }
+
+    .notif-time {
+      color: var(--text-muted);
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+
+    .date-range-picker-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .chart-container-placeholder {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FAFAFA;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      position: relative;
+    }
+
+    .chart-bar-mock {
+      display: flex;
+      align-items: flex-end;
+      gap: 15px;
+      height: 120px;
+      width: 80%;
+      justify-content: space-around;
+    }
+
+    .chart-bar {
+      width: 30px;
+      background: #E2E8F0;
+      border-radius: 4px 4px 0 0;
+      transition: background 0.3s;
+      position: relative;
+    }
+
+    .chart-bar:hover {
+      background: var(--primary-color);
+    }
+
+    .chart-bar-active {
+      background: var(--primary-color);
+    }
+
+    .dropdown-btn-chart {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 4px 12px;
+      color: var(--text-main);
+    }
+
+    @media (max-width: 991.98px) {
+      .sidebar {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        bottom: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 8px 20px;
+      }
+      .sidebar-menu {
+        flex-direction: row;
+        margin: 0;
+        gap: 8px;
+        justify-content: center;
+      }
+      .sidebar-menu li a {
+        padding: 8px 10px;
+      }
+      .main-content-wrapper {
+        margin-left: 0;
+        width: 100%;
+        padding-top: 60px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a class="navbar-brand d-flex align-items-center justify-content-center text-decoration-none"
+         href="../index.html"
+         style="background:#FFFFFF; border-radius:10px; padding:10px 14px; width:100%; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+        <img src="../../assets/Image/propath_small_icon.png" alt="Logo" style="width:28px;height:28px;" class="me-2" />
+        <span style="font-weight:800; color:#0A4BD2; font-size:0.95rem; letter-spacing:0.5px;">PRO PATH</span>
+      </a>
+    </div>
+
+    <div class="sidebar-scroll-area">
+      <ul class="sidebar-menu">
+        <li><a href="javascript:void(0);" class="active">Dashboard</a></li>
+        <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+        <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+        <li><a href="../applications/applications.html">Applications</a></li>
+        <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+        <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+        <li><a href="../reports/reports.html">Reports & Analytics</a></li>
+        <li><a href="../complaints/complaints.html">Complaints</a></li>
+        <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+        <li><a href="../backup_recovery/backup_recovery.html">Backup & Recovery</a></li>
+        <li><a href="../settings/admin_settings.html">Settings</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-buttons">
+      <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+      <a href="../index.html">Logout</a>
+    </div>
+  </div>
+
+  <div class="main-content-wrapper" id="content-layout-wrapper">
+    
+    <div class="top-search-header d-flex justify-content-between align-items-center">
+      <div class="fw-semibold text-white">Admin Dashboard</div>
+      <div class="header-search-bar d-flex align-items-center col-md-5" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 30px; padding: 6px 20px;">
+        <i class="fa-solid fa-magnifying-glass me-2"></i>
+        <input type="text" placeholder="Search" class="form-control border-0 bg-transparent p-0 text-white" style="outline: none; box-shadow: none;" />
+        <i class="fa-solid fa-microphone ms-2"></i>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <i class="fa-regular fa-lightbulb text-white cursor-pointer" id="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode"></i>
+        <i class="fa-regular fa-bell cursor-pointer text-white"></i>
+        <i class="fa-solid fa-ellipsis ms-1 text-white cursor-pointer"></i>
+        <i class="fa-regular fa-user-circle cursor-pointer text-white fs-5"></i>
+        <button class="btn btn-light btn-sm fw-semibold rounded-pill px-3 py-1 text-primary ms-2" style="color: #0A4BD2 !important;">Admin User</button>
+      </div>
+    </div>
+
+    <div class="dashboard-body-container">
+      
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0" style="color: #1E293B;">Overview</h5>
+        <div class="d-flex align-items-center gap-3">
+          <a href="#" onclick="openAddJobModalDashboard(); return false;" style="display:inline-flex;align-items:center;gap:7px;background:#0A4BD2;color:#fff;font-size:0.78rem;font-weight:600;padding:7px 16px;border-radius:8px;text-decoration:none;box-shadow:0 2px 8px rgba(10,75,210,0.25);transition:background 0.2s;" onmouseover="this.style.background='#0840b8'" onmouseout="this.style.background='#0A4BD2'">
+            <i class="fa-solid fa-plus"></i> Add New Job
+          </a>
+          <div class="date-range-picker-container">
+            <span>May 06 2025 - Jun 06 2025</span>
+            <i class="fa-regular fa-calendar-days ms-2 text-muted"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="seeker-stats-row row g-3 mb-4">
+        <div class="col">
+          <div class="metric-card">
+            <div class="title">Total Users</div>
+            <div class="value" id="stat-total-users">—</div>
+            <div class="subtitle" id="stat-users-sub">Loading…</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="metric-card">
+            <div class="title">Active Jobs</div>
+            <div class="value" id="stat-active-jobs">—</div>
+            <div class="subtitle" id="stat-jobs-sub">Loading…</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="metric-card">
+            <div class="title">Total Applications</div>
+            <div class="value" id="stat-total-apps">—</div>
+            <div class="subtitle text-success fw-bold">+18.7% vs last 30 days</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="metric-card">
+            <div class="title">New Users (Today)</div>
+            <div class="value" id="stat-new-users">—</div>
+            <div class="subtitle text-success fw-bold">+4.1% vs last 30 days</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="metric-card">
+            <div class="title">Complaints</div>
+            <div class="value" id="stat-complaints">2</div>
+            <div class="subtitle text-success fw-bold">+1.5% vs last 30 days</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="dashboard-card">
+            <div class="dashboard-card-title-row">
+              <h6 class="dashboard-card-title">Monthly User Registration</h6>
+              <div style="position:relative;display:inline-block;">
+                <select id="reg-period-select" onchange="updateUserRegChart()" style="appearance:none;-webkit-appearance:none;border:1px solid #E2E8F0;border-radius:20px;padding:5px 28px 5px 12px;font-size:0.72rem;font-weight:600;font-family:'Poppins',sans-serif;color:#1E293B;background:#fff;cursor:pointer;outline:none;">
+                  <option value="6">Last 6 Months</option>
+                  <option value="3">Last 3 Months</option>
+                  <option value="12">Last 12 Months</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:0.65rem;color:#64748B;pointer-events:none;"></i>
+              </div>
+            </div>
+            <div style="padding: 10px 4px 4px; height: 170px; position: relative;">
+              <canvas id="chart-user-reg"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="dashboard-card">
+            <div class="dashboard-card-title-row">
+              <h6 class="dashboard-card-title">Hiring Trends Analysis</h6>
+              <div style="position:relative;display:inline-block;">
+                <select id="hiring-period-select" onchange="updateHiringChart()" style="appearance:none;-webkit-appearance:none;border:1px solid #E2E8F0;border-radius:20px;padding:5px 28px 5px 12px;font-size:0.72rem;font-weight:600;font-family:'Poppins',sans-serif;color:#1E293B;background:#fff;cursor:pointer;outline:none;">
+                  <option value="6">Last 6 Months</option>
+                  <option value="3">Last 3 Months</option>
+                  <option value="12">Last 12 Months</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:0.65rem;color:#64748B;pointer-events:none;"></i>
+              </div>
+            </div>
+            <div style="padding: 10px 4px 4px; height: 170px; position: relative;">
+              <canvas id="chart-hiring-trends"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="dashboard-card">
+            <div class="dashboard-card-title-row">
+              <h6 class="dashboard-card-title">Recent Job Posting</h6>
+              <a href="../jobmanagement/jobmanagement.html" class="btn-view-all text-decoration-none">View All</a>
+            </div>
+            <table class="table admin-table">
+              <thead>
+                <tr>
+                  <th>Job Title</th>
+                  <th>Dept</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recent-jobs-tbody">
+                <tr><td colspan="4" class="text-center text-muted py-3" style="font-size:0.78rem;">Loading…</td></tr>
+              </tbody>
+            </table>
+            <div class="footer-link-row">
+              <a href="../jobmanagement/jobmanagement.html">View All Job Posting &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="dashboard-card">
+            <div class="dashboard-card-title-row">
+              <h6 class="dashboard-card-title">Recent Registered Users</h6>
+              <a href="../usermanagement/usermanagement.html" class="btn-view-all text-decoration-none">View All</a>
+            </div>
+            <table class="table admin-table">
+              <thead>
+                <tr>
+                  <th>User Name</th>
+                  <th>Email</th>
+                  <th>Registered On</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recent-users-tbody">
+                <tr><td colspan="4" class="text-center text-muted py-3" style="font-size:0.78rem;">Loading…</td></tr>
+              </tbody>
+            </table>
+            <div class="footer-link-row">
+              <a href="../usermanagement/usermanagement.html">View All Users &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="dashboard-card">
+            <div class="dashboard-card-title-row">
+              <h6 class="dashboard-card-title">Recent Job Applications</h6>
+              <a href="#" class="btn-view-all text-decoration-none">View All</a>
+            </div>
+            <table class="table admin-table">
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Job Title</th>
+                  <th>Applied On</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recent-apps-tbody">
+                <tr><td colspan="4" class="text-center text-muted py-3" style="font-size:0.78rem;">Loading…</td></tr>
+              </tbody>
+            </table>
+            <div class="footer-link-row">
+              <a href="../applications/applications.html">View All Applications &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="dashboard-card">
+            <div class="dashboard-card-title-row">
+              <h6 class="dashboard-card-title">System Notificaitons</h6>
+              <a href="#" class="btn-view-all text-decoration-none">View All</a>
+            </div>
+            <div class="d-flex flex-column" style="gap: 5px;">
+              <div class="notif-item">
+                <span class="notif-content">New user registered : John Doe</span>
+                <span class="notif-time">2 mins ago</span>
+              </div>
+              <div class="notif-item">
+                <span class="notif-content">New Job posted: Backend Developer</span>
+                <span class="notif-time">15 mins ago</span>
+              </div>
+              <div class="notif-item">
+                <span class="notif-content">New application received for React Developer</span>
+                <span class="notif-time">1 hour ago</span>
+              </div>
+              <div class="notif-item">
+                <span class="notif-content">System backup completed successfully</span>
+                <span class="notif-time">2 hours ago</span>
+              </div>
+            </div>
+            <div class="footer-link-row" style="margin-top: 25px;">
+              <a href="#">View All Notifications &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- ADD JOB MODAL (Matches 2nd image layout) -->
+  <div class="modal fade" id="addJobModalDashboard" tabindex="-1" aria-labelledby="addJobModalDashboardLabel" aria-hidden="true" style="z-index: 1060;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content addjob-modal-box">
+        
+        <!-- Header -->
+        <div style="background:#0A4BD2; padding:16px 24px; display:flex; justify-content:space-between; align-items:center;">
+          <h5 class="modal-title fw-bold" id="addJobModalDashboardLabel" style="color:#fff; margin:0; font-size:1.05rem;">Add New Job</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="addjob-grid">
+          
+          <!-- LEFT FORM PANEL -->
+          <div class="addjob-form-panel">
+            <div class="addjob-form-panel-header">Job Information</div>
+            <div class="addjob-form-body">
+              
+              <!-- 1. Job Information -->
+              <div class="addjob-section">
+                <div class="addjob-section-label"><span class="addjob-section-num">1</span> Job Information</div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Job Title <span class="req">*</span></label>
+                    <input type="text" id="f-title" placeholder="Enter Job title" oninput="updatePreviewDashboard()" />
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Job Category <span class="req">*</span></label>
+                    <select id="f-category" onchange="updatePreviewDashboard()">
+                      <option value="">Select category</option>
+                      <option>Engineering</option>
+                      <option>Product</option>
+                      <option>Design</option>
+                      <option>Analytics</option>
+                      <option>HR</option>
+                      <option>Marketing</option>
+                      <option>Finance</option>
+                      <option>Operations</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Department</label>
+                    <select id="f-dept" onchange="updatePreviewDashboard()">
+                      <option value="">Select department</option>
+                      <option>Engineering</option>
+                      <option>Product</option>
+                      <option>Design</option>
+                      <option>Analytics</option>
+                      <option>HR</option>
+                    </select>
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Employment Type <span class="req">*</span></label>
+                    <select id="f-emptype" onchange="updatePreviewDashboard()">
+                      <option value="Full Time">Full Time</option>
+                      <option>Part Time</option>
+                      <option>Contract</option>
+                      <option>Internship</option>
+                      <option>Freelance</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Job Details -->
+              <div class="addjob-section">
+                <div class="addjob-section-label"><span class="addjob-section-num">2</span> Job Details</div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Location <span class="req">*</span></label>
+                    <input type="text" id="f-location" placeholder="Enter Job Location" oninput="updatePreviewDashboard()" />
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Work Mode <span class="req">*</span></label>
+                    <select id="f-workmode" onchange="updatePreviewDashboard()">
+                      <option value="">Select Work Mode</option>
+                      <option>On-site</option>
+                      <option>Remote</option>
+                      <option>Hybrid</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Experience Level <span class="req">*</span></label>
+                    <select id="f-explevel" onchange="updatePreviewDashboard()">
+                      <option value="">Select experience level</option>
+                      <option>Fresher (0-1 years)</option>
+                      <option>Junior (1-3 years)</option>
+                      <option>Mid-Level (3-5 years)</option>
+                      <option>Senior (5-8 years)</option>
+                      <option>Lead (8+ years)</option>
+                    </select>
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Minimum Experience <span class="req">*</span></label>
+                    <input type="text" id="f-minexp" placeholder="e.g. 2 years" oninput="updatePreviewDashboard()" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Job Package -->
+              <div class="addjob-section">
+                <div class="addjob-section-label"><span class="addjob-section-num">3</span> Job Package</div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Salary Range (Min) <span class="req">*</span></label>
+                    <input type="number" id="f-salmin" placeholder="Minimum Salary" oninput="updatePreviewDashboard()" />
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Salary Range (Max) <span class="req">*</span></label>
+                    <input type="number" id="f-salmax" placeholder="Maximum Salary" oninput="updatePreviewDashboard()" />
+                  </div>
+                </div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Currency <span class="req">*</span></label>
+                    <select id="f-currency">
+                      <option value="₹">₹ INR</option>
+                      <option value="$">$ USD</option>
+                      <option value="€">€ EUR</option>
+                      <option value="£">£ GBP</option>
+                    </select>
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Compensation Type <span class="req">*</span></label>
+                    <select id="f-comptype">
+                      <option value="">Select Type</option>
+                      <option>Per Annum (LPA)</option>
+                      <option>Per Month</option>
+                      <option>Hourly</option>
+                      <option>Fixed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. Required Skills -->
+              <div class="addjob-section">
+                <div class="addjob-section-label"><span class="addjob-section-num">4</span> Required Skills</div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Primary Skills <span class="req">*</span></label>
+                    <input type="text" id="f-skills" placeholder="Enter skills (e.g. React, SQL)" oninput="updatePreviewDashboard()" />
+                    <span class="addjob-field-note">Separate multiple skills with comma</span>
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Secondary Skills</label>
+                    <input type="text" id="f-skills2" placeholder="Enter Additional skills" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5. Education & Qualification -->
+              <div class="addjob-section">
+                <div class="addjob-section-label"><span class="addjob-section-num">5</span> Education &amp; Qualification</div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Minimum Qualification <span class="req">*</span></label>
+                    <select id="f-qual">
+                      <option value="">Select Qualification</option>
+                      <option>10th Pass</option>
+                      <option>12th Pass</option>
+                      <option>Diploma</option>
+                      <option>Bachelor's Degree</option>
+                      <option>Master's Degree</option>
+                      <option>PhD</option>
+                    </select>
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Preferred Degree</label>
+                    <input type="text" id="f-degree" placeholder="e.g. B.Tech, MCA, MBA" />
+                  </div>
+                </div>
+                <div class="addjob-field-row single">
+                  <div class="addjob-field-group">
+                    <label>Specialization (Preferred)</label>
+                    <input type="text" id="f-spec" placeholder="e.g. Computer Science, Information Technology" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6. Job Description -->
+              <div class="addjob-section">
+                <div class="addjob-section-label"><span class="addjob-section-num">6</span> Job Description</div>
+                <div class="addjob-field-group">
+                  <label>Job Description <span class="req">*</span></label>
+                  <div class="addjob-rich-toolbar">
+                    <button type="button" onclick="fmt('bold')" title="Bold"><b>B</b></button>
+                    <button type="button" onclick="fmt('italic')" title="Italic"><i>I</i></button>
+                    <button type="button" onclick="fmt('underline')" title="Underline"><u>U</u></button>
+                    <button type="button" onclick="fmt('insertUnorderedList')" title="Bullet list">H</button>
+                    <div class="divider"></div>
+                    <button type="button" onclick="fmt('insertOrderedList')" title="Numbered list">⊞</button>
+                  </div>
+                  <div class="addjob-rich-textarea" id="job-description" contenteditable="true" oninput="updatePreviewDashboard()"></div>
+                </div>
+              </div>
+
+              <!-- 7. Additional Information -->
+              <div class="addjob-section">
+                <div class="addjob-section-label"><span class="addjob-section-num">7</span> Additional Information</div>
+                <div class="addjob-field-row">
+                  <div class="addjob-field-group">
+                    <label>Application Deadline <span class="req">*</span></label>
+                    <input type="date" id="f-deadline" onchange="updatePreviewDashboard()" />
+                  </div>
+                  <div class="addjob-field-group">
+                    <label>Contact Email</label>
+                    <input type="email" id="f-email" placeholder="e.g. hr@company.com" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RIGHT PREVIEW PANEL -->
+          <div class="addjob-preview-panel">
+            <div class="addjob-preview-header">
+              <span>Job Preview</span>
+              <i class="fa-solid fa-eye text-muted"></i>
+            </div>
+            <div class="addjob-preview-body" id="preview-body">
+              <div class="addjob-preview-empty" id="preview-empty">
+                <i class="fa-regular fa-file-lines text-muted" style="font-size:2.2rem; margin-bottom:8px; display:block;"></i>
+                <p style="font-size:0.75rem; line-height:1.4;">Provide Job title and location to view details preview card live.</p>
+              </div>
+              <div id="preview-content" style="display:none;">
+                <div class="addjob-preview-job-title" id="p-title">Senior React Developer</div>
+                <div style="font-size:0.75rem; color:#0A4BD2; font-weight:700; margin-bottom:10px;">Synergech</div>
+                <div class="addjob-preview-tags" id="p-tags"></div>
+                <div class="addjob-preview-meta">
+                  <div><i class="fa-solid fa-briefcase"></i> <span id="p-exp">3-5 years</span></div>
+                  <div><i class="fa-solid fa-indian-rupee-sign"></i> <span id="p-salary">₹ 12-18 LPA</span></div>
+                  <div><i class="fa-solid fa-location-dot"></i> <span id="p-location">Remote (India)</span></div>
+                  <div><i class="fa-regular fa-clock"></i> <span id="p-emptype">Full Time</span></div>
+                </div>
+                <div class="addjob-preview-divider"></div>
+                <div style="font-size:0.72rem; font-weight:700; margin-bottom:6px; color:#1E293B;">Job Summary:</div>
+                <div style="font-size:0.7rem; color:#64748B; line-height:1.5;" id="p-desc"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="addjob-action-bar">
+          <button type="button" class="addjob-btn-draft" onclick="saveDraftDashboard()">Save Draft</button>
+          <button type="button" class="addjob-btn-save-close" onclick="saveCloseDashboard()">Save &amp; Close</button>
+          <button type="button" class="addjob-btn-publish" onclick="publishJobDashboard()">Publish Job</button>
+          <button type="button" class="addjob-btn-cancel" data-bs-dismiss="modal">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Unified Toast System -->
+  <div class="toast-notif" id="toast-notif-dash"></div>
+
+  <script src="../../assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let addJobModalObj = null;
+
+    function openAddJobModalDashboard() {
+      if (!addJobModalObj) {
+        addJobModalObj = new bootstrap.Modal(document.getElementById('addJobModalDashboard'));
+      }
+      addJobModalObj.show();
+    }
+
+    function fmt(cmd) {
+      document.execCommand(cmd, false, null);
+    }
+
+    function updatePreviewDashboard() {
+      const title = document.getElementById('f-title').value.trim();
+      const location = document.getElementById('f-location').value.trim();
+      const empty = document.getElementById('preview-empty');
+      const content = document.getElementById('preview-content');
+
+      if (!title || !location) {
+        empty.style.display = 'block';
+        content.style.display = 'none';
+        return;
+      }
+
+      empty.style.display = 'none';
+      content.style.display = 'block';
+
+      // Title & Location
+      document.getElementById('p-title').textContent = title;
+      document.getElementById('p-location').textContent = location;
+
+      // Meta values
+      const exp = document.getElementById('f-minexp').value.trim() || 'Not specified';
+      const salMin = document.getElementById('f-salmin').value.trim();
+      const salMax = document.getElementById('f-salmax').value.trim();
+      const currency = document.getElementById('f-currency').value;
+      const compType = document.getElementById('f-comptype').value;
+      const empType = document.getElementById('f-emptype').value;
+
+      document.getElementById('p-exp').textContent = exp;
+      document.getElementById('p-emptype').textContent = empType;
+
+      let salaryText = 'Not specified';
+      if (salMin || salMax) {
+        salaryText = `${currency} ${salMin || 0} - ${salMax || 0}`;
+        if (compType) salaryText += ' ' + compType.replace('Per Annum (LPA)', 'LPA');
+      }
+      document.getElementById('p-salary').textContent = salaryText;
+
+      // Tags (Skills)
+      const skills = document.getElementById('f-skills').value.trim();
+      const tagsContainer = document.getElementById('p-tags');
+      tagsContainer.innerHTML = '';
+      if (skills) {
+        skills.split(',').forEach(s => {
+          if (s.trim()) {
+            const tag = document.createElement('span');
+            tag.className = 'addjob-preview-tag';
+            tag.textContent = s.trim();
+            tagsContainer.appendChild(tag);
+          }
+        });
+      }
+
+      // Summary
+      const desc = document.getElementById('job-description').innerHTML;
+      document.getElementById('p-desc').innerHTML = desc || '<i>No description entered yet.</i>';
+    }
+
+    function showDashToast(msg, bg) {
+      const t = document.getElementById('toast-notif-dash');
+      t.textContent = msg;
+      t.style.background = bg || '#1E293B';
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
+
+    function publishJobDashboard() {
+      const title = document.getElementById('f-title').value.trim();
+      const category = document.getElementById('f-category').value;
+      const dept = document.getElementById('f-dept').value || 'Engineering';
+      const type = document.getElementById('f-emptype').value;
+      const location = document.getElementById('f-location').value.trim();
+      const exp = document.getElementById('f-minexp').value.trim() || '2 years';
+      const salMin = document.getElementById('f-salmin').value.trim();
+      const salMax = document.getElementById('f-salmax').value.trim();
+      const skills = document.getElementById('f-skills').value.trim();
+      const desc = document.getElementById('job-description').innerText.trim();
+
+      if (!title || !category || !location || !type) {
+        showDashToast('Please fill in all required fields marked with *', '#EF4444');
+        return;
+      }
+
+      // Read from and save to localStorage jobsData
+      let jobs = JSON.parse(localStorage.getItem('jobsData')) || [
+        { id:'JOB-1021', title:'Senior DevOps Engineer', dept:'Engineering', loc:'Bangalore', type:'Full Time', exp:'5-8 years', apps:34, status:'Active', posted:'12 May 2025' },
+        { id:'JOB-1015', title:'React Developer', dept:'Engineering', loc:'Remote', type:'Full Time', exp:'2-4 years', apps:28, status:'Active', posted:'11 May 2025' }
+      ];
+
+      const newId = 'JOB-0' + (1000 + jobs.length);
+      const postedDate = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+
+      const newJobObj = {
+        id: newId,
+        title: title,
+        dept: dept,
+        loc: location,
+        type: type,
+        exp: exp + " experience",
+        apps: 0,
+        status: 'Active',
+        posted: postedDate,
+        description: desc,
+        skills: skills,
+        salary: salMin ? `₹ ${Math.round(salMin / 100000)} - ${Math.round((salMax || salMin) / 100000)} LPA` : "₹ 12-18 LPA"
+      };
+
+      jobs.unshift(newJobObj);
+      localStorage.setItem('jobsData', JSON.stringify(jobs));
+
+      showDashToast(`Job "${title}" published successfully!`, '#15803D');
+      
+      setTimeout(() => {
+        addJobModalObj.hide();
+        // Reset form
+        ['f-title','f-category','f-dept','f-emptype','f-location','f-workmode','f-explevel','f-minexp','f-salmin','f-salmax','f-skills','f-skills2','f-qual','f-degree','f-spec','f-deadline','f-email'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        document.getElementById('job-description').innerHTML = '';
+        updatePreviewDashboard();
+        // Refresh page if needed to show new counts/state
+        window.location.reload();
+      }, 1000);
+    }
+
+    function saveDraftDashboard() {
+      showDashToast('Job saved as draft successfully!', '#1D4ED8');
+      setTimeout(() => { addJobModalObj.hide(); }, 1200);
+    }
+
+    function saveCloseDashboard() {
+      showDashToast('Job configuration saved and closed.', '#64748B');
+      setTimeout(() => { addJobModalObj.hide(); }, 1200);
+    }
+  </script>
+
+  <!-- ── DYNAMIC DASHBOARD SCRIPT ─────────────────────────────────── -->
+  <script>
+  (function() {
+
+    /* ── MONTH LABELS HELPER ──────────────────────────────────────── */
+    const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    function getLastNMonthLabels(n) {
+      const now = new Date();
+      const labels = [];
+      for (let i = n - 1; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        labels.push(MONTH_NAMES[d.getMonth()] + ' ' + String(d.getFullYear()).slice(2));
+      }
+      return labels;
+    }
+
+    /* ── SEEDED BASELINE DATA (realistic, consistent) ─────────────── */
+    // 12 months of base registration data (Jan→Dec for current year)
+    const BASE_REG   = [38, 52, 61, 74, 88, 97, 82, 105, 118, 93, 127, 142];
+    const BASE_HIRE  = [22, 31, 45, 58, 72, 67, 54, 81,  96,  74, 88,  103];
+
+    /* ── DERIVE DYNAMIC SERIES from localStorage ──────────────────── */
+    function buildSeriesFromJobs(n) {
+      const jobs = JSON.parse(localStorage.getItem('jobsData')) || [];
+      const now  = new Date();
+
+      // Count how many jobs were posted in each of the last n months
+      const counts = Array(n).fill(0);
+      jobs.forEach(j => {
+        if (!j.posted) return;
+        const parts = j.posted.split(' ');
+        // Formats: "12 May 2025" or "01 Jul 25"
+        const dayStr   = parts[0];
+        const monthStr = parts[1];
+        const yearStr  = parts[2];
+        const mIdx     = MONTH_NAMES.findIndex(m => m.toLowerCase() === monthStr.toLowerCase().slice(0,3));
+        if (mIdx < 0) return;
+        const fullYear = yearStr.length === 2 ? 2000 + parseInt(yearStr) : parseInt(yearStr);
+        const jobDate  = new Date(fullYear, mIdx, parseInt(dayStr));
+        for (let i = 0; i < n; i++) {
+          const slotDate = new Date(now.getFullYear(), now.getMonth() - (n - 1 - i), 1);
+          const slotEnd  = new Date(slotDate.getFullYear(), slotDate.getMonth() + 1, 0);
+          if (jobDate >= slotDate && jobDate <= slotEnd) {
+            counts[i]++;
+            break;
+          }
+        }
+      });
+      return counts;
+    }
+
+    /* ── BLEND base + dynamic to produce chart data ─────────────── */
+    function getRegData(n) {
+      const now    = new Date();
+      const curMon = now.getMonth(); // 0-based
+      const dynamic = buildSeriesFromJobs(n);
+      return Array.from({ length: n }, (_, i) => {
+        const absMonth = (curMon - (n - 1 - i) + 12) % 12;
+        return BASE_REG[absMonth] + dynamic[i] * 3; // registrations boost when jobs added
+      });
+    }
+
+    function getHireData(n) {
+      const now    = new Date();
+      const curMon = now.getMonth();
+      const dynamic = buildSeriesFromJobs(n);
+      return Array.from({ length: n }, (_, i) => {
+        const absMonth = (curMon - (n - 1 - i) + 12) % 12;
+        return BASE_HIRE[absMonth] + dynamic[i] * 2;
+      });
+    }
+
+    /* ── CHART FACTORY ────────────────────────────────────────────── */
+    let regChart    = null;
+    let hiringChart = null;
+
+    const CHART_DEFAULTS = {
+      type: 'bar',
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 600, easing: 'easeOutQuart' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1E293B',
+            titleColor: '#94A3B8',
+            bodyColor: '#fff',
+            padding: 10,
+            cornerRadius: 8,
+            displayColors: false,
+            callbacks: {
+              label: ctx => ' ' + ctx.parsed.y + ' users'
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { font: { family: 'Poppins', size: 10 }, color: '#94A3B8' },
+            border: { display: false }
+          },
+          y: {
+            grid: { color: '#F1F5F9', lineWidth: 1 },
+            ticks: { font: { family: 'Poppins', size: 10 }, color: '#94A3B8', maxTicksLimit: 5 },
+            border: { display: false }
+          }
+        }
+      }
+    };
+
+    function buildBarColors(data, accentIdx) {
+      return data.map((_, i) =>
+        i === accentIdx
+          ? '#0A4BD2'
+          : 'rgba(10, 75, 210, 0.14)'
+      );
+    }
+
+    function initOrUpdateChart(chart, canvasId, labels, data, accentIdx) {
+      const colors = buildBarColors(data, accentIdx);
+      if (!chart) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        return new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              data,
+              backgroundColor: colors,
+              borderRadius: 6,
+              borderSkipped: false,
+              maxBarThickness: 32
+            }]
+          },
+          options: JSON.parse(JSON.stringify(CHART_DEFAULTS.options))
+        });
+      } else {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = data;
+        chart.data.datasets[0].backgroundColor = colors;
+        chart.update('active');
+        return chart;
+      }
+    }
+
+    /* ── USER REGISTRATION CHART ─────────────────────────────────── */
+    window.updateUserRegChart = function() {
+      const n      = parseInt(document.getElementById('reg-period-select').value) || 6;
+      const labels = getLastNMonthLabels(n);
+      const data   = getRegData(n);
+      const peak   = data.indexOf(Math.max(...data));
+      regChart = initOrUpdateChart(regChart, 'chart-user-reg', labels, data, peak);
+    };
+
+    /* ── HIRING TRENDS CHART ─────────────────────────────────────── */
+    window.updateHiringChart = function() {
+      const n      = parseInt(document.getElementById('hiring-period-select').value) || 6;
+      const labels = getLastNMonthLabels(n);
+      const data   = getHireData(n);
+      const peak   = data.indexOf(Math.max(...data));
+      // override tooltip label for hiring chart
+      const opts   = JSON.parse(JSON.stringify(CHART_DEFAULTS.options));
+      opts.plugins.tooltip.callbacks.label = ctx => ' ' + ctx.parsed.y + ' hires';
+      if (!hiringChart) {
+        const ctx = document.getElementById('chart-hiring-trends').getContext('2d');
+        hiringChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              data,
+              backgroundColor: buildBarColors(data, peak),
+              borderRadius: 6,
+              borderSkipped: false,
+              maxBarThickness: 32
+            }]
+          },
+          options: opts
+        });
+      } else {
+        hiringChart.data.labels = labels;
+        hiringChart.data.datasets[0].data = data;
+        hiringChart.data.datasets[0].backgroundColor = buildBarColors(data, peak);
+        hiringChart.update('active');
+      }
+    };
+
+    /* ── METRIC CARDS ─────────────────────────────────────────────── */
+    function updateMetrics() {
+      // ── 1. Total Users → User Management (candidatesData) ────────────
+      const users      = JSON.parse(localStorage.getItem('candidatesData')) || [];
+      const totalUsers = users.length;
+
+      // ── 2. Active Jobs → Job Management (jobsData) ───────────────────
+      const jobs           = JSON.parse(localStorage.getItem('jobsData')) || [];
+      // Filter for active status or default to active if no status property
+      const activeJobs     = jobs.filter(j => !j.status || (j.status||'').toLowerCase() === 'active').length;
+
+      // ── 3. Total Applications → Applications (applied_jobs) ───────────
+      const apps      = JSON.parse(localStorage.getItem('applied_jobs')) || [];
+      const totalApps = apps.length;
+
+      // ── 4. New Users (Today) → User Management candidates with 'Applied' status
+      const newUsers = users.filter(u => (u.status||'').toLowerCase() === 'applied').length;
+
+      // ── 5. Complaints → Complaints page (admin_complaints) ────────────
+      const defaultComplaints = [
+        {status:'pending'},{status:'pending'},{status:'progress'},{status:'resolved'},
+        {status:'resolved'},{status:'pending'},{status:'pending'},{status:'progress'},
+        {status:'progress'},{status:'resolved'}
+      ];
+      const storedComplaints = localStorage.getItem('admin_complaints');
+      const complaintsArr    = storedComplaints ? JSON.parse(storedComplaints) : defaultComplaints;
+      const totalComplaints  = complaintsArr.length;
+      const openComplaints   = complaintsArr.filter(c => c.status === 'pending' || c.status === 'progress').length;
+
+      // ── Set values ────────────────────────────────────────────────────
+      const el = id => document.getElementById(id);
+      if (el('stat-total-users'))  el('stat-total-users').textContent  = totalUsers.toLocaleString();
+      if (el('stat-active-jobs'))  el('stat-active-jobs').textContent  = activeJobs.toLocaleString();
+      if (el('stat-total-apps'))   el('stat-total-apps').textContent   = totalApps.toLocaleString();
+      if (el('stat-new-users'))    el('stat-new-users').textContent    = newUsers.toLocaleString();
+      if (el('stat-complaints'))   el('stat-complaints').textContent   = totalComplaints.toLocaleString();
+
+      // ── Subtitles ─────────────────────────────────────────────────────
+      const usersSubEl = el('stat-users-sub');
+      if (usersSubEl) {
+        usersSubEl.textContent = 'Active in system';
+        usersSubEl.className = 'subtitle text-success fw-bold';
+      }
+      const jobsSubEl = el('stat-jobs-sub');
+      if (jobsSubEl) {
+        jobsSubEl.textContent = 'Currently hiring';
+        jobsSubEl.className = 'subtitle text-success fw-bold';
+      }
+
+      // Applications subtitle (sibling div after value)
+      const appsValEl = el('stat-total-apps');
+      if (appsValEl && appsValEl.nextElementSibling) {
+        appsValEl.nextElementSibling.textContent = 'Submitted applications';
+        appsValEl.nextElementSibling.className = 'subtitle text-success fw-bold';
+      }
+      // New Users subtitle
+      const newValEl = el('stat-new-users');
+      if (newValEl && newValEl.nextElementSibling) {
+        newValEl.nextElementSibling.textContent = 'Registered today';
+        newValEl.nextElementSibling.className = 'subtitle text-success fw-bold';
+      }
+      // Complaints subtitle
+      const cmpValEl = el('stat-complaints');
+      if (cmpValEl && cmpValEl.nextElementSibling) {
+        cmpValEl.nextElementSibling.textContent = openComplaints + ' open / unresolved';
+        cmpValEl.nextElementSibling.className = 'subtitle fw-bold ' + (openComplaints > 0 ? 'text-danger' : 'text-success');
+      }
+    }
+
+    /* ── RECENT JOBS TABLE ────────────────────────────────────────── */
+    function updateRecentJobsTable() {
+      const tbody = document.getElementById('recent-jobs-tbody');
+      if (!tbody) return;
+
+      const defaultJobs = [
+        { id:'JOB-1021', title:'Senior DevOps Engineer',  dept:'Engineering', posted:'12 May 2025', status:'Active'  },
+        { id:'JOB-1015', title:'React Developer',          dept:'Engineering', posted:'11 May 2025', status:'Active'  },
+        { id:'JOB-1008', title:'Product Manager',          dept:'Product',     posted:'10 May 2025', status:'Active'  },
+        { id:'JOB-1002', title:'UI/UX Designer',           dept:'Design',      posted:'09 May 2025', status:'Active'  },
+        { id:'JOB-0991', title:'Data Analyst',             dept:'Analytics',   posted:'08 May 2025', status:'Active'  },
+      ];
+
+      const storedJobs = JSON.parse(localStorage.getItem('jobsData')) || defaultJobs;
+      const jobs = storedJobs.slice(0, 5);
+
+      if (jobs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3" style="font-size:0.78rem;">No jobs found.</td></tr>';
+        return;
+      }
+
+      const statusBadge = s => {
+        if (!s || s === 'Active') return `<span class="badge-status badge-active">Active</span>`;
+        if (s === 'Closed') return `<span class="badge-status badge-closed">Closed</span>`;
+        return `<span class="badge-status badge-draft">Draft</span>`;
+      };
+
+      tbody.innerHTML = jobs.map(j => `
+        <tr>
+          <td class="fw-bold" style="font-size:0.8rem;">${j.title || '—'}</td>
+          <td style="font-size:0.8rem;">${j.dept || '—'}</td>
+          <td style="font-size:0.8rem;">${j.posted || '—'}</td>
+          <td>${statusBadge(j.status)}</td>
+        </tr>
+      `).join('');
+    }
+
+    /* ── RECENT USERS TABLE ───────────────────────────────────────── */
+    function updateRecentUsersTable() {
+      const tbody = document.getElementById('recent-users-tbody');
+      if (!tbody) return;
+
+      const defaultUsers = [
+        { name:'John Doe',     email:'john.doe@gmail.com', registeredOn:'05 May 2025', status:'Active' },
+        { name:'Jane Smith',   email:'jane@gmail.com',     registeredOn:'04 May 2025', status:'Active' },
+        { name:'Emily Davis',  email:'emily@gmail.com',    registeredOn:'03 May 2025', status:'Active' },
+        { name:'Raj Kumar',    email:'raj.k@gmail.com',    registeredOn:'02 May 2025', status:'Active' },
+        { name:'Priya Nair',   email:'priya@gmail.com',    registeredOn:'01 May 2025', status:'Active' },
+      ];
+
+      const storedUsers = JSON.parse(localStorage.getItem('candidatesData'));
+      const users = (storedUsers && storedUsers.length > 0)
+        ? storedUsers.slice(0, 5).map(u => ({
+            name: u.name,
+            email: u.email,
+            registeredOn: u.applied,
+            status: u.accountStatus || 'Active'
+          }))
+        : defaultUsers;
+
+      tbody.innerHTML = users.map(u => `
+        <tr>
+          <td class="fw-bold" style="font-size:0.8rem;">${u.name || '—'}</td>
+          <td style="font-size:0.8rem;">${u.email || '—'}</td>
+          <td style="font-size:0.8rem;">${u.registeredOn || '—'}</td>
+          <td><span class="badge-status badge-active">${u.status || 'Active'}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    /* ── RECENT APPLICATIONS TABLE ────────────────────────────────── */
+    function updateRecentAppsTable() {
+      const tbody = document.getElementById('recent-apps-tbody');
+      if (!tbody) return;
+
+      const apps = JSON.parse(localStorage.getItem('applied_jobs')) || [];
+
+      const defaultApps = [
+        { name:'Alex Johnson', title:'React Developer',   applied:'05 May 2025', status:'Pending'   },
+        { name:'Sarah M.',     title:'UI/UX Designer',    applied:'04 May 2025', status:'Reviewing'  },
+        { name:'Mike R.',      title:'Data Analyst',      applied:'03 May 2025', status:'Shortlisted'},
+      ];
+
+      const rows = apps.length > 0 ? apps.slice(0, 5).map(a => ({
+        name:    'Candidate',
+        title:   a.title || '—',
+        applied: a.applied_date || '—',
+        status:  a.status || 'Applied'
+      })) : defaultApps;
+
+      const statusBadge = s => {
+        const map = {
+          'Pending':     'badge-pending',
+          'Applied':     'badge-pending',
+          'Reviewing':   'badge-reviewing',
+          'Shortlisted': 'badge-active',
+          'Rejected':    'badge-closed',
+        };
+        return `<span class="badge-status ${map[s] || 'badge-draft'}">${s}</span>`;
+      };
+
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td class="fw-bold" style="font-size:0.8rem;">${r.name}</td>
+          <td style="font-size:0.8rem;">${r.title}</td>
+          <td style="font-size:0.8rem;">${r.applied}</td>
+          <td>${statusBadge(r.status)}</td>
+        </tr>
+      `).join('');
+    }
+
+    /* ── DATE RANGE DISPLAY ──────────────────────────────────────── */
+    function updateDateRange() {
+      const el = document.querySelector('.date-range-picker-container span');
+      if (!el) return;
+      const now   = new Date();
+      const start = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+      const fmt   = d => d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+      el.textContent = fmt(start) + ' — ' + fmt(now);
+    }
+
+    /* ── INIT ─────────────────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateMetrics();
+      updateDateRange();
+      updateUserRegChart();
+      updateHiringChart();
+      updateRecentJobsTable();
+      updateRecentUsersTable();
+      updateRecentAppsTable();
+    });
+
+    // Refresh dynamic data whenever localStorage changes (e.g. new job added)
+    window.addEventListener('storage', () => {
+      updateMetrics();
+      updateUserRegChart();
+      updateHiringChart();
+      updateRecentJobsTable();
+    });
+
+  })();
+  </script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+</body>
+</html>

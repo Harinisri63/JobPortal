@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interviews - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="admin_interview.css"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<div class="sidebar">
+  <a class="s-logo" href="../User/admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+      <ul>
+          <li><a href="../User/admin.html">Dashboard</a></li>
+          <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+          <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+          <li><a href="../applications/applications.html">Applications</a></li>
+          <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+          <li><a href="javascript:void(0);" class="active">Interviews</a></li>
+          <li><a href="../reports/reports.html">Reports &amp; Analytics</a></li>
+          <li><a href="../complaints/complaints.html">Complaints</a></li>
+          <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+          <li><a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a></li>
+          <li><a href="../settings/admin_settings.html">Settings</a></li>
+        </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl" id="page-title">Interviews</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search"/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ FRAME 1 — JOB CARDS ══════════════ -->
+  <div class="view active" id="view-jobs">
+    <div class="body-wrap">
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="s-icon" style="background:#EEF2FF;color:#4F46E5;"><i class="fa-solid fa-users"></i></div>
+          <div class="s-val" id="int-metric-eligible">—</div>
+          <div class="s-lbl">Total Eligible</div>
+          <div class="s-sub">+14.2% vs last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#FEF3C7;color:#D97706;"><i class="fa-regular fa-calendar-check"></i></div>
+          <div class="s-val" id="int-metric-scheduled">—</div>
+          <div class="s-lbl">Scheduled</div>
+          <div class="s-sub">+9.6% vs last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#DCFCE7;color:#15803D;"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="s-val" id="int-metric-completed">—</div>
+          <div class="s-lbl">Completed</div>
+          <div class="s-sub">+7.1% vs last 30 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#FEE2E2;color:#B91C1C;"><i class="fa-solid fa-ban"></i></div>
+          <div class="s-val" id="int-metric-rejected">—</div>
+          <div class="s-lbl">Rejected</div>
+          <div class="s-sub" style="color:#EF4444;">-3.1% vs last 30 days</div>
+        </div>
+      </div>
+
+      <!-- Section Header -->
+      <div class="section-hdr">
+        <h5>All Job Postings</h5>
+        <div class="search-filter">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--text-muted);font-size:.78rem;"></i>
+            <input type="text" id="job-search" placeholder="Search jobs..." oninput="filterJobCards()"/>
+          </div>
+          <select class="filter-chip" id="job-status-filter" onchange="filterJobCards()">
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Jobs Grid -->
+      <div class="jobs-grid" id="jobs-grid"></div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ FRAME 2 — CANDIDATES TABLE ══════════════ -->
+  <div class="view" id="view-candidates">
+    <div class="cands-wrap">
+
+      <!-- Back bar -->
+      <div class="back-bar">
+        <button class="btn-back" onclick="showJobs()">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </button>
+        <span class="breadcrumb-txt">Interviews &rsaquo; <b id="current-job-title">—</b></span>
+      </div>
+
+      <!-- Job Banner -->
+      <div class="job-banner">
+        <div>
+          <div class="jb-title" id="banner-title">—</div>
+          <div class="jb-meta" id="banner-meta"></div>
+        </div>
+        <div class="jb-count">
+          <div class="cnt" id="banner-count">—</div>
+          <div class="clbl">Eligible for Interview</div>
+        </div>
+      </div>
+
+      <!-- Table Card -->
+      <div class="table-card">
+        <!-- Filters -->
+        <div class="tc-hdr">
+          <div class="tc-title-lbl">Candidates — Click a row to Schedule Interview</div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <div class="tc-search">
+              <i class="fa-solid fa-magnifying-glass" style="color:var(--text-muted);font-size:.75rem;"></i>
+              <input type="text" id="cand-search" placeholder="Search by name, email..." oninput="filterCands()"/>
+            </div>
+            <select class="filter-sel" id="cf-status" onchange="filterCands()">
+              <option value="">All Status</option>
+              <option>Eligible</option>
+              <option>Scheduled</option>
+              <option>Completed</option>
+              <option>Rejected</option>
+            </select>
+            <button class="btn-reset-sm" onclick="resetCandFilters()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div style="overflow-x:auto;">
+          <table class="cand-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox" onchange="toggleAll(this)"/></th>
+                <th>Candidate</th>
+                <th>Experience</th>
+                <th>Location</th>
+                <th>Interview Status</th>
+                <th>Resume Score</th>
+                <th>Applied On</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="cand-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div id="cand-empty" style="display:none;text-align:center;padding:50px 20px;color:#CBD5E1;">
+          <i class="fa-regular fa-folder-open" style="font-size:2.5rem;display:block;margin-bottom:10px;"></i>
+          <p style="font-size:.78rem;">No candidates found.</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pg-row" id="pagination-container"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ══════════════════════════════════════════════════════════
+     SCHEDULE INTERVIEW MODAL
+══════════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="sch-backdrop" onclick="handleBackdropClick(event)">
+  <div class="sch-modal">
+
+    <!-- Header -->
+    <div class="sm-hdr">
+      <div class="sm-hdr-title">Schedule Interview</div>
+      <button class="sm-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Candidate Info Card -->
+    <div class="sm-cand-card">
+      <div class="sm-avatar" id="sm-avatar" style="background:#6366F1;">AK</div>
+      <div>
+        <div class="sm-cand-name" id="sm-cand-name">—</div>
+        <div class="sm-cand-role" id="sm-cand-role">—</div>
+        <div class="sm-cand-meta">
+          <span><i class="fa-regular fa-envelope"></i> <span id="sm-email">—</span></span>
+          <span><i class="fa-solid fa-phone"></i> <span id="sm-phone">—</span></span>
+          <span><i class="fa-solid fa-location-dot"></i> <span id="sm-loc">—</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="sm-form">
+
+      <!-- Interview Type -->
+      <div class="fg">
+        <label>Interview Type <span>*</span></label>
+        <div class="type-pills" id="type-pills">
+          <div class="type-pill selected" onclick="selectType(this)" data-val="Technical"><i class="fa-solid fa-code"></i> Technical</div>
+          <div class="type-pill" onclick="selectType(this)" data-val="HR"><i class="fa-solid fa-user-tie"></i> HR</div>
+          <div class="type-pill" onclick="selectType(this)" data-val="Management"><i class="fa-solid fa-briefcase"></i> Management</div>
+          <div class="type-pill" onclick="selectType(this)" data-val="Final Round"><i class="fa-solid fa-trophy"></i> Final Round</div>
+        </div>
+      </div>
+
+      <!-- Interview Mode -->
+      <div class="fg">
+        <label>Interview Mode <span>*</span></label>
+        <div class="mode-toggle">
+          <button class="mode-btn selected" onclick="selectMode(this)" data-val="Online">
+            <i class="fa-solid fa-video me-1"></i> Online
+          </button>
+          <button class="mode-btn" onclick="selectMode(this)" data-val="Offline">
+            <i class="fa-solid fa-building me-1"></i> Offline / In-Person
+          </button>
+        </div>
+      </div>
+
+      <!-- Date & Time -->
+      <div class="form-row2">
+        <div class="fg">
+          <label>Interview Date <span>*</span></label>
+          <input type="date" class="fi" id="sm-date"/>
+        </div>
+        <div class="fg">
+          <label>Interview Time <span>*</span></label>
+          <input type="time" class="fi" id="sm-time"/>
+        </div>
+      </div>
+
+      <!-- Duration & Round -->
+      <div class="form-row2">
+        <div class="fg">
+          <label>Duration</label>
+          <select class="fi" id="sm-duration">
+            <option>30 Minutes</option>
+            <option selected>45 Minutes</option>
+            <option>1 Hour</option>
+            <option>1.5 Hours</option>
+            <option>2 Hours</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Round Number</label>
+          <select class="fi" id="sm-round">
+            <option>Round 1</option>
+            <option>Round 2</option>
+            <option>Round 3</option>
+            <option>Round 4 (Final)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Interviewer & Panel -->
+      <div class="form-row2">
+        <div class="fg">
+          <label>Interviewer Name <span>*</span></label>
+          <input type="text" class="fi" id="sm-interviewer" placeholder="e.g. Ravi Kumar"/>
+        </div>
+        <div class="fg">
+          <label>Interview Panel</label>
+          <input type="text" class="fi" id="sm-panel" placeholder="e.g. Priya, Anand"/>
+        </div>
+      </div>
+
+      <!-- Meeting Link (shown for Online) -->
+      <div class="fg" id="link-field">
+        <label>Meeting Link</label>
+        <input type="url" class="fi" id="sm-link" placeholder="https://meet.google.com/..."/>
+      </div>
+
+      <!-- Venue (shown for Offline) -->
+      <div class="fg" id="venue-field" style="display:none;">
+        <label>Venue / Location</label>
+        <input type="text" class="fi" id="sm-venue" placeholder="e.g. Synergech Office, Bangalore - Room 203"/>
+      </div>
+
+      <!-- Notes -->
+      <div class="fg">
+        <label>Special Instructions / Notes</label>
+        <textarea class="fi" id="sm-notes" placeholder="e.g. Carry a government ID, prepare system design topics..."></textarea>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="sm-footer">
+      <button class="btn-cancel-modal" onclick="closeModal()">Cancel</button>
+      <button class="btn-schedule" onclick="scheduleInterview()">
+        <i class="fa-regular fa-calendar-check"></i> Schedule Interview
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="admin_interview.js"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+</body>
+</html>
+

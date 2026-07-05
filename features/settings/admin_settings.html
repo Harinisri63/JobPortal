@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="admin_settings.css"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<div class="sidebar">
+  <a class="s-logo" href="../User/admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+      <ul>
+          <li><a href="../User/admin.html">Dashboard</a></li>
+          <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+          <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+          <li><a href="../applications/applications.html">Applications</a></li>
+          <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+          <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+          <li><a href="../reports/reports.html">Reports &amp; Analytics</a></li>
+          <li><a href="../complaints/complaints.html">Complaints</a></li>
+          <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+          <li><a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a></li>
+          <li><a href="javascript:void(0);" class="active">Settings</a></li>
+        </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl">System Settings &amp; Configuration</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search configurations, reports, settings..."/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <!-- BODY CONTENT -->
+  <div class="body-wrap">
+
+    <!-- CENTER COLUMN -->
+    <div class="center-col">
+
+      <!-- Sub-title banner -->
+      <div style="background:linear-gradient(90deg,var(--primary),#3B82F6);border-radius:10px;padding:12px 18px;color:#fff;">
+        <div style="font-size:.78rem;font-weight:700;">System Settings &amp; Configuration</div>
+        <div style="font-size:.62rem;opacity:.85;">Manage system configuration and settings.</div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="tab-bar" id="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'general')">General</button>
+        <button class="tab-btn" onclick="switchTab(this,'security')">Security</button>
+        <button class="tab-btn" onclick="switchTab(this,'notifications')">Notifications</button>
+        <button class="tab-btn" onclick="switchTab(this,'integrations')">Integrations</button>
+        <button class="tab-btn" onclick="switchTab(this,'storage')">Storage</button>
+        <button class="tab-btn" onclick="switchTab(this,'backup')">Backup</button>
+        <button class="tab-btn" onclick="switchTab(this,'services')">Services</button>
+      </div>
+
+      <!-- ═══════════════════ GENERAL TAB ═══════════════════ -->
+      <div id="tab-general">
+
+        <!-- System Overview -->
+        <div class="s-card">
+          <div class="s-card-hdr">
+            <span class="s-card-title">System Overview</span>
+            <button class="btn-edit-sm" onclick="showToast('Checking for updates...','#0A4BD2')">Check For Updates</button>
+          </div>
+          <div class="info-grid">
+            <div class="info-item"><span class="info-lbl">System Name</span><span class="info-val">PROPATH Engine v2</span></div>
+            <div class="info-item"><span class="info-lbl">Version</span><span class="info-val">2.0.71 Build</span></div>
+            <div class="info-item"><span class="info-lbl">Environment</span><span class="info-val">System: System Channel</span></div>
+            <div class="info-item"><span class="info-lbl">License Status</span><span class="info-val">License System: Downloads</span></div>
+            <div class="info-item"><span class="info-lbl">PCH Model</span><span class="info-val">Super Admin, Recruiter, Candidate</span></div>
+            <div class="info-item"><span class="info-lbl">Last Update</span><span class="info-val">22/01/2026 14:00 UTC</span></div>
+          </div>
+        </div>
+
+        <!-- Site Configuration -->
+        <div class="s-card">
+          <div class="s-card-hdr"><span class="s-card-title">Site Configuration</span></div>
+          <div class="info-grid" style="margin-bottom:12px;">
+            <div class="info-item"><span class="info-lbl">Site Title</span><span class="info-val">JobPortal</span></div>
+            <div class="info-item"><span class="info-lbl">Domain</span><span class="info-val">jobportal.mynet.com</span></div>
+            <div class="info-item"><span class="info-lbl">Admin Email</span><span class="info-val">admin@jobportal.com</span></div>
+            <div class="info-item"><span class="info-lbl">Time Zone</span><span class="info-val">UTC</span></div>
+            <div class="info-item"><span class="info-lbl">Default Language</span><span class="info-val">English</span></div>
+            <div class="info-item"><span class="info-lbl">Currency</span><span class="info-val">INR</span></div>
+            <div class="info-item"><span class="info-lbl">Date Format</span><span class="info-val">DD/MM/YYYY</span></div>
+          </div>
+        </div>
+
+        <!-- System Maintenance -->
+        <div class="s-card">
+          <div class="s-card-hdr">
+            <span class="s-card-title">System Maintenance</span>
+            <label class="toggle-switch" style="cursor:pointer;">
+              <input type="checkbox" id="maintenance-toggle" onchange="toggleMaintenance(this)"/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="info-item" style="margin-bottom:8px;">
+            <span class="info-lbl">Last Backup</span>
+            <span class="info-val">Well Micro-Storage</span>
+          </div>
+          <p style="font-size:.65rem;color:var(--text-muted);">This is currently undergoing system upgrades. The system is down for servicing since 18:20 UTC.</p>
+        </div>
+
+        <!-- Security Config & Audit Config (side by side) -->
+        <div class="grid-2">
+          <div class="s-card">
+            <div class="s-card-hdr">
+              <span class="s-card-title">Security Configuration</span>
+              <button class="btn-edit-sm" onclick="switchTab(null, 'security')">Edit</button>
+            </div>
+            <div class="setting-row"><span class="setting-key">Password Policy</span><span class="setting-val"><span class="badge-default">Enforced</span></span></div>
+            <div class="setting-row"><span class="setting-key">Two-Factor Auth (2FA)</span><span class="setting-val"><span class="badge-default">30 Mins</span></span></div>
+            <div class="setting-row"><span class="setting-key">Session Duration</span><span class="setting-val"><span class="badge-default">30 Mins</span></span></div>
+            <div class="setting-row"><span class="setting-key">Login Control</span><span class="setting-val"><span class="badge-default">Ratelim</span></span></div>
+            <div class="setting-row"><span class="setting-key">Audit Logging</span><span class="setting-val"><span class="badge-enabled">Enabled</span></span></div>
+          </div>
+          <div class="s-card">
+            <div class="s-card-hdr">
+              <span class="s-card-title">Audit Configuration</span>
+              <button class="btn-edit-sm" onclick="switchTab(null, 'security')">Edit</button>
+            </div>
+            <div class="setting-row"><span class="setting-key">Audit Logging</span><span class="setting-val"><span class="badge-enabled">Active</span></span></div>
+            <div class="setting-row"><span class="setting-key">Anti-Bug Troubling</span><span class="setting-val"><span class="badge-enabled">Active</span></span></div>
+            <div class="setting-row"><span class="setting-key">Log Marking</span><span class="setting-val"><span class="badge-enabled">Rolling</span></span></div>
+            <div class="setting-row"><span class="setting-key">Change Scanning</span><span class="setting-val"><span class="badge-enabled">Rolling</span></span></div>
+            <div class="setting-row"><span class="setting-key">Access Monitoring</span><span class="setting-val"><span class="badge-enabled">Rolling</span></span></div>
+            <div class="setting-row"><span class="setting-key">Cluster Scan.</span><span class="setting-val"><span class="badge-enabled">Rolling</span></span></div>
+          </div>
+        </div>
+
+        <!-- SMTP Config & Storage Settings (side by side) -->
+        <div class="grid-2">
+          <div class="s-card">
+            <div class="s-card-hdr"><span class="s-card-title">SMTP Configuration</span></div>
+            <div class="setting-row"><span class="setting-key">SMTP Server</span><span class="setting-val">smtp.jobportal.com</span></div>
+            <div class="setting-row"><span class="setting-key">Port</span><span class="setting-val">587</span></div>
+            <div class="setting-row"><span class="setting-key">Username</span><span class="setting-val">mailer@jobportal.com</span></div>
+            <div class="setting-row"><span class="setting-key">From Name</span><span class="setting-val">admin@jobportal.com</span></div>
+            <div class="setting-row"><span class="setting-key">TLS</span><span class="setting-val"><span class="badge-enabled">TLS</span></span></div>
+            <div class="setting-row"><span class="setting-key">Connection Status</span><span class="setting-val"><span class="badge-enabled">Connection</span></span></div>
+          </div>
+          <div class="s-card">
+            <div class="s-card-hdr"><span class="s-card-title">Storage Settings</span></div>
+            <div class="setting-row"><span class="setting-key">S3 Plugin Provider</span><span class="setting-val">AWS S3</span></div>
+            <div class="setting-row"><span class="setting-key">Storage Allocation</span><span class="setting-val">20 Gbps</span></div>
+            <div class="setting-row"><span class="setting-key">Storage Used</span><span class="setting-val">14.7 GB</span></div>
+            <div class="setting-row"><span class="setting-key">Max File Size</span><span class="setting-val">50 MB</span></div>
+            <div class="setting-row"><span class="setting-key">Audit Config</span><span class="setting-val"><span class="badge-enabled">Enabled</span></span></div>
+          </div>
+        </div>
+
+        <!-- System Performance & Backup/Recovery (side by side) -->
+        <div class="grid-2">
+          <div class="s-card">
+            <div class="s-card-hdr">
+              <span class="s-card-title">System Performance</span>
+              <button class="btn-edit-sm" onclick="showToast('Clearing cache...','#0A4BD2')">Clear NS</button>
+            </div>
+            <div class="perf-row">
+              <div class="perf-row-hdr"><span class="info-lbl">CPU Usage</span><span style="font-size:.63rem;font-weight:700;">30%</span></div>
+              <div class="perf-bar"><div class="perf-fill" style="width:30%"></div></div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-row-hdr"><span class="info-lbl">Memory Usage</span><span style="font-size:.63rem;font-weight:700;">40%</span></div>
+              <div class="perf-bar"><div class="perf-fill" style="width:40%"></div></div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-row-hdr"><span class="info-lbl">Disk I/O</span><span style="font-size:.63rem;font-weight:700;">50%</span></div>
+              <div class="perf-bar"><div class="perf-fill" style="width:50%"></div></div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-row-hdr"><span class="info-lbl">Active Sessions</span><span style="font-size:.63rem;font-weight:700;">1200</span></div>
+              <div class="perf-bar"><div class="perf-fill" style="width:65%"></div></div>
+            </div>
+            <div class="setting-row" style="margin-top:8px;"><span class="setting-key">Response Time</span><span class="setting-val">220ms</span></div>
+          </div>
+          <div class="s-card">
+            <div class="s-card-hdr"><span class="s-card-title">Backup &amp; Recovery</span></div>
+            <div class="setting-row"><span class="setting-key">Last Backup</span><span class="setting-val" style="font-size:.65rem;">15 May 2025 09:31</span></div>
+            <div class="setting-row"><span class="setting-key">Next Backup</span><span class="setting-val" style="font-size:.65rem;">16 May 2025 00:00</span></div>
+            <div class="setting-row"><span class="setting-key">Backup Freq.</span><span class="setting-val">Daily</span></div>
+            <div class="setting-row"><span class="setting-key">Backup Size</span><span class="setting-val">4.2 Gb</span></div>
+            <div class="setting-row"><span class="setting-key">Storage</span><span class="setting-val"><span class="badge-enabled">Clean</span></span></div>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="danger-zone">
+          <h6><i class="fa-solid fa-triangle-exclamation me-2"></i>Danger Zone</h6>
+          <p>Actions taken here are permanent and irreversible.</p>
+          <button class="btn-danger" onclick="confirmDeleteSystemData()">Delete System Data</button>
+          <div style="clear:both;"></div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+          <button class="btn-save" onclick="saveSettings()">Save All Changes</button>
+          <button class="btn-reset" onclick="resetSettings()">Reset</button>
+          <div style="position:relative; display:inline-block;">
+            <button class="btn-export" onclick="toggleExportMenu()">Export Settings</button>
+            <div id="export-dropdown" class="s-card" style="display:none; position:absolute; bottom:110%; left:50%; transform:translateX(-50%); z-index:100; width:140px; padding:8px 0; border-radius:8px;">
+              <div style="padding:8px 16px; cursor:pointer; font-size:14px; border-bottom:1px solid var(--border);" onclick="downloadSettings('JSON')">Export as JSON</div>
+              <div style="padding:8px 16px; cursor:pointer; font-size:14px; border-bottom:1px solid var(--border);" onclick="downloadSettings('CSV')">Export as CSV</div>
+              <div style="padding:8px 16px; cursor:pointer; font-size:14px;" onclick="downloadSettings('PDF')">Export as PDF</div>
+            </div>
+          </div>
+          <button class="btn-close-s" onclick="showToast('Changes discarded','#64748B')">Close</button>
+        </div>
+
+      </div><!-- /tab-general -->
+
+      <!-- ═══════════════════ SECURITY TAB ═══════════════════ -->
+      <div id="tab-security" style="display:none;">
+        <div class="s-card">
+          <div class="s-card-hdr"><span class="s-card-title">Security Policies</span></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Enforce Strong Password Policy</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Enable Two-Factor Authentication (2FA)</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Limit Failed Login Attempts (Rate Limiting)</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Enable Audit Logging</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">IP Whitelisting</span><label class="toggle-switch"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Session Expiry (30 Minutes Inactivity)</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-save" onclick="saveSettings()">Save All Changes</button>
+          <button class="btn-reset" onclick="resetSettings()">Reset</button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ NOTIFICATIONS TAB ═══════════════════ -->
+      <div id="tab-notifications" style="display:none;">
+        <div class="s-card">
+          <div class="s-card-hdr"><span class="s-card-title">Notification Preferences</span></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Email Notifications</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">SMS Notifications</span><label class="toggle-switch"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">In-App Notifications</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">System Alert Notifications</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Backup Completion Alerts</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">New Job Application Alerts</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-save" onclick="saveSettings()">Save All Changes</button>
+          <button class="btn-reset" onclick="resetSettings()">Reset</button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ INTEGRATIONS TAB ═══════════════════ -->
+      <div id="tab-integrations" style="display:none;">
+        <div class="s-card">
+          <div class="s-card-hdr"><span class="s-card-title">Third-Party Integrations</span></div>
+          <div class="setting-row"><span class="setting-key">Google OAuth</span><span class="setting-val"><span class="badge-enabled">Connected</span></span></div>
+          <div class="setting-row"><span class="setting-key">LinkedIn OAuth</span><span class="setting-val"><span class="badge-enabled">Connected</span></span></div>
+          <div class="setting-row"><span class="setting-key">Stripe Payment Gateway</span><span class="setting-val"><span class="badge-disabled">Not Connected</span></span></div>
+          <div class="setting-row"><span class="setting-key">AWS S3 Storage</span><span class="setting-val"><span class="badge-enabled">Connected</span></span></div>
+          <div class="setting-row"><span class="setting-key">Sendgrid Email</span><span class="setting-val"><span class="badge-enabled">Connected</span></span></div>
+          <div class="setting-row"><span class="setting-key">Twilio SMS</span><span class="setting-val"><span class="badge-disabled">Not Connected</span></span></div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-save" onclick="saveSettings()">Save All Changes</button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ STORAGE TAB ═══════════════════ -->
+      <div id="tab-storage" style="display:none;">
+        <div class="s-card">
+          <div class="s-card-hdr"><span class="s-card-title">Storage Configuration</span></div>
+          <div class="info-grid">
+            <div class="info-item"><span class="info-lbl">Storage Provider</span><span class="info-val">AWS S3</span></div>
+            <div class="info-item"><span class="info-lbl">Total Allocated</span><span class="info-val">20 GB</span></div>
+            <div class="info-item"><span class="info-lbl">Used Space</span><span class="info-val">14.7 GB</span></div>
+            <div class="info-item"><span class="info-lbl">Free Space</span><span class="info-val">5.3 GB</span></div>
+            <div class="info-item"><span class="info-lbl">Max File Size</span><span class="info-val">50 MB</span></div>
+            <div class="info-item"><span class="info-lbl">CDN Enabled</span><span class="info-val"><span class="badge-enabled">Yes</span></span></div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-save" onclick="saveSettings()">Save All Changes</button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ BACKUP TAB ═══════════════════ -->
+      <div id="tab-backup" style="display:none;">
+        <div class="s-card">
+          <div class="s-card-hdr"><span class="s-card-title">Backup Configuration</span></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Automatic Daily Backup</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Store Backups on AWS S3</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Email Notification on Backup Complete</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Compress Backup Files</span><label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+          <div class="toggle-wrap"><span class="toggle-lbl">Encrypt Backup Files</span><label class="toggle-switch"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-save" onclick="saveSettings()">Save All Changes</button>
+          <button class="btn-reset" onclick="resetSettings()">Reset</button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ SERVICES TAB ═══════════════════ -->
+      <div id="tab-services" style="display:none;">
+        <div class="s-card">
+          <div class="s-card-hdr"><span class="s-card-title">System Services</span></div>
+          <div class="setting-row"><span class="setting-key">Job Indexing Service</span><span class="setting-val"><span class="badge-enabled">Running</span></span></div>
+          <div class="setting-row"><span class="setting-key">Notification Queue</span><span class="setting-val"><span class="badge-enabled">Running</span></span></div>
+          <div class="setting-row"><span class="setting-key">Backup Service</span><span class="setting-val"><span class="badge-enabled">Running</span></span></div>
+          <div class="setting-row"><span class="setting-key">Report Generator</span><span class="setting-val"><span class="badge-enabled">Running</span></span></div>
+          <div class="setting-row"><span class="setting-key">Session Cleaner</span><span class="setting-val"><span class="badge-rolling">Scheduled</span></span></div>
+          <div class="setting-row"><span class="setting-key">Log Archiver</span><span class="setting-val"><span class="badge-rolling">Scheduled</span></span></div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-save" onclick="saveSettings()">Save All Changes</button>
+        </div>
+      </div>
+
+    </div><!-- /center-col -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+      <!-- Settings Summary -->
+      <div class="right-card">
+        <h6>SETTINGS SUMMARY</h6>
+        <p class="security-tip">All systems are operational. Security, notifications and authentication services are active.</p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="right-card">
+        <h6>QUICK ACTIONS</h6>
+        <button class="right-act-btn" onclick="openPwdModal()">Change Password</button>
+        <button class="right-act-btn" onclick="window.location.href='../contentmanagement/contentmanagement.html'">Manage Documents</button>
+        <button class="right-act-btn" onclick="window.location.href='../reports/reports.html'">Download Audit Logs</button>
+        <button class="right-act-btn" onclick="window.location.href='../backup_recovery/backup_recovery.html'">Sync System Zone</button>
+      </div>
+
+      <!-- Help / Support -->
+      <div class="right-card">
+        <h6>HELP &amp; SUPPORT</h6>
+        <p class="security-tip" style="margin-bottom:10px;">Need help with system settings?</p>
+        <a href="../helpcenter/admin_helpcenter.html" style="text-decoration:none;">
+          <button class="right-act-btn" style="color:var(--primary);border-color:var(--primary);">Visit Help Center</button>
+        </a>
+      </div>
+
+      <!-- Security Tip -->
+      <div class="right-card">
+        <h6>SECURITY TIP</h6>
+        <p class="security-tip">Always enable 2FA for system admin accounts. Ensure all integrations and authentication services are active. Check audit logs, privacy, security.</p>
+      </div>
+
+    </div><!-- /right-col -->
+
+  </div><!-- /body-wrap -->
+</div><!-- /main -->
+
+<div class="toast" id="toast"></div>
+
+<!-- Change Password Modal -->
+<div class="pwd-modal-overlay" id="pwd-modal" style="display:none;">
+  <div class="pwd-modal-box">
+    <div class="pwd-modal-hdr">
+      <span>Change Password</span>
+      <i class="fa-solid fa-xmark cursor-pointer" onclick="closePwdModal()"></i>
+    </div>
+    <div class="pwd-modal-body">
+      <div class="setting-row" style="flex-direction:column; align-items:flex-start; border:none; padding:10px 0;">
+        <span class="info-lbl" style="margin-bottom:6px;">Current Password</span>
+        <input type="password" class="form-control" id="pwd-current" placeholder="Enter current password" style="width:100%; border:1px solid var(--border); border-radius:6px; padding:8px 12px; font-size:0.75rem;" />
+      </div>
+      <div class="setting-row" style="flex-direction:column; align-items:flex-start; border:none; padding:10px 0;">
+        <span class="info-lbl" style="margin-bottom:6px;">New Password</span>
+        <input type="password" class="form-control" id="pwd-new" placeholder="Enter new password" style="width:100%; border:1px solid var(--border); border-radius:6px; padding:8px 12px; font-size:0.75rem;" />
+      </div>
+      <div class="setting-row" style="flex-direction:column; align-items:flex-start; border:none; padding:10px 0;">
+        <span class="info-lbl" style="margin-bottom:6px;">Confirm New Password</span>
+        <input type="password" class="form-control" id="pwd-confirm" placeholder="Confirm new password" style="width:100%; border:1px solid var(--border); border-radius:6px; padding:8px 12px; font-size:0.75rem;" />
+      </div>
+    </div>
+    <div class="pwd-modal-footer">
+      <button class="btn-close-s" onclick="closePwdModal()">Cancel</button>
+      <button class="btn-save" onclick="submitChangePassword()">Save Password</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin_settings.js"></script>
+</body>
+</html>

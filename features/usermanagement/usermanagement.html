@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Management - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="usermanagement.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<div class="sidebar">
+  <a class="s-logo" href="../User/admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+      <ul>
+          <li><a href="../User/admin.html">Dashboard</a></li>
+          <li><a href="javascript:void(0);" class="active">User Management</a></li>
+          <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+          <li><a href="../applications/applications.html">Applications</a></li>
+          <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+          <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+          <li><a href="../reports/reports.html">Reports &amp; Analytics</a></li>
+          <li><a href="../complaints/complaints.html">Complaints</a></li>
+          <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+          <li><a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a></li>
+          <li><a href="../settings/admin_settings.html">Settings</a></li>
+        </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl">User Management</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search"/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+
+    <!-- TOP BUTTONS -->
+    <div class="top-btns">
+      <button class="btn-outline" onclick="location.href='../reports/reports.html'"><i class="fa-solid fa-chart-bar me-1"></i> View Report</button>
+      <button class="btn-outline" onclick="openExportModal()"><i class="fa-solid fa-download me-1"></i> Export Candidate</button>
+    </div>
+
+    <!-- METRICS -->
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="lbl">Total Candidates</div>
+        <div class="val" id="metric-total-candidates">—</div>
+        <div class="sub" id="metric-total-candidates-sub">Loading…</div>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">New Candidates</div>
+        <div class="val" id="metric-new-candidates">—</div>
+        <div class="sub" id="metric-new-candidates-sub">Loading…</div>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Shortlisted</div>
+        <div class="val" id="metric-shortlisted-candidates">—</div>
+        <div class="sub" id="metric-shortlisted-candidates-sub">Loading…</div>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Hired</div>
+        <div class="val" id="metric-hired-candidates">—</div>
+        <div class="sub" id="metric-hired-candidates-sub">Loading…</div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+
+      <!-- TABLE CARD -->
+      <div class="table-card">
+
+        <!-- FILTER ROW -->
+        <div class="filter-row">
+          <span class="filter-lbl">Job Title</span>
+          <select class="filter-sel" id="fil-title">
+            <option value="">All</option>
+            <option>Senior DevOps Engineer</option>
+            <option>React Developer</option>
+            <option>Product Manager</option>
+            <option>UI/UX Designer</option>
+            <option>Data Analyst</option>
+            <option>Backend Developer</option>
+            <option>HR Executive</option>
+            <option>Full Stack Developer</option>
+            <option>QA Engineer</option>
+          </select>
+          <span class="filter-lbl">Location</span>
+          <select class="filter-sel" id="fil-loc">
+            <option value="">All</option>
+            <option>Bangalore</option><option>Pune</option><option>Hyderabad</option>
+            <option>Delhi</option><option>Mumbai</option><option>Noida</option>
+            <option>Chandigarh</option><option>Chennai</option>
+          </select>
+          <span class="filter-lbl">Experience</span>
+          <select class="filter-sel" id="fil-exp">
+            <option value="">All</option>
+            <option>1-2 years</option><option>2-4 years</option>
+            <option>3-5 years</option><option>4-6 years</option><option>5-8 years</option>
+          </select>
+          <span class="filter-lbl">Status</span>
+          <select class="filter-sel" id="fil-status" onchange="filterCandidates()">
+            <option value="">All</option>
+            <option>Shortlisted</option><option>Applied</option>
+            <option>Interview</option><option>Hired</option><option>Rejected</option>
+          </select>
+          <button class="btn-filter" onclick="filterCandidates()"><i class="fa-solid fa-sliders"></i> Filter</button>
+          <button class="btn-reset" onclick="resetFilter()">Reset Filter</button>
+          <button class="btn-bulk-approve" onclick="bulkApprove()"><i class="fa-solid fa-check me-1"></i> Approve</button>
+          <button class="btn-bulk-reject" onclick="bulkReject()"><i class="fa-solid fa-xmark me-1"></i> Reject</button>
+        </div>
+
+        <!-- SEARCH ROW -->
+        <div class="search-row">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--text-main);">All Candidates</div>
+          <div class="search-input-wrap" style="max-width:360px;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="cand-search" placeholder="Search Candidates by name, email, phone, skills..." oninput="filterCandidates()"/>
+          </div>
+          <select class="pg-select">
+            <option>Select Page Number</option>
+            <option>1</option><option>2</option><option>3</option>
+          </select>
+        </div>
+
+        <!-- TABLE -->
+        <div style="overflow-x:auto;">
+          <table class="cand-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="chk-all" onchange="toggleAll(this)"/></th>
+                <th>Candidate</th>
+                <th>Job Title</th>
+                <th>Experience</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Applied On</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="cand-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pg-row" id="pagination-container"></div>
+
+      </div><!-- /table-card -->
+    </div><!-- /content-area -->
+
+    <!-- ══ CANDIDATE DETAIL MODAL ══════════════════════════════════════════ -->
+    <div class="cand-modal-backdrop" id="cand-modal-backdrop" onclick="handleBackdropClick(event)">
+      <div class="cand-modal" id="cand-modal">
+        <!-- Modal Header -->
+        <div class="cm-header">
+          <span class="cm-header-name" id="cm-hdr-name">—</span>
+          <button class="cm-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <!-- Modal Body -->
+        <div class="cm-body" id="cm-body"></div>
+      </div>
+    </div>
+    <!-- ══ EXPORT CANDIDATE MODAL ══════════════════════════════════════════ -->
+    <div class="cand-modal-backdrop" id="export-modal-backdrop" onclick="handleExportBackdropClick(event)">
+      <div class="cand-modal" id="export-modal" style="max-width: 520px; border-radius: 20px; padding: 24px 30px; background: #fff; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+        
+        <!-- Header -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+          <h4 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0;">Select Export Format</h4>
+          <button onclick="closeExportModal()" style="background:none; border:none; cursor:pointer; color:#64748B; font-size:1.4rem; padding:0; line-height:1;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Body -->
+        <div>
+          <p style="font-size: 0.85rem; font-weight: 600; color: #1E293B; margin-bottom: 20px; line-height: 1.5; text-align: left;">
+            Choose your preferred file type format to download the saved candidates list:
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;">
+            <!-- PDF Document -->
+            <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; width: 100%; box-sizing: border-box; transition: all 0.2s; text-align: left;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+              <input type="radio" name="export-format" id="fmt-pdf" value="pdf" checked style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0; cursor: pointer;"/>
+              <i class="fa-regular fa-file-pdf" style="color: #EF4444; font-size: 1.2rem; margin-left: 4px;"></i>
+              <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">PDF Document (.pdf)</span>
+            </label>
+
+            <!-- Word Document -->
+            <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; width: 100%; box-sizing: border-box; transition: all 0.2s; text-align: left;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+              <input type="radio" name="export-format" id="fmt-docx" value="docx" style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0; cursor: pointer;"/>
+              <i class="fa-regular fa-file-word" style="color: #3B82F6; font-size: 1.2rem; margin-left: 4px;"></i>
+              <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Word Document (.docx)</span>
+            </label>
+
+            <!-- Excel Spreadsheet -->
+            <label style="display:flex; align-items:center; gap:14px; border: 1px solid #E2E8F0; padding: 16px 20px; border-radius: 10px; cursor:pointer; width: 100%; box-sizing: border-box; transition: all 0.2s; text-align: left;" onmouseover="this.style.borderColor='#A5B4FC'" onmouseout="this.style.borderColor='#E2E8F0'">
+              <input type="radio" name="export-format" id="fmt-excel" value="excel" style="width: 18px; height: 18px; accent-color: #0A4BD2; margin: 0; cursor: pointer;"/>
+              <i class="fa-regular fa-file-excel" style="color: #10B981; font-size: 1.2rem; margin-left: 4px;"></i>
+              <span style="font-size: 0.88rem; font-weight: 700; color: #1E293B;">Excel Spreadsheet (.xlsx)</span>
+            </label>
+          </div>
+
+          <!-- Footer Actions -->
+          <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center;">
+            <button onclick="closeExportModal()" style="background:#64748B; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:background 0.2s;" onmouseover="this.style.background='#475569'" onmouseout="this.style.background='#64748B'">Cancel</button>
+            <button onclick="processExport()" style="background:#0A4BD2; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:background 0.2s;" onmouseover="this.style.background='#0840b8'" onmouseout="this.style.background='#0A4BD2'">Download</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /body-wrap -->
+</div><!-- /main -->
+
+<script src="usermanagement.js?v=1.1"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+</body>
+</html>

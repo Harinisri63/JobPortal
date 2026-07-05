@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports &amp; Analytics - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="reports.css"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <a class="s-logo" href="../User/admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+    <ul>
+      <li><a href="../User/admin.html">Dashboard</a></li>
+      <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+      <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+      <li><a href="../applications/applications.html">Applications</a></li>
+      <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+      <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+      <li><a href="javascript:void(0);" class="active">Reports &amp; Analytics</a></li>
+      <li><a href="../complaints/complaints.html">Complaints</a></li>
+      <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+      <li><a href="../backup_recovery/backup_recovery.html">Backup &amp; Recovery</a></li>
+      <li><a href="../settings/admin_settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl" id="page-title">Reports Management Center</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search reports, categories, templates, schedules..."/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <!-- BODY CONTENT -->
+  <div class="body-wrap">
+
+    <!-- LEFT SIDEBAR IN BODY (Report Categories) -->
+    <div class="categories-box">
+      <h6>Report Categories</h6>
+      <div class="cat-item active" onclick="selectCategory(this, 'All')">All Categories <span class="count" id="count-all">0</span></div>
+      <div class="cat-item" onclick="selectCategory(this, 'Recruitment')">Recruitment <span class="count" id="count-Recruitment">0</span></div>
+      <div class="cat-item" onclick="selectCategory(this, 'Candidate')">Candidate <span class="count" id="count-Candidate">0</span></div>
+      <div class="cat-item" onclick="selectCategory(this, 'Performance')">Performance <span class="count" id="count-Performance">0</span></div>
+      <div class="cat-item" onclick="selectCategory(this, 'Interview')">Interview <span class="count" id="count-Interview">0</span></div>
+      <div class="cat-item" onclick="selectCategory(this, 'Job Perf')">Job Performance <span class="count" id="count-Job Perf">0</span></div>
+      <div class="cat-item" onclick="selectCategory(this, 'Audit')">Audit Reports <span class="count" id="count-Audit">0</span></div>
+      <div class="cat-item" onclick="selectCategory(this, 'System')">System Reports <span class="count" id="count-System">0</span></div>
+    </div>
+
+    <!-- CENTER CONTENT -->
+    <div class="center-column">
+      
+      <!-- Metric Cards Row -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-num" id="m-total">0</div>
+          <div class="metric-lbl">Total Reports</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="m-today">0</div>
+          <div class="metric-lbl">Generated Today</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="m-scheduled">0</div>
+          <div class="metric-lbl">Scheduled Reports</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="m-active">0</div>
+          <div class="metric-lbl">Active Reports</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="m-inactive">0</div>
+          <div class="metric-lbl">Inactive Reports</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="m-formats">0</div>
+          <div class="metric-lbl">Unique Formats</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="m-categories">0</div>
+          <div class="metric-lbl">Report Categories</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="m-daily">0</div>
+          <div class="metric-lbl">Daily Scheduled</div>
+        </div>
+      </div>
+
+      <!-- Report Library -->
+      <div class="library-card">
+        <div class="lib-header">
+          <h6>Report Library</h6>
+          <div class="lib-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="lib-search-input" placeholder="Search reports..." oninput="filterLibrary()"/>
+          </div>
+        </div>
+        <table class="lib-table">
+          <thead>
+            <tr>
+              <th>Report Name</th>
+              <th>Category</th>
+              <th>Created By</th>
+              <th>Last Generated</th>
+              <th>Schedule</th>
+              <th>Format</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="lib-tbody">
+            <!-- Dynamic library items -->
+          </tbody>
+        </table>
+        
+        <div class="pagination-row" id="pagination-container"></div>
+      </div>
+
+      <!-- Custom Report Builder -->
+      <div class="builder-card">
+        <h6>Custom Report Builder</h6>
+        <div class="builder-tabs" id="builder-tab-row">
+          <button class="builder-tab active" onclick="switchBuilderTab(0)">1. Data Source</button>
+          <button class="builder-tab"        onclick="switchBuilderTab(1)">2. Choose Fields</button>
+          <button class="builder-tab"        onclick="switchBuilderTab(2)">3. Filters</button>
+          <button class="builder-tab"        onclick="switchBuilderTab(3)">4. Grouping</button>
+          <button class="builder-tab"        onclick="switchBuilderTab(4)">5. Sorting</button>
+          <button class="builder-tab"        onclick="switchBuilderTab(5)">6. Output</button>
+        </div>
+
+        <div class="builder-workspace">
+
+          <!-- LEFT: Tab Panels -->
+          <div style="flex:1;min-width:0;">
+
+            <!-- Tab 0: Data Source -->
+            <div id="btab-0" class="btab-panel active">
+              <div style="font-size:0.78rem;font-weight:600;color:var(--text-main,#1E293B);margin-bottom:10px;">Select a data source to begin:</div>
+              <div class="source-list">
+                <div class="source-item selected" onclick="selectSource(this,'Jobs')">📋 Jobs</div>
+                <div class="source-item" onclick="selectSource(this,'Candidates')">👤 Candidates</div>
+                <div class="source-item" onclick="selectSource(this,'Applications')">📝 Applications</div>
+                <div class="source-item" onclick="selectSource(this,'Interviews')">🎤 Interviews</div>
+                <div class="source-item" onclick="selectSource(this,'Users')">👥 Users</div>
+                <div class="source-item" onclick="selectSource(this,'Notifications')">🔔 Notifications</div>
+                <div class="source-item" onclick="selectSource(this,'Reports')">📊 Reports</div>
+                <div class="source-item" onclick="selectSource(this,'Content')">📄 Content</div>
+                <div class="source-item" onclick="selectSource(this,'Backups')">💾 Backups</div>
+              </div>
+            </div>
+
+            <!-- Tab 1: Choose Fields -->
+            <div id="btab-1" class="btab-panel" style="display:none;">
+              <div style="font-size:0.78rem;font-weight:600;color:var(--text-main,#1E293B);margin-bottom:10px;">Select fields to include in your report:</div>
+              <div id="field-checkboxes" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+            </div>
+
+            <!-- Tab 2: Filters -->
+            <div id="btab-2" class="btab-panel" style="display:none;">
+              <div style="font-size:0.78rem;font-weight:600;color:var(--text-main,#1E293B);margin-bottom:10px;">Add filter conditions:</div>
+              <div id="filter-rows" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
+              <button onclick="addFilterRow()" style="background:#EFF6FF;color:#0A4BD2;border:1px dashed #93C5FD;border-radius:8px;padding:7px 16px;font-size:0.75rem;font-weight:600;cursor:pointer;">+ Add Filter</button>
+            </div>
+
+            <!-- Tab 3: Grouping -->
+            <div id="btab-3" class="btab-panel" style="display:none;">
+              <div style="font-size:0.78rem;font-weight:600;color:var(--text-main,#1E293B);margin-bottom:10px;">Group results by a field:</div>
+              <div id="group-options" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+            </div>
+
+            <!-- Tab 4: Sorting -->
+            <div id="btab-4" class="btab-panel" style="display:none;">
+              <div style="font-size:0.78rem;font-weight:600;color:var(--text-main,#1E293B);margin-bottom:10px;">Sort results:</div>
+              <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                <div>
+                  <label style="font-size:0.73rem;font-weight:600;color:#64748B;display:block;margin-bottom:4px;">Sort By</label>
+                  <select id="sort-field" style="padding:8px 12px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.78rem;min-width:160px;outline:none;background:var(--card-bg,#fff);color:var(--text-main,#1E293B);"></select>
+                </div>
+                <div>
+                  <label style="font-size:0.73rem;font-weight:600;color:#64748B;display:block;margin-bottom:4px;">Order</label>
+                  <div style="display:flex;gap:8px;">
+                    <label onclick="setSortOrder('asc')" id="sort-asc" style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid #0A4BD2;border-radius:8px;cursor:pointer;font-size:0.75rem;font-weight:600;background:#EFF6FF;color:#0A4BD2;">↑ Ascending</label>
+                    <label onclick="setSortOrder('desc')" id="sort-desc" style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border,#E2E8F0);border-radius:8px;cursor:pointer;font-size:0.75rem;font-weight:600;background:#fff;color:#64748B;">↓ Descending</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 5: Output -->
+            <div id="btab-5" class="btab-panel" style="display:none;">
+              <div style="font-size:0.78rem;font-weight:600;color:var(--text-main,#1E293B);margin-bottom:12px;">Configure output:</div>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div>
+                  <label style="font-size:0.73rem;font-weight:600;color:#64748B;display:block;margin-bottom:4px;">Report Name</label>
+                  <input id="output-report-name" type="text" placeholder="e.g. Monthly Hiring Summary" style="width:100%;padding:9px 14px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.8rem;outline:none;background:var(--card-bg,#fff);color:var(--text-main,#1E293B);" />
+                </div>
+                <div>
+                  <label style="font-size:0.73rem;font-weight:600;color:#64748B;display:block;margin-bottom:8px;">Output Format</label>
+                  <div style="display:flex;gap:10px;">
+                    <label onclick="setOutputFormat('PDF')"   id="fmt-PDF"   style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:2px solid #0A4BD2;border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:700;background:#EFF6FF;color:#0A4BD2;"><i class="fa-solid fa-file-pdf" style="color:#EF4444;"></i> PDF</label>
+                    <label onclick="setOutputFormat('Excel')" id="fmt-Excel" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border,#E2E8F0);border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:700;background:#fff;color:#64748B;"><i class="fa-solid fa-file-excel" style="color:#16A34A;"></i> Excel</label>
+                    <label onclick="setOutputFormat('CSV')"   id="fmt-CSV"   style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border,#E2E8F0);border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:700;background:#fff;color:#64748B;"><i class="fa-solid fa-file-csv" style="color:#F59E0B;"></i> CSV</label>
+                  </div>
+                </div>
+                <div>
+                  <label style="font-size:0.73rem;font-weight:600;color:#64748B;display:block;margin-bottom:4px;">Schedule (Optional)</label>
+                  <select id="output-schedule" style="padding:9px 14px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.78rem;outline:none;background:var(--card-bg,#fff);color:var(--text-main,#1E293B);min-width:180px;">
+                    <option value="None">No Schedule</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: Live Summary -->
+          <div class="summary-pane">
+            <div class="summary-details" id="live-summary">
+              <strong style="font-size:0.82rem;display:block;margin-bottom:10px;color:var(--text-main,#1E293B);">Report Summary</strong>
+              <div style="display:flex;flex-direction:column;gap:6px;font-size:0.73rem;">
+                <div style="display:flex;gap:6px;"><span style="color:#64748B;min-width:60px;">Source</span><span id="sum-source" style="font-weight:600;color:var(--text-main,#1E293B);">—</span></div>
+                <div style="display:flex;gap:6px;"><span style="color:#64748B;min-width:60px;">Fields</span><span id="sum-fields" style="font-weight:600;color:var(--text-main,#1E293B);">None</span></div>
+                <div style="display:flex;gap:6px;"><span style="color:#64748B;min-width:60px;">Filters</span><span id="sum-filters" style="font-weight:600;color:var(--text-main,#1E293B);">None</span></div>
+                <div style="display:flex;gap:6px;"><span style="color:#64748B;min-width:60px;">Group By</span><span id="sum-group" style="font-weight:600;color:var(--text-main,#1E293B);">None</span></div>
+                <div style="display:flex;gap:6px;"><span style="color:#64748B;min-width:60px;">Sort</span><span id="sum-sort" style="font-weight:600;color:var(--text-main,#1E293B);">None</span></div>
+                <div style="display:flex;gap:6px;"><span style="color:#64748B;min-width:60px;">Format</span><span id="sum-format" style="font-weight:600;color:var(--text-main,#1E293B);">PDF</span></div>
+                <div style="display:flex;gap:6px;"><span style="color:#64748B;min-width:60px;">Schedule</span><span id="sum-schedule" style="font-weight:600;color:var(--text-main,#1E293B);">None</span></div>
+              </div>
+            </div>
+            <button class="btn-generate" onclick="generateCustomReport()">Generate Report</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Lists Section -->
+      <div class="bottom-lists-grid">
+        <div class="bottom-card" style="display:flex;flex-direction:column;justify-content:space-between;min-height:190px;">
+          <div>
+            <h6>Recent Reports</h6>
+            <ul class="bottom-list" id="recent-reports-list">
+              <!-- Dynamic -->
+            </ul>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;">
+            <a href="#" onclick="viewAllCategory('All')" class="text-decoration-none font-weight-bold" style="font-size:.65rem;color:#0A4BD2;">View All</a>
+            <button onclick="openExplorePage('reports')" style="background:#0A4BD2;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:0.6rem;font-weight:700;cursor:pointer;">Explore →</button>
+          </div>
+        </div>
+        <div class="bottom-card" style="display:flex;flex-direction:column;justify-content:space-between;min-height:190px;">
+          <div>
+            <h6>Recently Exported</h6>
+            <ul class="bottom-list" id="recently-exported-list">
+              <!-- Dynamic -->
+            </ul>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;">
+            <a href="#" onclick="viewAllCategory('Export')" class="text-decoration-none font-weight-bold" style="font-size:.65rem;color:#0A4BD2;">View All</a>
+            <button onclick="openExplorePage('export')" style="background:#0A4BD2;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:0.6rem;font-weight:700;cursor:pointer;">Explore →</button>
+          </div>
+        </div>
+        <div class="bottom-card" style="display:flex;flex-direction:column;justify-content:space-between;min-height:190px;">
+          <div>
+            <h6>Scheduled Reports</h6>
+            <ul class="bottom-list" id="scheduled-reports-list">
+              <!-- Dynamic -->
+            </ul>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;">
+            <a href="#" onclick="viewAllCategory('Scheduled')" class="text-decoration-none font-weight-bold" style="font-size:.65rem;color:#0A4BD2;">View All</a>
+            <button onclick="openExplorePage('scheduled')" style="background:#0A4BD2;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:0.6rem;font-weight:700;cursor:pointer;">Explore →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extra Footer Stats -->
+      <div class="bottom-lists-grid">
+        <div class="bottom-card" style="display:flex;flex-direction:column;justify-content:space-between;min-height:190px;">
+          <div>
+            <h6>Recent Shares</h6>
+            <ul class="bottom-list" id="recent-shares-list">
+              <!-- Dynamic -->
+            </ul>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;">
+            <a href="#" onclick="viewAllCategory('Shares')" class="text-decoration-none font-weight-bold" style="font-size:.65rem;color:#0A4BD2;">View All</a>
+            <button onclick="openExplorePage('shares')" style="background:#0A4BD2;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:0.6rem;font-weight:700;cursor:pointer;">Explore →</button>
+          </div>
+        </div>
+        <div class="bottom-card" style="display:flex;flex-direction:column;justify-content:space-between;min-height:190px;">
+          <div>
+            <h6>Recent Audit Activities</h6>
+            <ul class="bottom-list" id="recent-audits-list">
+              <!-- Dynamic -->
+            </ul>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;">
+            <a href="#" onclick="viewAllCategory('Audit')" class="text-decoration-none font-weight-bold" style="font-size:.65rem;color:#0A4BD2;">View All</a>
+            <button onclick="openExplorePage('audit')" style="background:#0A4BD2;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:0.6rem;font-weight:700;cursor:pointer;">Explore →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR (Quick Actions & FAQs) -->
+    <div class="right-column">
+      <div class="help-box">
+        <h6>QUICK ACTIONS</h6>
+        <button class="action-btn" onclick="openExplorePage('reports')">Generate Report</button>
+        <button class="action-btn" onclick="openExplorePage('export')">Export Data</button>
+        <button class="action-btn" onclick="shareReport(reportLibraryData[0]?.name || 'Hiring Summary Report')">Share Report</button>
+        <button class="action-btn" onclick="openAuditModal()">Audit Logs</button>
+      </div>
+
+      <div class="help-box">
+        <h6>REPORT HELP &amp; FAQ</h6>
+        <input type="text" class="help-search" placeholder="Search reports help..."/>
+        <strong style="font-size:.68rem;display:block;margin-bottom:6px;">Popular Articles</strong>
+        <ul class="help-links">
+          <li><a href="#">How to Generate Reports</a></li>
+          <li><a href="#">How to Schedule Reports</a></li>
+          <li><a href="#">How to Share Reports</a></li>
+          <li><a href="#">How to Build Custom Reports</a></li>
+          <li><a href="#">How to Export Reports</a></li>
+        </ul>
+        <strong style="font-size:.68rem;display:block;margin-top:10px;margin-bottom:6px;">Frequently Asked Questions</strong>
+        <button class="qna-btn" onclick="alert('Open FAQ')">How do I create a custom report?</button>
+        <button class="qna-btn" onclick="alert('Open FAQ')">How do I schedule a report?</button>
+        <button class="qna-btn" onclick="alert('Open FAQ')">How do I share a report?</button>
+        <button class="qna-btn" onclick="alert('Open FAQ')">How do I export report data?</button>
+        <button class="qna-btn" onclick="alert('Open FAQ')">How do I build report templates?</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     VIEW REPORT MODAL
+════════════════════════════════════════════════════ -->
+<div id="view-report-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:3000;align-items:center;justify-content:center;overflow-y:auto;padding:24px 0;">
+  <div style="background:var(--card-bg,#fff);width:760px;max-width:96vw;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.22);display:flex;flex-direction:column;max-height:90vh;">
+    <!-- Header -->
+    <div style="background:#0A4BD2;color:#fff;padding:16px 24px;border-radius:16px 16px 0 0;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div id="vr-title" style="font-size:1rem;font-weight:700;"></div>
+        <div id="vr-sub" style="font-size:0.72rem;opacity:.8;margin-top:2px;"></div>
+      </div>
+      <i class="fa-solid fa-xmark" onclick="closeViewModal()" style="cursor:pointer;font-size:1.2rem;"></i>
+    </div>
+    <!-- Meta Row -->
+    <div style="display:flex;gap:12px;padding:14px 24px;border-bottom:1px solid var(--border,#E2E8F0);flex-wrap:wrap;">
+      <span id="vr-badge-cat" style="font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:20px;background:#EFF6FF;color:#1D4ED8;"></span>
+      <span id="vr-badge-fmt" style="font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:20px;background:#F0FDF4;color:#15803D;"></span>
+      <span id="vr-badge-sched" style="font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:20px;background:#FFF7ED;color:#C2410C;"></span>
+      <span id="vr-badge-status" style="font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:20px;"></span>
+    </div>
+    <!-- Body: Table + Chart -->
+    <div style="overflow-y:auto;flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:20px;">
+      <!-- Table -->
+      <div>
+        <div style="font-size:0.8rem;font-weight:700;color:var(--text-main,#1E293B);margin-bottom:10px;"><i class="fa-solid fa-table" style="color:#0A4BD2;margin-right:6px;"></i>Report Data</div>
+        <div style="overflow-x:auto;border-radius:8px;border:1px solid var(--border,#E2E8F0);">
+          <table style="width:100%;border-collapse:collapse;font-size:0.75rem;" id="vr-table">
+            <thead id="vr-thead" style="background:#F8FAFC;"></thead>
+            <tbody id="vr-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Chart -->
+      <div>
+        <div style="font-size:0.8rem;font-weight:700;color:var(--text-main,#1E293B);margin-bottom:10px;"><i class="fa-solid fa-chart-pie" style="color:#0A4BD2;margin-right:6px;"></i>Distribution Chart</div>
+        <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+          <canvas id="vr-pie-canvas" width="180" height="180" style="flex-shrink:0;"></canvas>
+          <div id="vr-pie-legend" style="display:flex;flex-direction:column;gap:8px;font-size:0.75rem;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div style="padding:14px 24px;border-top:1px solid var(--border,#E2E8F0);display:flex;justify-content:flex-end;gap:10px;border-radius:0 0 16px 16px;">
+      <button onclick="closeViewModal()" style="background:#64748B;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:600;font-size:0.8rem;cursor:pointer;">Close</button>
+      <button onclick="openEditFromView()" style="background:#0A4BD2;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:600;font-size:0.8rem;cursor:pointer;"><i class="fa-solid fa-pen" style="margin-right:6px;"></i>Edit Report</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     DOWNLOAD FORMAT MODAL
+════════════════════════════════════════════════════ -->
+<div id="download-format-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:3000;align-items:center;justify-content:center;">
+  <div style="background:var(--card-bg,#fff);width:420px;max-width:96vw;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.22);overflow:hidden;">
+    <div style="background:#0A4BD2;color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-weight:700;font-size:0.95rem;"><i class="fa-solid fa-download" style="margin-right:8px;"></i>Download Report</div>
+      <i class="fa-solid fa-xmark" onclick="closeDownloadModal()" style="cursor:pointer;"></i>
+    </div>
+    <div style="padding:24px;">
+      <p style="font-size:0.82rem;color:var(--text-muted,#64748B);margin-bottom:16px;">Choose the format to download <strong id="dl-report-name"></strong></p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <label onclick="triggerDownload('pdf')" style="display:flex;align-items:center;gap:14px;border:1px solid var(--border,#E2E8F0);padding:14px 16px;border-radius:10px;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#0A4BD2'" onmouseout="this.style.borderColor='var(--border,#E2E8F0)'">
+          <i class="fa-solid fa-file-pdf" style="font-size:1.4rem;color:#EF4444;"></i>
+          <div><div style="font-weight:700;font-size:0.85rem;">PDF Document</div><div style="font-size:0.7rem;color:#64748B;">Table view + Pie chart included</div></div>
+        </label>
+        <label onclick="triggerDownload('docx')" style="display:flex;align-items:center;gap:14px;border:1px solid var(--border,#E2E8F0);padding:14px 16px;border-radius:10px;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#0A4BD2'" onmouseout="this.style.borderColor='var(--border,#E2E8F0)'">
+          <i class="fa-solid fa-file-word" style="font-size:1.4rem;color:#2563EB;"></i>
+          <div><div style="font-weight:700;font-size:0.85rem;">Word Document (DOCX)</div><div style="font-size:0.7rem;color:#64748B;">Formatted table + chart summary</div></div>
+        </label>
+        <label onclick="triggerDownload('excel')" style="display:flex;align-items:center;gap:14px;border:1px solid var(--border,#E2E8F0);padding:14px 16px;border-radius:10px;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#0A4BD2'" onmouseout="this.style.borderColor='var(--border,#E2E8F0)'">
+          <i class="fa-solid fa-file-excel" style="font-size:1.4rem;color:#16A34A;"></i>
+          <div><div style="font-weight:700;font-size:0.85rem;">Excel Spreadsheet</div><div style="font-size:0.7rem;color:#64748B;">Raw data table for analysis</div></div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     EDIT REPORT MODAL
+════════════════════════════════════════════════════ -->
+<div id="edit-report-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:3000;align-items:center;justify-content:center;">
+  <div style="background:var(--card-bg,#fff);width:500px;max-width:96vw;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.22);overflow:hidden;">
+    <div style="background:#0A4BD2;color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-weight:700;font-size:0.95rem;"><i class="fa-solid fa-pen" style="margin-right:8px;"></i>Edit Report</div>
+      <i class="fa-solid fa-xmark" onclick="closeEditModal()" style="cursor:pointer;"></i>
+    </div>
+    <div style="padding:24px;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="font-size:0.8rem;font-weight:700;color:var(--text-main,#1E293B);">Report Name</label>
+        <span style="background:#E0F2FE;color:#0369A1;font-size:0.68rem;font-weight:700;padding:3px 8px;border-radius:12px;">Editable</span>
+      </div>
+      <input id="er-name" type="text" style="width:100%;padding:10px 14px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.82rem;background:var(--card-bg,#fff);color:var(--text-main,#1E293B);outline:none;" />
+      <div style="display:flex;gap:12px;">
+        <div style="flex:1;">
+          <label style="font-size:0.78rem;font-weight:700;color:var(--text-main,#1E293B);display:block;margin-bottom:6px;">Category</label>
+          <select id="er-category" style="width:100%;padding:10px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.82rem;background:var(--card-bg,#fff);color:var(--text-main,#1E293B);outline:none;">
+            <option>Recruitment</option><option>Candidate</option><option>Job Perf</option>
+            <option>Interview</option><option>Performance</option><option>Audit</option>
+            <option>System</option><option>Applications</option>
+          </select>
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:0.78rem;font-weight:700;color:var(--text-main,#1E293B);display:block;margin-bottom:6px;">Schedule</label>
+          <select id="er-schedule" style="width:100%;padding:10px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.82rem;background:var(--card-bg,#fff);color:var(--text-main,#1E293B);outline:none;">
+            <option>Daily</option><option>Weekly</option><option>Monthly</option><option>None</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <label style="font-size:0.78rem;font-weight:700;color:var(--text-main,#1E293B);">Format</label>
+            <span style="background:#FEF9C3;color:#854D0E;font-size:0.68rem;font-weight:700;padding:3px 8px;border-radius:12px;">Read-only</span>
+          </div>
+          <input id="er-format" type="text" readonly style="width:100%;padding:10px 14px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.82rem;background:#F8FAFC;color:#94A3B8;outline:none;cursor:not-allowed;" />
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:0.78rem;font-weight:700;color:var(--text-main,#1E293B);display:block;margin-bottom:6px;">Status</label>
+          <select id="er-status" style="width:100%;padding:10px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.82rem;background:var(--card-bg,#fff);color:var(--text-main,#1E293B);outline:none;">
+            <option>Active</option><option>Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="font-size:0.78rem;font-weight:700;color:var(--text-main,#1E293B);">Created By</label>
+        <span style="background:#FEF9C3;color:#854D0E;font-size:0.68rem;font-weight:700;padding:3px 8px;border-radius:12px;">Read-only</span>
+      </div>
+      <input id="er-createdby" type="text" readonly style="width:100%;padding:10px 14px;border:1px solid var(--border,#E2E8F0);border-radius:8px;font-size:0.82rem;background:#F8FAFC;color:#94A3B8;outline:none;cursor:not-allowed;" />
+    </div>
+    <div style="padding:14px 24px;border-top:1px solid var(--border,#E2E8F0);display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeEditModal()" style="background:#64748B;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:600;font-size:0.8rem;cursor:pointer;">Cancel</button>
+      <button onclick="saveEditReport()" style="background:#0A4BD2;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:600;font-size:0.8rem;cursor:pointer;">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     AUDIT LOGS MODAL
+════════════════════════════════════════════════════ -->
+<div id="audit-logs-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:3000;align-items:center;justify-content:center;">
+  <div style="background:var(--card-bg,#fff);width:650px;max-width:96vw;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.22);overflow:hidden;display:flex;flex-direction:column;max-height:85vh;">
+    <div style="background:#0A4BD2;color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-weight:700;font-size:0.95rem;"><i class="fa-solid fa-clock-rotate-left" style="margin-right:8px;"></i>System Audit Logs</div>
+      <i class="fa-solid fa-xmark" onclick="closeAuditModal()" style="cursor:pointer;font-size:1.2rem;"></i>
+    </div>
+    <div style="padding:20px;overflow-y:auto;flex:1;">
+      <p style="font-size:0.8rem;color:#64748B;margin-bottom:12px;">Trace of the most recent report actions, configuration updates, and log exports.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:0.75rem;text-align:left;">
+        <thead>
+          <tr style="background:#F8FAFC;border-bottom:1px solid #E2E8F0;">
+            <th style="padding:10px;color:#475569;font-weight:700;">Activity Name</th>
+            <th style="padding:10px;color:#475569;font-weight:700;">Action Type</th>
+            <th style="padding:10px;color:#475569;font-weight:700;">Performed By</th>
+            <th style="padding:10px;color:#475569;font-weight:700;">Time</th>
+          </tr>
+        </thead>
+        <tbody id="audit-table-tbody">
+          <!-- Dynamic -->
+        </tbody>
+      </table>
+            <div class="audit-pagination" id="audit-pagination-container"></div>
+    </div>
+    <div style="padding:14px 24px;border-top:1px solid var(--border,#E2E8F0);display:flex;justify-content:flex-end;">
+      <button onclick="closeAuditModal()" style="background:#64748B;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:600;font-size:0.8rem;cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="reports.js"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+// Run on page load - reports.js is already loaded above so renderLibrary is available
+(function() {
+  if (localStorage.getItem('theme') === 'dark') toggleTheme();
+  // Directly render the library table and update all dynamic counters
+  renderLibrary(reportLibraryData);
+  updateMetrics();
+  updateCategoryCounts();
+  // Wire backdrop close on overlays
+  ['view-report-overlay','download-format-overlay','edit-report-overlay'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help Center - ProPath Seeker Support</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../../shared/sidenavbar_seeker.css" rel="stylesheet" />  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F8FAFC;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #0A4BD2;
+      padding: 30px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1050;
+      color: #FFFFFF;
+    }
+
+    .sidebar-header {
+      margin-bottom: 30px;
+      text-align: center;
+      background-color: #FFFFFF;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .sidebar-menu li a {
+      display: block;
+      text-align: center;
+      padding: 10px 15px;
+      color: #0A4BD2;
+      background-color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-radius: 8px;
+    }
+
+    .sidebar-menu li a:hover, 
+    .sidebar-menu li a.active {
+      background-color: #E0E7FF;
+      color: #0A4BD2 !important;
+    }
+
+    .main-content-wrapper {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-search-header {
+      background: #0A4BD2;
+      padding: 15px 40px;
+      color: #FFFFFF;
+    }
+
+    .support-banner-header {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .support-search-box {
+      max-width: 600px;
+      margin: 20px auto 0 auto;
+      position: relative;
+    }
+
+    .support-search-box input {
+      width: 100%;
+      padding: 14px 20px 14px 50px;
+      border-radius: 30px;
+      border: 1px solid #E2E8F0;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .support-search-box input:focus {
+      border-color: #0A4BD2;
+      box-shadow: 0 4px 12px rgba(10, 75, 210, 0.1);
+    }
+
+    .support-search-box i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748B;
+      font-size: 1.1rem;
+    }
+
+    .help-card-category {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      height: 100%;
+    }
+
+    .help-card-category:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-color: #0A4BD2;
+    }
+
+    .help-card-category i {
+      font-size: 2rem;
+      color: #0A4BD2;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .quick-faq-item {
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .quick-faq-item:hover {
+      border-color: #0A4BD2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div>
+      <div class="sidebar-header">
+        <a class="navbar-brand d-flex align-items-center justify-content-center text-decoration-none" href="../index.html" style="font-weight: 800; color: #0A4BD2;">
+          <img src="../../assets/Image/propath_small_icon.png" alt="Logo" style="width:32px;height:32px;" class="me-2" />
+          <span>PROPATH</span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li><a href="../User/seeker.html">Job Search</a></li>
+        <li><a href="../applications/myapplication.html">My Applications</a></li>
+        <li><a href="../SavedJobs/savedjobs.html">Saved Jobs</a></li>
+        <li><a href="../interviews/interviews.html">Interviews</a></li>
+        <li><a href="../settings/settings.html">Settings</a></li>
+      </ul>
+
+      <div class="sidebar-upgrade-card">
+        <h6>Upgrade Your Profile</h6>
+        <p class="text-muted" style="font-size: 0.65rem; margin-bottom: 12px; line-height: 1.4;">Complete your profile and get better job recommendations.</p>
+        <a href="../candidateprofile/profile.html" class="btn btn-upgrade text-white fw-bold d-block text-center text-decoration-none" style="background-color: #0A4BD2; font-size: 0.7rem; border-radius: 6px; padding: 6px 12px;">Generate Profile</a>
+        <div class="mt-2 text-muted" style="font-size: 0.65rem;">Resume Score: 80%</div>
+      </div>
+    </div>
+
+    <div class="sidebar-buttons">
+      <a href="admin_helpcenter.html" class="btn-help text-decoration-none mb-2 text-center w-100 active" style="background-color: #E0E7FF; color: #0A4BD2;">Help Center</a>
+      <a href="../index.html" class="logout text-decoration-none text-center w-100">Logout</a>
+    </div>
+  </div>
+
+  <div class="main-content-wrapper">
+    
+    <div class="top-search-header d-flex justify-content-between align-items-center">
+      <div class="fw-semibold text-white">Help Center</div>
+      <div class="header-search-bar d-flex align-items-center col-md-5" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 30px; padding: 6px 20px;">
+        <i class="fa-solid fa-magnifying-glass me-2 text-white"></i>
+        <input type="text" placeholder="Search" class="form-control border-0 bg-transparent p-0 text-white" style="outline: none; box-shadow: none;" />
+        <i class="fa-solid fa-microphone ms-2 text-white"></i>
+      </div>
+      
+      <div class="d-flex align-items-center gap-3">
+        <div class="dropdown notification-dropdown">
+          <div class="position-relative cursor-pointer" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            <i class="fa-regular fa-bell fs-5 text-white"></i>
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" id="notificationDot" style="display: none;">
+              <span class="visually-hidden">New alerts</span>
+            </span>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="notificationDropdown" style="border-radius: 12px; font-size: 0.8rem; min-width: 320px; padding: 0; overflow: hidden; margin-top: 15px;">
+            <li class="bg-primary text-white px-3 py-2 fw-bold d-flex justify-content-between align-items-center">
+              <span>Notifications</span>
+              <span class="badge bg-light text-primary rounded-pill" style="display: none;">0 New</span>
+            </li>
+            <div class="notification-list" style="max-height: 300px; overflow-y: auto;">
+            </div>
+            <li class="p-2 border-top bg-light">
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-sm btn-outline-primary" id="markAllReadBtn" style="font-size: 0.75rem; font-weight: 600;">Mark all as read</button>
+                <button class="btn btn-sm btn-secondary" style="font-size: 0.75rem; font-weight: 600;" onclick="document.querySelector('#notificationDropdown').click()">Close</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="dropdown">
+          <i class="fa-regular fa-user-circle cursor-pointer fs-5 text-white" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <button class="btn btn-light btn-sm fw-semibold rounded-pill px-3 py-1 text-primary ms-2" id="profileBtnName" data-bs-toggle="dropdown" aria-expanded="false" style="color: #1D4ED8 !important;">Harini</button>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="profileDropdown" style="border-radius: 16px; font-size: 0.8rem; min-width: 260px; padding: 15px; margin-top: 10px;">
+            <li class="text-center py-2">
+              <img src="../../assets/Image/profile.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" alt="Profile" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;" class="mb-2" />
+              <div class="fw-bold" id="dropdown-user-name">Harini</div>
+              <div class="text-muted" style="font-size: 0.7rem;" id="dropdown-user-email">harini@gmail.com</div>
+              <span class="badge bg-success-light text-success mt-1" style="font-size: 0.65rem; border: 1px solid #10B981; background: #ECFDF5; border-radius: 4px;">Verified <i class="fa-solid fa-check ms-1"></i></span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item py-2 px-3 fw-bold text-dark rounded d-flex align-items-center gap-2" href="../settings/settings.html"><i class="fa-regular fa-user"></i> Manage Profile</a></li>
+            <li><a class="dropdown-item py-2 px-3 fw-bold text-danger rounded d-flex align-items-center gap-2" href="../index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="support-banner-header">
+      <h3 class="fw-bold text-dark">How can we help you, Seeker?</h3>
+      <div class="support-search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Describe your issue or ask a question..." />
+      </div>
+    </div>
+
+    <div class="container-fluid p-4">
+      
+      <h5 class="fw-bold mb-4">Browse Help Categories</h5>
+      
+      <div class="row g-3 mb-5">
+        <div class="col-md-4">
+          <div class="help-card-category">
+            <i class="bi bi-briefcase"></i>
+            <h6 class="fw-bold text-dark">Job Search & Applications</h6>
+            <p class="text-muted small mb-0">Learn how to find jobs, use filters, apply, and track application updates.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="help-card-category">
+            <i class="bi bi-person-badge"></i>
+            <h6 class="fw-bold text-dark">Profile & Resume Build</h6>
+            <p class="text-muted small mb-0">Tips on generating profile cards, updating resumes, and calculation score metrics.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="help-card-category">
+            <i class="bi bi-shield-check"></i>
+            <h6 class="fw-bold text-dark">Account Security & Privacy</h6>
+            <p class="text-muted small mb-0">Manage password locks, active trusted sessions, and toggling profile visibility flags.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12">
+          <h5 class="fw-bold mb-4">Frequently Asked Questions</h5>
+          
+            <div class="quick-faq-item">
+              <div class="fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#faq1" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                <span>How do I track my job applications status?</span>
+                <i class="fa-solid fa-chevron-down small text-muted"></i>
+              </div>
+              <div id="faq1" class="collapse text-muted small">
+                <div style="padding: 0 16px 16px 16px;">
+                  Go to the 'My Applications' page from the left sidebar to view real-time status updates (Under Review, Shortlisted, Interview Scheduled, etc.) for all your applied positions.
+                </div>
+              </div>
+            </div>
+
+            <div class="quick-faq-item">
+              <div class="fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#faq2" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                <span>How can I update my default resume?</span>
+                <i class="fa-solid fa-chevron-down small text-muted"></i>
+              </div>
+              <div id="faq2" class="collapse text-muted small">
+                <div style="padding: 0 16px 16px 16px;">
+                  Navigate to settings page, look for the 'Resume Preferences' panel, click the Edit option, and upload your updated PDF resume document.
+                </div>
+              </div>
+            </div>
+
+            <div class="quick-faq-item">
+              <div class="fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#faq3" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                <span>Why is my resume score not increasing?</span>
+                <i class="fa-solid fa-chevron-down small text-muted"></i>
+              </div>
+              <div id="faq3" class="collapse text-muted small">
+                <div style="padding: 0 16px 16px 16px;">
+                  Complete missing account profile criteria (e.g., preferred locations, skills badges, experience details) to boost your profile score metrics.
+                </div>
+              </div>
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal fade" id="helpDetailsModal" tabindex="-1" aria-labelledby="helpDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="helpDetailsModalLabel">Help Article</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="helpDetailsModalBody" style="font-size: 0.85rem; line-height: 1.6; color: #475569;">
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal" style="border-radius: 8px;">Got It</button>
+          <a href="#" class="btn btn-primary btn-sm px-4 d-none" id="help-explore-btn" style="background-color: #0A4BD2; border: none; border-radius: 8px;">Explore More <i class="fa-solid fa-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const modalElement = document.getElementById('helpDetailsModal');
+      const bsModal = new bootstrap.Modal(modalElement);
+      const modalTitle = document.getElementById('helpDetailsModalLabel');
+      const modalBody = document.getElementById('helpDetailsModalBody');
+
+      const articles = {
+        jobSearch: {
+          title: "Job Search & Applications Support",
+          body: `
+            <p><strong>Finding Jobs:</strong> Use the primary inputs (Job Title, Experience, Skills) in the main search bar to narrow down criteria. You can toggle metrics or accordion panels for more detail.</p>
+            <p><strong>Applying for Jobs:</strong> Click the "Apply Now" button on any job card. This action logs the application under your account details.</p>
+            <p><strong>Tracking Applications:</strong> Open the "My Applications" dashboard tab. It highlights your real-time candidacy stage (e.g. Under Review, Shortlisted, Selected).</p>
+          `
+        },
+        profileResume: {
+          title: "Profile & Resume Setup",
+          body: `
+            <p><strong>Completing Profile:</strong> Add preferred locations, expected salary, and your key technical badges to achieve 100% completion status.</p>
+            <p><strong>Resume Customization:</strong> Upload a clean PDF copy in Settings. Recruiters download this default version when evaluating candidate submissions.</p>
+          `
+        },
+        securityPrivacy: {
+          title: "Account Security & Privacy Settings",
+          body: `
+            <p><strong>Two-Factor Verification:</strong> Enable authenticator setups inside Account Security settings to secure logins.</p>
+            <p><strong>Profile Search Visibility:</strong> Set search engine visibility flags to Hidden if you only want partner recruiters to browse your profile.</p>
+          `
+        }
+      };
+
+      const exploreBtn = document.getElementById('help-explore-btn');
+
+      document.querySelectorAll('.help-card-category').forEach((card, index) => {
+        card.addEventListener('click', () => {
+          let selectedArticle;
+          let exploreUrl = "";
+          if (index === 0) {
+            selectedArticle = articles.jobSearch;
+            exploreUrl = "seeker.html";
+          } else if (index === 1) {
+            selectedArticle = articles.profileResume;
+            exploreUrl = "settings.html";
+          } else {
+            selectedArticle = articles.securityPrivacy;
+            exploreUrl = "settings.html";
+          }
+
+          modalTitle.textContent = selectedArticle.title;
+          modalBody.innerHTML = selectedArticle.body;
+
+          if (exploreBtn) {
+            exploreBtn.classList.remove('d-none');
+            exploreBtn.href = exploreUrl;
+          }
+
+          bsModal.show();
+        });
+      });
+
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        if (exploreBtn) exploreBtn.classList.add('d-none');
+      });
+
+      const savedName = localStorage.getItem('profileName');
+      if (savedName) {
+        const headerName = document.getElementById('profileBtnName');
+        if (headerName) headerName.textContent = savedName;
+        const dropdownName = document.querySelector('.dropdown-menu .fw-bold') || document.getElementById('dropdown-user-name');
+        if (dropdownName) dropdownName.textContent = savedName;
+      }
+
+      function checkHash() {
+        const hash = window.location.hash;
+        if (hash === '#profile-strength-guide') {
+          modalTitle.textContent = "How to Achieve 100% Profile Completion Guide";
+          modalBody.innerHTML = `
+            <p class="fw-bold text-dark">Follow these clear guide steps to achieve a premium 100% complete Profile Strength:</p>
+            <ol class="ps-3" style="line-height: 1.8;">
+              <li><strong>Add Profile Photo (15%):</strong> Click your user image avatar on Candidate settings page or edit modal to upload an avatar picture from your device.</li>
+              <li><strong>Provide Full Name (15%):</strong> Set your first and last name inside the Personal Information edit panel modal.</li>
+              <li><strong>Choose Gender (15%):</strong> Ensure your gender identity is specified inside the form fields options.</li>
+              <li><strong>Add Current Location (15%):</strong> Specify your current residence city and country (e.g. Bangalore, India).</li>
+              <li><strong>Provide Preferred Location (15%):</strong> List preferred working hubs so recruiters matches your targeted jobs list (e.g. Bangalore, Pune, Remote).</li>
+              <li><strong>Verify Email Address (15%):</strong> Add a contact email address to receive direct correspondence.</li>
+              <li><strong>Save & Sync Settings (10%):</strong> Submit the modals forms to save settings. All changes synchronize across dashboards instantly.</li>
+            </ol>
+            <div class="alert alert-info py-2 px-3 small mt-3" style="border-radius: 8px;">
+              <i class="fa-solid fa-info-circle me-1"></i> Completing all parameters increases visibility to hiring recruiters by 4x.
+            </div>
+          `;
+          if (exploreBtn) {
+            exploreBtn.classList.remove('d-none');
+            exploreBtn.href = "settings.html";
+          }
+          bsModal.show();
+        } else if (hash === '#application-readiness-guide') {
+          modalTitle.textContent = "How to Improve Application Readiness Guide";
+          modalBody.innerHTML = `
+            <p class="fw-bold text-dark">Optimize your Job Preferences to reach a high Application Readiness score:</p>
+            <ol class="ps-3" style="line-height: 1.8;">
+              <li><strong>Define Preferred Role:</strong> Add your targeted job designation (e.g., Frontend Developer).</li>
+              <li><strong>State Expected Salary:</strong> Specify expectations clearly to match hiring budgets.</li>
+              <li><strong>Set Employment Type:</strong> Choose Full Time, Part Time, or Contract options.</li>
+              <li><strong>Choose Work Mode:</strong> Select Hybrid, Remote, or Onsite options.</li>
+              <li><strong>Select Experience Level:</strong> Provide correct years of experience range.</li>
+              <li><strong>Tag Technical Skills:</strong> Mention all key technical languages or framework badges.</li>
+            </ol>
+            <div class="alert alert-info py-2 px-3 small mt-3" style="border-radius: 8px;">
+              <i class="fa-solid fa-lightbulb me-1"></i> Highly tailored preferences result in 3x more relevant recruiter outreach.
+            </div>
+          `;
+          if (exploreBtn) {
+            exploreBtn.classList.remove('d-none');
+            exploreBtn.href = "settings.html";
+          }
+          bsModal.show();
+        } else if (hash === '#search-visibility-guide') {
+          modalTitle.textContent = "How to Enhance Search Visibility Guide";
+          modalBody.innerHTML = `
+            <p class="fw-bold text-dark">Optimize privacy permission rules to maximize Search Visibility:</p>
+            <ol class="ps-3" style="line-height: 1.8;">
+              <li><strong>Profile Visibility:</strong> Set to Public or Recruiters Only to show up in keyword queries.</li>
+              <li><strong>Resume Visibility:</strong> Ensure visibility permissions are set to "Only Recruiters" or "Public".</li>
+              <li><strong>Recruiter Access:</strong> Confirm "Allow Access" switch is toggled active.</li>
+              <li><strong>Contact Details Privacy:</strong> Share phone/email details selectively to secure privacy.</li>
+            </ol>
+            <div class="alert alert-info py-2 px-3 small mt-3" style="border-radius: 8px;">
+              <i class="fa-solid fa-shield-halved me-1"></i> Keeping your visibility configured properly protects contact privacy while engaging matching recruiters.
+            </div>
+          `;
+          if (exploreBtn) {
+            exploreBtn.classList.remove('d-none');
+            exploreBtn.href = "settings.html";
+          }
+          bsModal.show();
+        }
+      }
+
+      checkHash();
+      window.addEventListener('hashchange', checkHash);
+    });
+  </script>
+
+  <script>
+    let renderNotifications;
+    document.addEventListener('DOMContentLoaded', function() {
+      const defaultNotifs = [
+        { type:'success', icon:'fa-solid fa-circle-check', title:'Complaint Resolved', desc:'Admin has resolved your recent complaint regarding job application #4092.', time:'2 hours ago', read:false },
+        { type:'primary', icon:'fa-solid fa-user-check', title:'Shortlisted for Interview', desc:'Congratulations! You have been shortlisted for the Software Engineer role.', time:'1 day ago', read:false },
+        { type:'warning', icon:'fa-solid fa-briefcase', title:'New Job Posted', desc:'A new job matching your profile has been posted: Frontend Developer.', time:'2 days ago', read:false }
+      ];
+
+      renderNotifications = function() {
+        const storedNotifs = localStorage.getItem('candidateNotifs');
+        if (!storedNotifs) {
+          localStorage.setItem('candidateNotifs', JSON.stringify(defaultNotifs));
+        }
+        const notifs = JSON.parse(localStorage.getItem('candidateNotifs'));
+        const listContainer = document.querySelector('.notification-list');
+        const badge = document.querySelector('.notification-dropdown .badge');
+        const dot = document.getElementById('notificationDot');
+        
+        let html = '';
+        let unreadCount = 0;
+        
+        notifs.forEach((n, idx) => {
+          if(!n.read) unreadCount++;
+          const bg = n.read ? '#FFFFFF' : '#F8FAFC';
+          const unreadClass = n.read ? '' : 'unread';
+          html += `
+            <li><a class="dropdown-item py-2 px-3 border-bottom d-flex gap-2 align-items-start ${unreadClass}" href="#" style="background: ${bg}; white-space: normal;" data-idx="${idx}">
+              <div class="text-${n.type} mt-1"><i class="${n.icon}"></i></div>
+              <div>
+                <div class="fw-bold text-dark" style="font-size: 0.8rem;">${n.title}</div>
+                <div class="text-muted" style="font-size: 0.75rem;">${n.desc}</div>
+                <div class="text-muted" style="font-size: 0.65rem; margin-top: 4px;">${n.time}</div>
+              </div>
+            </a></li>
+          `;
+        });
+        
+        if (listContainer) listContainer.innerHTML = html;
+        
+        if (badge) {
+          badge.textContent = unreadCount + ' New';
+          badge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+        }
+        if (dot) {
+          dot.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+        }
+      };
+
+      if (document.querySelector('.notification-dropdown')) {
+          renderNotifications();
+      }
+
+      const markAllBtn = document.getElementById('markAllReadBtn');
+      if(markAllBtn) {
+        markAllBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const notifs = JSON.parse(localStorage.getItem('candidateNotifs')) || [];
+          notifs.forEach(n => n.read = true);
+          localStorage.setItem('candidateNotifs', JSON.stringify(notifs));
+          renderNotifications();
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

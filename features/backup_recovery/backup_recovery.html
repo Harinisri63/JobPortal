@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Backup &amp; Recovery - ProPath Admin</title>
+  <link rel="shortcut icon" href="../../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="backup_recovery.css"/>
+  <link rel="stylesheet" href="../../shared/admin_sidebar.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <a class="s-logo" href="../User/admin.html">
+    <img src="../../assets/Image/propath_small_icon.png" alt="Logo"/>
+    <span>PRO PATH</span>
+  </a>
+  <nav class="s-nav">
+    <ul>
+      <li><a href="../User/admin.html">Dashboard</a></li>
+      <li><a href="../usermanagement/usermanagement.html">User Management</a></li>
+      <li><a href="../jobmanagement/jobmanagement.html">Job Management</a></li>
+      <li><a href="../applications/applications.html">Applications</a></li>
+      <li><a href="../contentmanagement/contentmanagement.html">Content Management</a></li>
+      <li><a href="../interviews/admin_interview.html">Interviews</a></li>
+      <li><a href="../reports/reports.html">Reports &amp; Analytics</a></li>
+      <li><a href="../complaints/complaints.html">Complaints</a></li>
+      <li><a href="../notificationmanagement/notificationmanagement.html">Notification Management</a></li>
+      <li><a href="javascript:void(0);" class="active">Backup &amp; Recovery</a></li>
+      <li><a href="../settings/admin_settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <div class="s-footer">
+    <a href="../helpcenter/admin_helpcenter.html">Help Center</a>
+    <a href="../index.html">Logout</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="ttl" id="page-title">Backup &amp; Recovery Management</div>
+    <div class="srch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search backups, schedules, reports..."/>
+      <i class="fa-solid fa-microphone"></i>
+    </div>
+    <div class="acts">
+      <i class="fa-regular fa-lightbulb" id="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;" title="Toggle Dark/Light Mode"></i>
+      <i class="fa-regular fa-bell"></i>
+      <i class="fa-regular fa-circle-question"></i>
+      <span class="admin-badge">Admin User</span>
+    </div>
+  </div>
+
+  <!-- BODY CONTENT -->
+  <div class="body-wrap">
+
+    <!-- CENTER COLUMN -->
+    <div class="center-column">
+      
+      <!-- Metrics Dashboard -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="num" id="metric-total">152</div>
+          <div class="lbl">Total Backups</div>
+          <div class="sub">All time logs</div>
+        </div>
+        <div class="metric-card">
+          <div class="num" id="metric-success">148</div>
+          <div class="lbl">Successful Backups</div>
+          <div class="sub" id="metric-success-rate">97.3% Success Rate</div>
+        </div>
+        <div class="metric-card">
+          <div class="num" id="metric-failed">4</div>
+          <div class="lbl">Failed Backups</div>
+          <div class="sub" style="color:#EF4444;font-weight:700;">Requires attention</div>
+        </div>
+        <div class="metric-card">
+          <div class="num" id="metric-size">1.24 TB</div>
+          <div class="lbl">Total Size</div>
+          <div class="sub">Storage capacity used</div>
+        </div>
+        <div class="metric-card">
+          <div class="num" id="metric-last">May 15, 2024</div>
+          <div class="lbl">Last Backup</div>
+          <div class="sub">Long days ago</div>
+        </div>
+        <div class="metric-card">
+          <div class="num" id="metric-health">97%</div>
+          <div class="lbl">Backup Health</div>
+          <div class="sub" style="color:#22C55E;font-weight:700;">Optimal Health score</div>
+        </div>
+      </div>
+
+      <!-- Navigation & Action Row -->
+      <div class="tabs-bar">
+        <div class="tab-btns">
+          <button class="tab-btn active" onclick="switchTab(this, 'Overview')">Backup Overview</button>
+          <button class="tab-btn" onclick="switchTab(this, 'Schedules')">Backup Schedules</button>
+          <button class="tab-btn" onclick="switchTab(this, 'Restore')">Restore History</button>
+          <button class="tab-btn" onclick="switchTab(this, 'Retention')">Retention Policies</button>
+          <button class="tab-btn" onclick="switchTab(this, 'Settings')">Backup Settings</button>
+        </div>
+        <div style="position:relative; display:inline-block;">
+          <button class="filter-btn" onclick="toggleFilterMenu()"><i class="fa-solid fa-filter me-1"></i> Filter Logs</button>
+          <div id="filter-dropdown" class="sch-modal-content" style="display:none; position:absolute; top:110%; right:0; z-index:100; width:150px; background:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:8px 0;">
+            <div style="padding:8px 16px; cursor:pointer; font-size:14px; border-bottom:1px solid var(--border);" onclick="applyFilter('All')">All Logs</div>
+            <div style="padding:8px 16px; cursor:pointer; font-size:14px; border-bottom:1px solid var(--border);" onclick="applyFilter('Success')">Successful</div>
+            <div style="padding:8px 16px; cursor:pointer; font-size:14px; border-bottom:1px solid var(--border);" onclick="applyFilter('Failed')">Failed</div>
+            <div style="padding:8px 16px; cursor:pointer; font-size:14px;" onclick="applyFilter('In Progress')">In Progress</div>
+          </div>
+        </div>
+        <button class="btn-create-backup" onclick="openBackupModal()">+ Create Backup</button>
+      </div>
+
+      <!-- TAB VIEWS CONTAINER -->
+      <div id="view-Overview" class="tab-view active">
+        <!-- Recent Backups Table -->
+        <div class="table-card">
+          <h6>Recent Backups Table</h6>
+        <table class="backup-table">
+          <thead>
+            <tr>
+              <th>Backup Name</th>
+              <th>Type</th>
+              <th>Data Included</th>
+              <th>Schedule</th>
+              <th>Date &amp; Time</th>
+              <th>Size</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="backup-tbody">
+            <!-- Dynamic Backup Row Items -->
+          </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        <div class="pg-row" id="pagination-container"></div>
+      </div>
+
+      <!-- 3 Columns Info section -->
+      <div class="info-cards-grid">
+        <div class="info-card">
+          <h6>Backup Health</h6>
+          <div class="info-content" id="health-content">
+            <!-- Dynamic Content -->
+          </div>
+          <button class="btn-card-action" onclick="openReportsModal()">View Backup Reports</button>
+        </div>
+        <div class="info-card">
+          <h6>Recent Restore Activity</h6>
+          <div class="info-content" id="restore-activity-content">
+            <!-- Dynamic Content -->
+          </div>
+          <button class="btn-card-action" onclick="switchTab(null, 'Restore')">View All Restores</button>
+        </div>
+      </div>
+
+      <!-- Backup Retention Overview -->
+      <div class="retention-card">
+        <h6>Backup Retention Overview</h6>
+        <table class="retention-table">
+          <thead>
+            <tr>
+              <th>Backup Type</th>
+              <th>Retention Period</th>
+              <th>Current Count</th>
+              <th>Total Size</th>
+              <th>Next Cleanup</th>
+            </tr>
+          </thead>
+          <tbody id="retention-tbody">
+            <!-- Dynamic Content -->
+          </tbody>
+        </table>
+      </div>
+      </div> <!-- End view-Overview -->
+
+      <!-- Backup Schedules View -->
+      <div id="view-Schedules" class="tab-view" style="display:none;">
+        <div class="table-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h6 style="margin:0;">Active Backup Schedules</h6>
+            <button class="btn-create-backup" onclick="openScheduleModal()">+ Create Schedule</button>
+          </div>
+          <table class="backup-table">
+            <thead>
+              <tr>
+                <th>Schedule Name</th>
+                <th>Frequency</th>
+                <th>Data Source</th>
+                <th>Next Run</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="schedules-tbody">
+              <!-- Dynamic Content -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Restore History View -->
+      <div id="view-Restore" class="tab-view" style="display:none;">
+        <div class="table-card">
+          <h6>Restore History Log</h6>
+          <table class="backup-table">
+            <thead>
+              <tr>
+                <th>Restore ID</th>
+                <th>Source Backup</th>
+                <th>Target Destination</th>
+                <th>Initiated By</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="restore-tbody">
+              <!-- Dynamic Content -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Retention Policies View -->
+      <div id="view-Retention" class="tab-view" style="display:none;">
+        <div class="table-card" style="padding:24px;">
+          <h6 style="margin-bottom:20px; font-size:1.1rem; color:var(--text-main);">Configure Retention Policies</h6>
+          <div style="display:flex; flex-direction:column; gap:20px; max-width:600px;">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-weight:600; font-size:0.85rem; color:var(--text-main);">Daily Backups Retention</label>
+              <select id="ret-daily" style="padding:10px 14px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins', sans-serif;">
+                <option>Keep for 7 Days</option>
+                <option>Keep for 14 Days</option>
+                <option>Keep for 30 Days</option>
+              </select>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-weight:600; font-size:0.85rem; color:var(--text-main);">Weekly Backups Retention</label>
+              <select id="ret-weekly" style="padding:10px 14px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins', sans-serif;">
+                <option>Keep for 4 Weeks</option>
+                <option>Keep for 8 Weeks</option>
+                <option>Keep for 12 Weeks</option>
+              </select>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-weight:600; font-size:0.85rem; color:var(--text-main);">Monthly Backups Retention</label>
+              <select id="ret-monthly" style="padding:10px 14px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins', sans-serif;">
+                <option>Keep for 6 Months</option>
+                <option>Keep for 12 Months</option>
+                <option>Keep for 24 Months</option>
+              </select>
+            </div>
+            <button class="btn-create-backup" style="align-self:flex-start; margin-top:10px;" onclick="saveRetentionPolicies()">Save Policies</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Backup Settings View -->
+      <div id="view-Settings" class="tab-view" style="display:none;">
+        <div class="table-card" style="padding:24px;">
+          <h6 style="margin-bottom:20px; font-size:1.1rem; color:var(--text-main);">Backup Settings</h6>
+          <div style="display:flex; flex-direction:column; gap:20px; max-width:600px;">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-weight:600; font-size:0.85rem; color:var(--text-main);">Primary Storage Location</label>
+              <select style="padding:10px 14px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins', sans-serif;">
+                <option>AWS S3 Bucket (us-east-1)</option>
+                <option>Azure Blob Storage</option>
+                <option>Local Server Storage (D:)</option>
+              </select>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-weight:600; font-size:0.85rem; color:var(--text-main);">Encryption Level</label>
+              <select style="padding:10px 14px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins', sans-serif;">
+                <option>AES-256 (Recommended)</option>
+                <option>AES-128</option>
+                <option>No Encryption (Not Recommended)</option>
+              </select>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-weight:600; font-size:0.85rem; color:var(--text-main);">Failure Notification Emails</label>
+              <input type="text" value="admin@synergech.com, devops@synergech.com" style="padding:10px 14px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins', sans-serif;">
+            </div>
+            <button class="btn-create-backup" style="align-self:flex-start; margin-top:10px;" onclick="showToast('Backup settings saved successfully!', '#22C55E')">Save Settings</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-column">
+      
+      <!-- Backup Summary Chart Card -->
+      <div class="right-panel-card">
+        <h6>Backup Summary</h6>
+        <div class="chart-box">
+          <div class="circle-chart" id="summary-circle">
+            <div class="circle-inner">
+              <span class="num" id="summary-total">152</span>
+              <span class="lbl">Total</span>
+            </div>
+          </div>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span><span class="legend-dot" style="background:var(--primary);"></span>Successful</span>
+            <strong id="summary-success">148</strong>
+          </div>
+          <div class="legend-item" style="margin-top:2px;">
+            <span><span class="legend-dot" style="background:#EF4444;"></span>Failed</span>
+            <strong id="summary-failed">4</strong>
+          </div>
+          <div class="legend-item" style="margin-top:2px;">
+            <span><span class="legend-dot" style="background:#F59E0B;"></span>In Progress</span>
+            <strong id="summary-progress">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Operations Quick list -->
+      <div class="right-panel-card" style="display:flex;flex-direction:column;gap:4px;padding:12px;">
+        <button class="right-act-btn" onclick="openBackupModal()">Create New Backup</button>
+        <button class="right-act-btn" onclick="switchTab(null, 'Restore')">Restore Data</button>
+        <button class="right-act-btn" onclick="switchTab(null, 'Schedules')">View Schedules</button>
+        <button class="right-act-btn" onclick="downloadReport()">Download Backup</button>
+        <button class="right-act-btn" onclick="switchTab(null, 'Settings')">Backup Settings</button>
+      </div>
+
+      <!-- Total Storage Used Card -->
+      <div class="right-panel-card">
+        <h6>Total Storage Used</h6>
+        <div class="storage-bar-wrap">
+          <div class="storage-bar"><div class="storage-bar-fill" id="storage-fill"></div></div>
+        </div>
+        <div class="info-content">
+          <strong id="storage-used">Backup Size: 1.24 TB</strong>
+          <span id="storage-free">Available Space: 780 GB</span>
+        </div>
+        <button class="btn-card-action" style="margin-top:10px;" onclick="switchTab(null, 'Settings')">Manage Storage</button>
+      </div>
+
+      <!-- Backup Alerts -->
+      <div class="right-panel-card">
+        <h6>Backup Alerts</h6>
+        <ul class="alerts-list">
+          <li>
+            <strong>Backup Failure Alert</strong>
+            <span>12 hours ago</span>
+          </li>
+          <li>
+            <strong style="color:#D97706;">Storage Usage High Warning</strong>
+            <span>May 14, 23:00</span>
+          </li>
+          <li>
+            <strong style="color:var(--primary);">Retention Policy Alert</strong>
+            <span>May 12, 10:00</span>
+          </li>
+          <li>
+            <strong style="color:#22C55E;">Backup Running Task notification</strong>
+            <span>May 10, 08:30</span>
+          </li>
+        </ul>
+        <div class="text-center mt-2"><a href="#" style="font-size:.65rem;font-weight:700;text-decoration:none;">View All Alerts</a></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SCHEDULE MODAL -->
+<div class="backdrop" id="schedule-modal-backdrop">
+  <div class="schedule-modal">
+    <div class="modal-hdr">
+      <h5 id="sch-modal-title">Create Schedule</h5>
+      <button class="modal-close-icon" onclick="closeScheduleModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Schedule Name</label>
+        <input type="text" id="sch-name" placeholder="e.g. Daily Full Backup">
+      </div>
+      <div class="modal-field">
+        <label>Frequency</label>
+        <select id="sch-freq">
+          <option value="Every 1h">Every 1h</option>
+          <option value="Every 6h">Every 6h</option>
+          <option value="Every 12h">Every 12h</option>
+          <option value="Every 24h">Every 24h</option>
+          <option value="Every Sunday">Every Sunday</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Data Source</label>
+        <input type="text" id="sch-source" placeholder="e.g. All Databases, Media">
+      </div>
+      <div class="modal-field" id="sch-status-box" style="display:none;">
+        <label>Status</label>
+        <div><span id="sch-status-badge" style="color:#22C55E;font-weight:700;">Active</span></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-close" onclick="closeScheduleModal()">Close</button>
+      <button class="btn-save" id="sch-btn-save" onclick="saveSchedule()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- BACKUP MODAL -->
+<div class="backdrop" id="backup-modal-backdrop">
+  <div class="schedule-modal">
+    <div class="modal-hdr">
+      <h5>Create Manual Backup</h5>
+      <button class="modal-close-icon" onclick="closeBackupModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Backup Name</label>
+        <input type="text" id="bkp-name" placeholder="e.g. Pre-Deployment Backup">
+      </div>
+      <div class="modal-field">
+        <label>Backup Type</label>
+        <select id="bkp-type">
+          <option value="Full">Full System</option>
+          <option value="Incremental">Incremental</option>
+          <option value="Differential">Differential</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Data Included</label>
+        <input type="text" id="bkp-included" placeholder="e.g. Database, Configs">
+      </div>
+      <div class="modal-field">
+        <label>Backup Time</label>
+        <select id="bkp-time">
+          <option value="Immediate">Immediate (Now)</option>
+          <option value="12:00 AM">12:00 AM</option>
+          <option value="01:00 AM">01:00 AM</option>
+          <option value="02:00 AM">02:00 AM</option>
+          <option value="03:00 AM">03:00 AM</option>
+          <option value="04:00 AM">04:00 AM</option>
+          <option value="05:00 AM">05:00 AM</option>
+          <option value="06:00 AM">06:00 AM</option>
+          <option value="07:00 AM">07:00 AM</option>
+          <option value="08:00 AM">08:00 AM</option>
+          <option value="09:00 AM">09:00 AM</option>
+          <option value="10:00 AM">10:00 AM</option>
+          <option value="11:00 AM">11:00 AM</option>
+          <option value="12:00 PM">12:00 PM</option>
+          <option value="01:00 PM">01:00 PM</option>
+          <option value="02:00 PM">02:00 PM</option>
+          <option value="03:00 PM">03:00 PM</option>
+          <option value="04:00 PM">04:00 PM</option>
+          <option value="05:00 PM">05:00 PM</option>
+          <option value="06:00 PM">06:00 PM</option>
+          <option value="07:00 PM">07:00 PM</option>
+          <option value="08:00 PM">08:00 PM</option>
+          <option value="09:00 PM">09:00 PM</option>
+          <option value="10:00 PM">10:00 PM</option>
+          <option value="11:00 PM">11:00 PM</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-close" onclick="closeBackupModal()">Close</button>
+      <button class="btn-save" onclick="saveManualBackup()">Start Backup</button>
+    </div>
+  </div>
+</div>
+
+<!-- BACKUP REPORTS MODAL -->
+<div class="backdrop" id="reports-modal-backdrop">
+  <div class="schedule-modal" style="width:600px;">
+    <div class="modal-hdr">
+      <h5>Comprehensive Backup Report</h5>
+      <button class="modal-close-icon" onclick="closeReportsModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--bg-main); padding:16px; border-radius:8px; border:1px solid var(--border);">
+        <h6 style="margin-bottom:12px; color:var(--text-main);">Summary (Last 30 Days)</h6>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.85rem;">
+          <div><strong>Total Backups:</strong> <span id="rep-total"></span></div>
+          <div><strong>Success Rate:</strong> <span id="rep-rate"></span></div>
+          <div><strong>Total Data Backed Up:</strong> <span id="rep-data"></span></div>
+          <div><strong>Failed Backups:</strong> <span id="rep-failed"></span></div>
+        </div>
+      </div>
+      <div style="background:var(--bg-main); padding:16px; border-radius:8px; border:1px solid var(--border);">
+        <h6 style="margin-bottom:12px; color:var(--text-main);">Recent Issues</h6>
+        <ul id="rep-issues" style="font-size:0.85rem; color:var(--text-muted); margin:0; padding-left:20px;">
+          <!-- Dynamic Content -->
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-close" onclick="closeReportsModal()">Close</button>
+      <button class="btn-save" onclick="downloadReport()"><i class="fa-solid fa-download me-2"></i> Download PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Saved Successfully</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script src="backup_recovery.js"></script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.getElementById('theme-toggle');
+  if (icon) {
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-regular', 'fa-lightbulb');
+      icon.classList.add('fa-solid', 'fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.remove('fa-solid', 'fa-moon');
+      icon.classList.add('fa-regular', 'fa-lightbulb');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    toggleTheme();
+  }
+});
+</script>
+
+<!-- PROGRESS MEGA MODAL -->
+<div id="progress-modal-backdrop">
+  <div class="progress-mega-modal">
+    <!-- Particles -->
+    <div class="modal-particles" id="pm-particles"></div>
+    
+    <div class="progress-modal-content">
+      <div class="pm-header">
+        <div class="pm-icon-wrap" id="pm-icon"><i class="fa-solid fa-cloud-arrow-down" id="pm-icon-i"></i></div>
+        <div>
+          <div class="pm-title" id="pm-title">Restoring Backup</div>
+          <div class="pm-subtitle" id="pm-subtitle">Preparing data...</div>
+        </div>
+      </div>
+      
+      <div class="pm-body">
+        <div class="pm-circle-wrap" id="pm-circle-wrap">
+          <svg class="pm-circle-svg" viewBox="0 0 140 140">
+            <circle class="pm-circle-bg" cx="70" cy="70" r="60"></circle>
+            <circle class="pm-circle-progress" id="pm-circle-progress" cx="70" cy="70" r="60"></circle>
+          </svg>
+          <div class="pm-circle-text">
+            <div class="pm-pct" id="pm-pct-text">0%</div>
+            <div class="pm-pct-lbl">Complete</div>
+          </div>
+        </div>
+        
+        <div class="pm-details">
+          <div class="pm-bar-wrap">
+            <div class="pm-bar-fill" id="pm-bar-fill"></div>
+          </div>
+          
+          <div class="pm-stats-grid">
+            <div class="pm-stat-box">
+              <div class="pm-stat-lbl">Data Processed</div>
+              <div class="pm-stat-val" id="pm-stat-data">0.0 GB / 0.0 GB</div>
+            </div>
+            <div class="pm-stat-box">
+              <div class="pm-stat-lbl">Transfer Speed</div>
+              <div class="pm-stat-val" id="pm-stat-speed">0 MB/s</div>
+            </div>
+            <div class="pm-stat-box">
+              <div class="pm-stat-lbl">Elapsed Time</div>
+              <div class="pm-stat-val" id="pm-stat-elapsed">00:00:00</div>
+            </div>
+            <div class="pm-stat-box">
+              <div class="pm-stat-lbl">Estimated Time Left</div>
+              <div class="pm-stat-val" id="pm-stat-eta">Calculating...</div>
+            </div>
+          </div>
+          
+          <div class="pm-stages">
+            <div class="pm-stage" id="pm-stage-1">
+              <div class="pm-stage-icon"><i class="fa-solid fa-check"></i></div>
+              <span id="pm-stage-1-text">Connecting to storage</span>
+            </div>
+            <div class="pm-stage" id="pm-stage-2">
+              <div class="pm-stage-icon"><i class="fa-solid fa-check"></i></div>
+              <span id="pm-stage-2-text">Verifying integrity</span>
+            </div>
+            <div class="pm-stage" id="pm-stage-3">
+              <div class="pm-stage-icon"><i class="fa-solid fa-check"></i></div>
+              <span id="pm-stage-3-text">Transferring data</span>
+            </div>
+            <div class="pm-stage" id="pm-stage-4">
+              <div class="pm-stage-icon"><i class="fa-solid fa-check"></i></div>
+              <span id="pm-stage-4-text">Processing files</span>
+            </div>
+            <div class="pm-stage" id="pm-stage-5">
+              <div class="pm-stage-icon"><i class="fa-solid fa-check"></i></div>
+              <span id="pm-stage-5-text">Finalizing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProPath</title>
+  <link rel="shortcut icon" href="../assets/Image/propath_small_icon.png" type="image/png" />
+  <link href="../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="../assets/Image/propath_small_icon.png" alt="Logo" class="me-2" style="waidth: 32px; height: 32px; object-fit: contain;" />
+        <span>PROPATH</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#how-it-works">How We Hire</a></li>
+          <li class="nav-item"><a class="nav-link" href="#why-join">Why Join Synergech</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resources">Career Resources</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+          <a href="auth/login.html" class="btn btn-rounded-outline">Login</a>
+          <a href="auth/signup.html" class="btn btn-rounded-purple">Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <header class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right" data-aos-duration="1000">
+          <h1 class="hero-title" id="hero-main-heading">
+            Where visionaries meet <br /><span id="hero-highlighted-text">their next chapter.</span>
+          </h1>
+          <p class="hero-support-text" id="hero-sub-text">
+            A curated job portal connecting world-class designers, engineers, and product leaders with high-growth startups and heritage brands.
+          </p>
+
+          <div class="hero-search-container" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-4">
+                <div class="search-input-group">
+                  <input type="text" placeholder="Job Title..." class="form-control border-0 bg-transparent ps-2 custom-placeholder" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="search-input-group">
+                  <input type="text" placeholder="Experience" class="form-control border-0 bg-transparent ps-2 custom-placeholder" />
+                </div>
+              </div>
+              <div class="col-md-5 d-flex align-items-center mt-2 mt-md-0 px-2 justify-content-between">
+                <div class="search-input-group border-0 w-100 me-1">
+                  <select class="form-select border-0 p-0 fs-6 bg-transparent text-slate-muted" style="min-width: 110px; color: #475569;">
+                    <option selected>Category</option>
+                    <option value="1">Development</option>
+                    <option value="2">Design</option>
+                    <option value="3">Data Science</option>
+                  </select>
+                </div>
+                <button class="btn btn-rounded-filled px-4 bg-dark border-0">Search</button>
+              </div>
+            </div>
+          </div>
+          <div class="hero-tags mb-4" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+            <a href="#" class="hero-tag-badge bg-dark text-white px-3 py-1">All Jobs</a>
+            <a href="#" class="hero-tag-badge bg-white text-secondary px-3 py-1 border text-dark">Remote</a>
+            <a href="#" class="hero-tag-badge bg-white text-secondary px-3 py-1 border text-dark">Full Time</a>
+            <a href="#" class="hero-tag-badge bg-white text-secondary px-3 py-1 border text-dark">Part Time</a>
+            <a href="#" class="hero-tag-badge bg-white text-secondary px-3 py-1 border text-dark">Internship</a>
+          </div>
+
+          <div class="hero-stats-row border-0 pt-0" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1000">
+            <div class="stat-item">
+              <div class="stat-val">$40,000+</div>
+              <div class="stat-desc">Average Salary</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">10,000+</div>
+              <div class="stat-desc">Active Jobs</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">250,000+</div>
+              <div class="stat-desc">Applications</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">95%</div>
+              <div class="stat-desc">Success Rate</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200">
+          <div class="hero-image-wrapper">
+            <img src="../assets/Image/main.jpeg" alt="Professional Interview Setup" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="popular-categories">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="section-title">Popular Categories</h2>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(79, 70, 229, 0.08); color: #4F46E5;">
+              <img src="../assets/Image/sofware development.png" alt="Development" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">Software Development</div>
+              <div class="cat-jobs">1.2k+ jobs open</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(124, 58, 237, 0.08); color: #7C3AED;">
+              <img src="../assets/Image/UIUX-Design.png" alt="UIUX" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">UI/UX Design</div>
+              <div class="cat-jobs">850+ jobs open</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(34, 197, 94, 0.08); color: #22C55E;">
+              <img src="../assets/Image/datascience.png" alt="Data" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">Data Science</div>
+              <div class="cat-jobs">640+ jobs open</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(59, 130, 246, 0.08); color: #3B82F6;">
+              <img src="../assets/Image/cloudcomputing.png" alt="Cloud" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">Cloud Computing</div>
+              <div class="cat-jobs">520+ jobs open</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(245, 158, 11, 0.08); color: #F59E0B;">
+              <img src="../assets/Image/devops" alt="DevOps" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">DevOps</div>
+              <div class="cat-jobs">410+ jobs open</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(139, 92, 246, 0.08); color: #8B5CF6;">
+              <img src="../assets/Image/QA testing.png" alt="QA" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">QA Testing</div>
+              <div class="cat-jobs">380+ jobs open</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(236, 72, 153, 0.08); color: #EC4899;">
+              <img src="../assets/Image/product management.png" alt="PM" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">Project Management</div>
+              <div class="cat-jobs">310+ jobs open</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-aos="zoom-in" data-aos-duration="800">
+          <a href="#" class="category-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(20, 184, 166, 0.08); color: #14B8A6;">
+              <img src="../assets/Image/Artificial-Intelligence.png" alt="AI" style="width: 24px; height: 24px; object-fit: contain;" />
+            </div>
+            <div>
+              <div class="cat-title">AI & Machine Learning</div>
+              <div class="cat-jobs">720+ jobs open</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="featured-opportunities bg-white">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Featured Opportunities</h2>
+        <a href="#" class="text-decoration-none text-primary fw-semibold fs-6">Explore Opportunities <i class="fa-solid fa-arrow-right ms-1"></i></a>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+          <div class="job-card soft-shadow">
+            <div>
+              <div class="job-card-header">
+                <div class="company-logo-wrapper">
+                  <img src="../assets/Image/naukri.png" alt="Naukri" />
+                </div>
+                <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+              </div>
+              <h3 class="job-title"><a href="#">Senior Software Engineer</a></h3>
+              <div class="job-details-meta mt-3">
+                <span class="salary">Salary: $150k – $180k</span>
+              </div>
+            </div>
+            <div class="job-card-footer">
+              <button class="apply-btn" data-bs-toggle="modal" data-bs-target="#applyAuthModal">Apply Now</button>
+              <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+          <div class="job-card soft-shadow">
+            <div>
+              <div class="job-card-header">
+                <div class="company-logo-wrapper">
+                  <img src="../assets/Image/remotive.jpg" alt="Remotive" />
+                </div>
+                <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+              </div>
+              <h3 class="job-title"><a href="#">Lead Product Designer</a></h3>
+              <div class="job-details-meta mt-3">
+                <span class="salary">Salary: $135k – $170k</span>
+              </div>
+            </div>
+            <div class="job-card-footer">
+              <button class="apply-btn" data-bs-toggle="modal" data-bs-target="#applyAuthModal">Apply Now</button>
+              <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+          <div class="job-card soft-shadow">
+            <div>
+              <div class="job-card-header">
+                <div class="company-logo-wrapper">
+                  <img src="../assets/Image/propath_small_icon.png" alt="ProPath" />
+                </div>
+                <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+              </div>
+              <h3 class="job-title"><a href="#">Staff Data Scientist</a></h3>
+              <div class="job-details-meta mt-3">
+                <span class="salary">Salary: $160k – $210k</span>
+              </div>
+            </div>
+            <div class="job-card-footer">
+              <button class="apply-btn" data-bs-toggle="modal" data-bs-target="#applyAuthModal">Apply Now</button>
+              <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+          <div class="job-card soft-shadow">
+            <div>
+              <div class="job-card-header">
+                <div class="company-logo-wrapper">
+                  <img src="../assets/Image/propath_small_icon.png" alt="ProPath" />
+                </div>
+                <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+              </div>
+              <h3 class="job-title"><a href="#">Cloud Architect</a></h3>
+              <div class="job-details-meta mt-3">
+                <span class="salary">Salary: $145k – $190k</span>
+              </div>
+            </div>
+            <div class="job-card-footer">
+              <button class="apply-btn" data-bs-toggle="modal" data-bs-target="#applyAuthModal">Apply Now</button>
+              <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+          <div class="job-card soft-shadow">
+            <div>
+              <div class="job-card-header">
+                <div class="company-logo-wrapper">
+                  <img src="../assets/Image/propath_small_icon.png" alt="ProPath" />
+                </div>
+                <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+              </div>
+              <h3 class="job-title"><a href="#">DevOps Specialist</a></h3>
+              <div class="job-details-meta mt-3">
+                <span class="salary">Salary: $120k – $155k</span>
+              </div>
+            </div>
+            <div class="job-card-footer">
+              <button class="apply-btn" data-bs-toggle="modal" data-bs-target="#applyAuthModal">Apply Now</button>
+              <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+          <div class="job-card soft-shadow">
+            <div>
+              <div class="job-card-header">
+                <div class="company-logo-wrapper">
+                  <img src="../assets/Image/propath_small_icon.png" alt="ProPath" />
+                </div>
+                <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+              </div>
+              <h3 class="job-title"><a href="#">Full-Stack Engineer</a></h3>
+              <div class="job-details-meta mt-3">
+                <span class="salary">Salary: $130k – $170k</span>
+              </div>
+            </div>
+            <div class="job-card-footer">
+              <button class="apply-btn" data-bs-toggle="modal" data-bs-target="#applyAuthModal">Apply Now</button>
+              <a href="#" class="view-details">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="why-join" id="why-join">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Why Join Synergech</h2>
+        <a href="#" class="text-decoration-none text-primary fw-semibold fs-6">Show All <i class="fa-solid fa-arrow-right ms-1"></i></a>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-3 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+          <div class="why-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(79, 70, 229, 0.08); color: #4F46E5;">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h4>Career Growth</h4>
+            <p>Our algorithms proactively connect developers with mentors and key career moves.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+          <div class="why-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(34, 197, 94, 0.08); color: #22C55E;">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <h4>Work-Life Balance</h4>
+            <p>Track flexible hours, remote culture and simplified job application process flows.</p>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+          <div class="why-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(245, 158, 11, 0.08); color: #F59E0B;">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h4>Continuous Learning</h4>
+            <p>Get access to courses, coding camps, and professional growth opportunities.</p>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+          <div class="why-card soft-shadow">
+            <div class="icon-box" style="background-color: rgba(236, 72, 153, 0.08); color: #EC4899;">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <h4>Health & Wellness</h4>
+            <p>All-round health coverage curated to maximize and sustain your remote work capability.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="how-we-hire bg-white" id="how-it-works">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">How We Hire</h2>
+      </div>
+
+      <div class="hiring-timeline-wrapper">
+        <div class="row g-4">
+          
+          <div class="col-lg-2 col-md-4 col-sm-6 offset-lg-1" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100">
+            <div class="timeline-step active">
+              <div class="step-number">1</div>
+              <h3 class="step-title">Apply Online</h3>
+              <p class="step-desc">Submit your application and resume through our web portal.</p>
+            </div>
+          </div>
+          
+          <div class="col-lg-2 col-md-4 col-sm-6" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
+            <div class="timeline-step">
+              <div class="step-number">2</div>
+              <h3 class="step-title">Initial Screen</h3>
+              <p class="step-desc">A recruiter matches your background and expertise.</p>
+            </div>
+          </div>
+          
+          <div class="col-lg-2 col-md-4 col-sm-6" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
+            <div class="timeline-step">
+              <div class="step-number">3</div>
+              <h3 class="step-title">Technical</h3>
+              <p class="step-desc">Showcase your skills through coding tests or design rounds.</p>
+            </div>
+          </div>
+          
+          <div class="col-lg-2 col-md-4 col-sm-6" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="400">
+            <div class="timeline-step">
+              <div class="step-number">4</div>
+              <h3 class="step-title">Team Interview</h3>
+              <p class="step-desc">Meet your future peer leads and discuss workflows.</p>
+            </div>
+          </div>
+          
+          <div class="col-lg-2 col-md-4 col-sm-6" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
+            <div class="timeline-step">
+              <div class="step-number">5</div>
+              <h3 class="step-title">Offer</h3>
+              <p class="step-desc">Receive your finalized offer package and start onboarding.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="career-resources" id="resources">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Career Resources</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+          <div class="resource-card soft-shadow">
+            <div class="card-body">
+              <span class="resource-badge" style="background-color: rgba(79, 70, 229, 0.08); color: #4F46E5;">Resume Tips</span>
+              <h3 class="resource-title">Resume Guidelines</h3>
+              <p class="resource-desc">Build a high-impact developer resume that gets noticed by tier-one recruiters.</p>
+              <a href="#" class="read-more">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+          <div class="resource-card soft-shadow">
+            <div class="card-body">
+              <span class="resource-badge" style="background-color: rgba(34, 197, 94, 0.08); color: #22C55E;">Preparation</span>
+              <h3 class="resource-title">Interview Preparation</h3>
+              <p class="resource-desc">Practice real-life developer challenges and design architectural templates.</p>
+              <a href="#" class="read-more">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+          <div class="resource-card soft-shadow">
+            <div class="card-body">
+              <span class="resource-badge" style="background-color: rgba(245, 158, 11, 0.08); color: #F59E0B;">Guidance</span>
+              <h3 class="resource-title">Company Culture</h3>
+              <p class="resource-desc">Understand corporate structure and healthy communication frameworks.</p>
+              <a href="#" class="read-more">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container py-5" data-aos="zoom-in" data-aos-duration="1000">
+    <div class="cta-section text-center">
+      <h2 class="cta-title">Ready to Start Your Career Journey?</h2>
+      <p class="cta-desc">
+        Explore opportunities matching your professional criteria and connect with premium recruiters instantly.
+      </p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="auth/signup.html" class="btn btn-rounded-white">Register/Create Profile</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" class="mt-5" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+          <a href="#" class="footer-logo d-flex align-items-center text-dark">
+            <img src="../assets/Image/propath_small_icon.png" alt="Logo" class="me-2" style="width: 32px; height: 32px; object-fit: contain;" />
+            <span>PROPATH</span>
+          </a>
+          <p class="mb-4">
+            Creating the future of employment by connecting top-tier talent with pioneering international entities.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6">
+          <h4 class="footer-heading" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Recruitment Support</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Office Locations</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Business Inquiries</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Technical Support</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6" id="about">
+          <h4 class="footer-heading" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#aboutModal">About Us</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">Our Story</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">Careers</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">Press Media</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">Blog Center</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6">
+          <h4 class="footer-heading" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#resourcesModal">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#resourcesModal">Resume Builder</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#resourcesModal">Interview Tips</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#resourcesModal">Salary Predictor</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#resourcesModal">Hiring Trends</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-6">
+          <h4 class="footer-heading" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#companiesModal">Companies</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#companiesModal">Browse Entities</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#companiesModal">Verified Logos</a></li>
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#companiesModal">Local Partners</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center">
+        <p class="mb-0">&copy; 2026 PROPATH. All rights reserved.</p>
+        <div class="d-flex gap-4">
+          <a href="#" class="text-decoration-none text-muted">Terms of Service</a>
+          <a href="#" class="text-decoration-none text-muted">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       MODALS SECTION
+  ══════════════════════════════════════════════════════════════════════ -->
+  
+  <!-- CONTACT MODAL -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); overflow:hidden;">
+        <div class="modal-header text-white border-0 py-4 px-4" style="background: linear-gradient(135deg, #4F46E5, #7C3AED);">
+          <h5 class="modal-title fw-bold" id="contactModalLabel"><i class="fa-solid fa-envelope-open me-2"></i> Contact ProPath</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" style="font-family:'Poppins', sans-serif;">
+          <div class="row g-4">
+            <div class="col-md-5">
+              <h6 class="fw-bold text-primary mb-3">Communication Channels</h6>
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light p-2 rounded-3 text-primary me-3"><i class="fa-solid fa-phone fa-lg"></i></div>
+                <div>
+                  <div class="small text-muted">Phone Inquiry</div>
+                  <div class="fw-semibold text-dark">+91 (44) 4344 9000</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light p-2 rounded-3 text-primary me-3"><i class="fa-solid fa-envelope fa-lg"></i></div>
+                <div>
+                  <div class="small text-muted">Recruitment Support</div>
+                  <div class="fw-semibold text-dark">support@synergech.com</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-4">
+                <div class="bg-light p-2 rounded-3 text-primary me-3"><i class="fa-solid fa-briefcase fa-lg"></i></div>
+                <div>
+                  <div class="small text-muted">Business Relations</div>
+                  <div class="fw-semibold text-dark">info@synergech.com</div>
+                </div>
+              </div>
+              <hr/>
+              <h6 class="fw-bold text-primary mb-2">Corporate Office</h6>
+              <p class="small text-muted mb-0">
+                <b>Synergech Chennai Office:</b><br/>
+                Rayala Techno Park, 1st Floor, 144, Rajiv Gandhi Salai (OMR), Kottivakkam, Chennai, Tamil Nadu 600041
+              </p>
+            </div>
+            <div class="col-md-7">
+              <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-location-dot me-1"></i> Office Location (Google Maps)</h6>
+              <!-- External Google Maps Embed Frame targeting Synergech Chennai -->
+              <div class="ratio ratio-4x3 rounded-3 overflow-hidden shadow-sm" style="border: 1px solid #E2E8F0;">
+                <iframe src="https://maps.google.com/maps?q=Synergech+Technology+Solutions+Inc,+Chennai,+Tamil+Nadu,+India&output=embed&z=16" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT US MODAL -->
+  <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); overflow:hidden;">
+        <div class="modal-header text-white border-0 py-4 px-4" style="background: linear-gradient(135deg, #10B981, #059669);">
+          <h5 class="modal-title fw-bold" id="aboutModalLabel"><i class="fa-solid fa-circle-info me-2"></i> About ProPath & Synergech</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" style="font-family:'Poppins', sans-serif;">
+          <h5 class="fw-bold text-dark mb-2">Our Story & Mission</h5>
+          <p class="text-muted small">
+            ProPath is a premium, state-of-the-art job board built by Synergech to empower high-potential design, product, and tech professionals. Our mission is to accelerate engineering careers by bridging connections to top-tier organizations and high-growth start-ups.
+          </p>
+          <div class="row g-3 my-2">
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 text-center">
+                <div class="h3 fw-bold text-success mb-1">100%</div>
+                <div class="small text-muted">Verified Job Listings</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 text-center">
+                <div class="h3 fw-bold text-success mb-1">45+</div>
+                <div class="small text-muted">Corporate Partners</div>
+              </div>
+            </div>
+          </div>
+          <h6 class="fw-bold text-dark mt-4 mb-2">Join Our Team</h6>
+          <p class="text-muted small mb-0">
+            We are actively recruiting software developers, product owners, and growth specialists across our Chennai, Bangalore, and Pune centers. Check out our careers section to learn more.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOURCES MODAL -->
+  <div class="modal fade" id="resourcesModal" tabindex="-1" aria-labelledby="resourcesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); overflow:hidden;">
+        <div class="modal-header text-white border-0 py-4 px-4" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);">
+          <h5 class="modal-title fw-bold" id="resourcesModalLabel"><i class="fa-solid fa-book-open me-2"></i> Career Resources Dashboard</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" style="font-family:'Poppins', sans-serif;">
+          <div class="row">
+            <!-- Left Side Tabs -->
+            <div class="col-md-4 border-end">
+              <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active text-start py-3 mb-2 fw-semibold" id="v-pills-resume-tab" data-bs-toggle="pill" data-bs-target="#v-pills-resume" type="button" role="tab" aria-controls="v-pills-resume" aria-selected="true">
+                  <i class="fa-solid fa-file-invoice me-2"></i> Resume Builder
+                </button>
+                <button class="nav-link text-start py-3 mb-2 fw-semibold" id="v-pills-interview-tab" data-bs-toggle="pill" data-bs-target="#v-pills-interview" type="button" role="tab" aria-controls="v-pills-interview" aria-selected="false" onclick="loadLiveInterviewQuestions()">
+                  <i class="fa-solid fa-lightbulb me-2"></i> Interview Prep
+                </button>
+                <button class="nav-link text-start py-3 mb-2 fw-semibold" id="v-pills-salary-tab" data-bs-toggle="pill" data-bs-target="#v-pills-salary" type="button" role="tab" aria-controls="v-pills-salary" aria-selected="false" onclick="loadLiveExchangeRates()">
+                  <i class="fa-solid fa-calculator me-2"></i> Salary Predictor
+                </button>
+              </div>
+            </div>
+            
+            <!-- Right Side Contents -->
+            <div class="col-md-8">
+              <div class="tab-content p-2" id="v-pills-tabContent">
+                
+                <!-- Resume Builder Panel -->
+                <div class="tab-pane fade show active" id="v-pills-resume" role="tabpanel" aria-labelledby="v-pills-resume-tab">
+                  <iframe src="https://rxresu.me/" width="100%" height="650px" style="border: none; border-radius: 12px; background: #fff;" allowfullscreen></iframe>
+                </div>
+
+                <!-- Interview Prep Panel -->
+                <div class="tab-pane fade" id="v-pills-interview" role="tabpanel" aria-labelledby="v-pills-interview-tab">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold text-dark mb-0">Dynamic Tech Q&A</h5>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="loadLiveInterviewQuestions()"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
+                  </div>
+                  <p class="small text-muted mb-3">Questions loaded live from external API: <i>Open Trivia Database</i>.</p>
+                  <div id="live-interview-content">
+                    <div class="text-center py-4 text-muted"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br/><span class="small mt-2 d-block">Fetching questions...</span></div>
+                  </div>
+                </div>
+
+                <!-- Salary Predictor Panel -->
+                <div class="tab-pane fade" id="v-pills-salary" role="tabpanel" aria-labelledby="v-pills-salary-tab">
+                  <h5 class="fw-bold text-dark mb-3">Dynamic Salary Predictor</h5>
+                  <p class="small text-muted mb-4">Calculates salary expectations converted live using exchange rates from <i>open.er-api.com</i>.</p>
+                  
+                  <div class="card bg-light border-0 p-3 mb-3">
+                    <div class="row g-3 align-items-center">
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">Target Position</label>
+                        <select class="form-select form-select-sm" id="sp-role" onchange="calculatePredictedSalary()">
+                          <option value="60000">Senior DevOps Engineer</option>
+                          <option value="45000">React Developer</option>
+                          <option value="55000">Product Manager</option>
+                          <option value="40000">UI/UX Designer</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small fw-bold">Experience Level</label>
+                        <select class="form-select form-select-sm" id="sp-exp" onchange="calculatePredictedSalary()">
+                          <option value="1">Entry Level (1.0x)</option>
+                          <option value="1.5">Mid Level (1.5x)</option>
+                          <option value="2.2">Senior Level (2.2x)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-3 border rounded-3 bg-white">
+                    <div class="text-center">
+                      <div class="text-muted small">Estimated Annual Value</div>
+                      <div class="h3 fw-bold text-primary my-2" id="sp-val-inr">₹ 0.00</div>
+                      <div class="small text-muted" id="sp-val-usd">$0.00 USD</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPANIES MODAL -->
+  <div class="modal fade" id="companiesModal" tabindex="-1" aria-labelledby="companiesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); overflow:hidden;">
+        <div class="modal-header text-white border-0 py-4 px-4" style="background: linear-gradient(135deg, #F59E0B, #D97706);">
+          <h5 class="modal-title fw-bold" id="companiesModalLabel"><i class="fa-solid fa-building me-2"></i> Partner Companies</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" style="font-family:'Poppins', sans-serif;">
+          <p class="text-muted small mb-4">
+            ProPath connects design, tech, and product leaders with pioneering businesses in Chennai, Bangalore, and globally.
+          </p>
+
+          <!-- Synergech Technologies — clickable card -->
+          <div class="d-flex align-items-center p-3 mb-3 border rounded-3 bg-light company-card" id="synergech-tech-card"
+               data-bs-toggle="modal" data-bs-target="#synergechDetailModal"
+               style="cursor:pointer; transition: all 0.2s ease;"
+               onmouseover="this.style.background='#EEF2FF'; this.style.borderColor='#6366F1';"
+               onmouseout="this.style.background=''; this.style.borderColor='';">
+            <img src="../assets/Image/synergech_logo.png" style="width:44px; height:44px; object-fit:contain; border-radius:50%; background:#fff; padding:3px; box-shadow:0 2px 8px rgba(0,0,0,0.12);" class="me-3" alt="Synergech Logo"/>
+            <div class="flex-grow-1">
+              <h6 class="fw-bold mb-0 text-dark">Synergech Technologies</h6>
+              <div class="small text-muted">Kottivakkam, Chennai &middot; Principal Partner</div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-muted small"></i>
+          </div>
+
+          <!-- Synergech Solutions card -->
+          <div class="d-flex align-items-center p-3 border rounded-3 bg-light">
+            <div class="rounded-circle d-flex align-items-center justify-content-center me-3 overflow-hidden" style="width:44px; height:44px; background: linear-gradient(135deg,#1E3A8A,#1D4ED8);">
+              <span style="font-weight:700; font-size:1.1rem; color:#fff;">S</span>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-0">Synergech Solutions</h6>
+              <div class="small text-muted">Global Operations &middot; Tech Integrations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYNERGECH DETAIL MODAL (nested, opens on clicking Synergech Technologies) -->
+  <div class="modal fade" id="synergechDetailModal" tabindex="-1" aria-labelledby="synergechDetailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:20px; box-shadow: 0 15px 50px rgba(0,0,0,0.2); overflow:hidden;">
+        <!-- Header -->
+        <div class="modal-header text-white border-0 py-4 px-4" style="background: linear-gradient(135deg, #1E3A8A, #3B82F6);">
+          <div class="d-flex align-items-center gap-3">
+            <img src="../assets/Image/synergech_logo.png" style="width:44px; height:44px; object-fit:contain; background:rgba(255,255,255,0.15); border-radius:50%; padding:4px;" alt="Synergech Logo"/>
+            <div>
+              <h5 class="modal-title fw-bold mb-0" id="synergechDetailLabel">Synergech Technologies Pvt. Ltd.</h5>
+              <div class="small opacity-75">Principal Partner &middot; Chennai, Tamil Nadu, India</div>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-0" style="font-family:'Poppins', sans-serif;">
+          <div class="row g-0">
+            <!-- Left: About -->
+            <div class="col-md-5 p-4 border-end d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-blue-100 p-2 rounded-3 me-2" style="background:#EFF6FF;">
+                    <i class="fa-solid fa-circle-info text-primary fa-lg"></i>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-0">About Synergech</h6>
+                </div>
+                <p class="small text-muted lh-lg">
+                  Synergech Technologies is a leading IT services and solutions company headquartered in Chennai, Tamil Nadu. With expertise spanning AI, DevOps, full-stack development, and digital transformation, Synergech partners with global enterprises to build next-generation tech ecosystems.
+                </p>
+                <p class="small text-muted lh-lg">
+                  As the principal partner of ProPath, Synergech empowers top-tier tech talent to connect with high-growth organizations across India and internationally.
+                </p>
+              </div>
+              <div class="mt-4">
+                <div class="d-flex align-items-center mb-2">
+                  <i class="fa-solid fa-phone text-primary me-2 small"></i>
+                  <span class="small text-dark fw-semibold">+91 (44) 4344 9000</span>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <i class="fa-solid fa-envelope text-primary me-2 small"></i>
+                  <span class="small text-dark fw-semibold">info@synergech.com</span>
+                </div>
+                <div class="d-flex align-items-start">
+                  <i class="fa-solid fa-location-dot text-primary me-2 small mt-1"></i>
+                  <span class="small text-dark">Rayala Techno Park, 144, Rajiv Gandhi Salai (OMR), Kottivakkam, Chennai 600041</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Google Maps -->
+            <div class="col-md-7 d-flex flex-column">
+              <div class="p-3 pb-0 d-flex align-items-center">
+                <i class="fa-solid fa-location-dot text-danger me-2"></i>
+                <span class="small fw-bold text-dark">Office Location on Google Maps</span>
+              </div>
+              <div class="flex-grow-1 m-3 rounded-3 overflow-hidden" style="min-height: 300px; border: 1px solid #E2E8F0;">
+                <iframe
+                  src="https://maps.google.com/maps?q=Synergech+Technology+Solutions+Inc,+Chennai,+Tamil+Nadu,+India&output=embed&z=16"
+                  width="100%" height="100%" style="border:0; min-height:300px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLY AUTH MODAL -->
+  <div class="modal fade" id="applyAuthModal" tabindex="-1" aria-labelledby="applyAuthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content border-0 text-center p-4" style="border-radius:20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body pb-2 pt-0">
+          <i class="fa-solid fa-user-lock text-primary fa-3x mb-3"></i>
+          <h5 class="fw-bold mb-3" id="applyAuthModalLabel">Login Required</h5>
+          <p class="text-muted small mb-4">Please login or sign up to apply for this job opportunity.</p>
+          <div class="d-grid gap-3">
+            <a href="auth/login.html" class="btn btn-primary py-2 fw-semibold rounded-pill">Login</a>
+            <a href="auth/signup.html" class="btn btn-outline-primary py-2 fw-semibold rounded-pill">Signup</a>
+            <button type="button" class="btn btn-light py-2 fw-semibold rounded-pill text-muted" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/script.js"></script>
+  <script>
+  /* Apply published Hero Section content from admin Content Management */
+  (function applyPublishedHero() {
+    var HERO_KEY = 'propath_hero_content';
+    var HERO_PUB = 'propath_hero_published';
+    try {
+      var isPublished = JSON.parse(localStorage.getItem(HERO_PUB) || 'false');
+      if (!isPublished) return;
+      var data = JSON.parse(localStorage.getItem(HERO_KEY));
+      if (!data) return;
+      var headingEl   = document.getElementById('hero-main-heading');
+      var highlightEl = document.getElementById('hero-highlighted-text');
+      var subEl       = document.getElementById('hero-sub-text');
+      if (headingEl && highlightEl) {
+        // Set text node (first child) to main heading
+        headingEl.childNodes[0].textContent = data.heading + ' ';
+        highlightEl.textContent = data.highlight;
+      }
+      if (subEl) subEl.textContent = data.sub;
+    } catch(e) {}
+  })();
+
+  /* Dynamic Q&A Interview Prep (Open Trivia DB API) */
+  window.loadLiveInterviewQuestions = function() {
+    var content = document.getElementById('live-interview-content');
+    if (!content) return;
+    content.innerHTML = '<div class="text-center py-4 text-muted"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br/><span class="small mt-2 d-block">Fetching tech questions from external API...</span></div>';
+    
+    fetch('https://opentdb.com/api.php?amount=3&category=18&type=multiple')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (!res.results || !res.results.length) throw new Error();
+        var html = '';
+        res.results.forEach(function(q, idx) {
+          // Decode HTML entities
+          var parser = new DOMParser();
+          var cleanQ = parser.parseFromString(q.question, 'text/html').body.textContent;
+          var cleanCorrect = parser.parseFromString(q.correct_answer, 'text/html').body.textContent;
+          
+          var allAnswers = [cleanCorrect];
+          q.incorrect_answers.forEach(function(ans) {
+            allAnswers.push(parser.parseFromString(ans, 'text/html').body.textContent);
+          });
+          allAnswers.sort(function() { return Math.random() - 0.5; });
+          
+          html += '<div class="card mb-3 p-3 border-0 bg-light"><div class="small fw-bold text-dark mb-2">Q' + (idx+1) + ': ' + cleanQ + '</div>';
+          allAnswers.forEach(function(ans) {
+            html += '<div class="form-check mt-1"><input class="form-check-input" type="radio" name="q-' + idx + '" value="' + (ans === cleanCorrect) + '" onchange="checkAnswer(this)" id="ans-' + idx + '-' + ans.replace(/\s+/g, '') + '"/><label class="form-check-label small" for="ans-' + idx + '-' + ans.replace(/\s+/g, '') + '">' + ans + '</label></div>';
+          });
+          html += '<div class="ans-result small mt-2 fw-bold" style="display:none;"></div></div>';
+        });
+        content.innerHTML = html;
+      })
+      .catch(function() {
+        content.innerHTML = '<div class="text-center text-danger py-3 small"><i class="fa-solid fa-triangle-exclamation"></i> Failed to retrieve dynamic trivia from OpenTriviaDB. Please try again.</div>';
+      });
+  };
+
+  window.checkAnswer = function(radioInput) {
+    var parent = radioInput.closest('.card');
+    var resultEl = parent.querySelector('.ans-result');
+    if (resultEl) {
+      if (radioInput.value === 'true') {
+        resultEl.textContent = '✓ Correct Answer!';
+        resultEl.className = 'ans-result small mt-2 fw-bold text-success';
+      } else {
+        resultEl.textContent = '✗ Incorrect. Try again!';
+        resultEl.className = 'ans-result small mt-2 fw-bold text-danger';
+      }
+      resultEl.style.display = 'block';
+    }
+  };
+
+  /* Dynamic Currency Converter & Salary Predictor API */
+  var usdExchangeRate = 83.50; // Default fallback
+  window.loadLiveExchangeRates = function() {
+    fetch('https://open.er-api.com/v6/latest/USD')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.rates && res.rates.INR) {
+          usdExchangeRate = res.rates.INR;
+        }
+        calculatePredictedSalary();
+      })
+      .catch(function() {
+        calculatePredictedSalary();
+      });
+  };
+
+  window.calculatePredictedSalary = function() {
+    var baseVal = parseFloat(document.getElementById('sp-role').value) || 50000;
+    var multiplier = parseFloat(document.getElementById('sp-exp').value) || 1.0;
+    var usdVal = baseVal * multiplier;
+    var inrVal = usdVal * usdExchangeRate;
+
+    var inrEl = document.getElementById('sp-val-inr');
+    var usdEl = document.getElementById('sp-val-usd');
+    if (inrEl) inrEl.textContent = '₹ ' + inrVal.toLocaleString('en-IN', { maximumFractionDigits: 0 }) + ' / year';
+    if (usdEl) usdEl.textContent = '$' + usdVal.toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' USD (Exchange rate: 1 USD = ' + usdExchangeRate.toFixed(2) + ' INR)';
+  };
+
+
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 50,
+    });
+  </script>
+</body>
+</html>

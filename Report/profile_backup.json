@@ -1,0 +1,44 @@
+{
+  "personal_info": {
+    "name": "Harini",
+    "gender": "Female",
+    "email": "harini@gmail.com",
+    "phone": "+91 9876543210",
+    "location": "Chennai, India",
+    "preferred_location": "Bangalore, Pune, Remote"
+  },
+  "security": {
+    "alerts": "Enabled",
+    "two_factor": "Enabled"
+  },
+  "job_preferences": {
+    "role": "Frontend Developer",
+    "expected_salary": "12-18 LPA",
+    "employment_type": "Full Time",
+    "work_mode": "Hybrid",
+    "experience_level": "3 - 5 Years",
+    "preferred_skills": "React, JS"
+  },
+  "privacy": {
+    "profile_visibility": "Public",
+    "phone_visibility": "Only Recruiters",
+    "resume_visibility": "Recruiters only"
+  },
+  "notifications": {
+    "applications": {
+      "email": true,
+      "sms": true,
+      "push": true
+    },
+    "interviews": {
+      "email": true,
+      "sms": true,
+      "push": true
+    },
+    "recommendations": {
+      "email": true,
+      "sms": true,
+      "push": true
+    }
+  }
+}
